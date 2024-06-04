@@ -11,9 +11,7 @@
 
 /*Configurações das variaveis das cores*/
 /*Configurações do header*/
-body {
-  /*Configuações do <header>*/
-}
+
 body header {
   background-color: #003366;
   display: flex;
