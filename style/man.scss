@@ -1,0 +1,281 @@
+@charset "UTF-8";
+
+/*Configurações das globais*/
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    list-style-type: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/*Configurações das variaveis das cores*/
+$prm: #fff;
+$sec: #003366;
+$thr: #333;
+$frt: #ff6600;
+$fvt: #fff;
+
+/*Configurações do header*/
+
+body{
+
+    /*Configuações do <header>*/
+    header{
+        background-color: $sec;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        width: 100%;
+        padding: 10px 50px;
+        
+        /*Div que contém os dados do logo e de acessos a outros sites*/
+        div.frt-itn-hdr{
+            align-items: center;
+            display: flex;
+            gap: 100px;
+
+            /*Definições do logo*/
+            div.logo{
+                font-size: 30pt;
+                font-weight: bold;
+
+                a.logo-item{
+                    color: $frt;
+                }
+            }
+
+            /*Configuracoes da nav*/
+            nav{
+                ul.its-content{
+                display: flex;
+
+                /*Conf. de <li>*/
+                li.int-cnt{
+                    a{
+                        color: $fvt;
+                        font-weight: bold;
+                        font-size: 12pt;
+                        text-align: center;
+                        display: block;
+                        width: 100px;
+                        margin-left: 50px;
+                        padding: 5px 10px;
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.119);
+
+                        &:hover{
+                            color: $thr;
+                            background-color: $prm;
+                            box-shadow: none;
+                            transition: .5s;
+                        }
+                    }
+                }
+                }
+                @media (max-width: 1080px) {
+                    display: none;
+                }
+            }
+        }
+
+        /*Hamburguer menu*/
+        div.btn-hamb{
+            background-color: transparent;
+            border: none;
+            border-top: 3px solid $prm;
+            display: none;
+            cursor: pointer;
+            position: absolute;
+            right: 50px; top: 4%;
+            z-index: 1000;
+
+            &::after,
+            &::before{
+                background-color: white;
+                content: " ";
+                display: block;
+                height: 4px;
+                width: 30px;
+                margin-top: 4px;
+            }
+
+            @media (max-width: 1080px) {
+                display: block;
+            }
+        }
+
+        /*Conf. Registro*/
+        div#esp-itm{
+            a{
+                color: $sec;
+                display: block;
+                background-color: $frt;
+                border-radius: 20px;
+                font-size: 16pt;
+                font-weight: bold;
+                padding: 5px 10px;
+
+                &:hover{
+                    color: $frt;
+                    background-color: $thr;
+                    box-shadow: 0 4px 8px 0 rgba(31, 31, 31, 0.5), 0 6px 20px 0 rgba(24, 24, 24, 0.319);
+                    transition: .5s;
+                }
+            }
+            
+            @media (max-width: 1080px) {
+                display: none;
+            }
+        }
+    }//Fim do header
+
+    //Começo do main
+    main{
+        width: 100%;
+        height: 612px;
+        overflow-y: scroll;
+
+        div#bst-cnt-itm{
+            div.cnt-frt-st{
+                background-color: transparent;
+                align-items: center;
+                display: flex;
+                justify-content: space-between;
+                width: 80%;
+                margin: 100px auto;
+                padding: 20px;
+
+                div.cnt-wlm{
+                    
+                    line-height: 50px;
+                    div.container_1{
+                        p{
+                            color: $sec;
+                            font-size: 27pt;
+                            font-weight: bold;
+                        }
+                    }
+                    button.btn-cnt{
+                        background-color: transparent;
+                        border: none;
+                        outline: none;
+
+                        a.btn-itm{
+                            color: $prm;
+                            font-size: 16pt;
+                            font-weight: bold;
+                            background-color: $sec;
+                            display: block;
+
+                            margin-top: 50px;
+                            padding: 5px 20px;
+
+                            &:hover{
+                                color: $sec;
+                                background-color: $frt;
+                                border-radius: 20px;
+                                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                                transition: .5s;
+                            }
+                        }
+                    }
+                }
+                div.wlm-img{
+                    img{
+                    width: 600px;
+                    }
+                }
+            }
+
+            div.cot-itm-ch{
+                display: flex;
+                justify-content: space-between;
+                width: 90%;
+                margin: 0 auto;
+
+                div.lg-bck{
+                    background-color: $frt;
+                    border-radius: 20px;
+                    width: 290px;
+                    height: 370px;
+                    padding: 20px;
+
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    
+                    line-height: 24px;
+
+                    div.cnt-itm-tt{
+                        div.container_2{
+                            h2{
+                                font-size: 20pt;
+                                color: $sec;
+                                margin-bottom: 2px;
+                            }
+                            p{
+                                color: #333;
+                                margin-top: 0px;
+                            }
+
+                            div.itm-lnk-aa{
+                                a{
+                                    img{
+                                        border-radius: 20px 20px 0px 0px;
+                                        width: 100%;
+                                        height: 100%;
+                                        opacity: .95;
+
+                                        &:hover{
+                                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                                            width: 110%;
+                                            margin-left: -12px;
+                                            opacity: 1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    button.prt-mm{
+                        border: none;
+                        outline: none;
+                        background-color: transparent;
+
+                        a.btn-mm{
+                            text-align: center;
+                            border-radius: 0px 0px 20px 20px;
+                            color: $prm;
+                            font-size: 14pt;
+                            font-weight: bold;
+                            display: flex;
+                            justify-content: center;
+                            border: .1px solid $sec;
+                            padding: 3px ;
+                            gap: 30px;
+
+                            &:hover{
+                                color: $sec;
+                                background-color: $prm;
+                                border: .1px solid rgb(87, 87, 87);
+                                border-radius: 0px 20px 20px 0px;
+                                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                                transition: .5s;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    div{
+        &:hover{
+            div.ssss{
+                display: block;
+            }
+        }
+    }
+}
