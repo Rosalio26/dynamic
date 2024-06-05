@@ -12,20 +12,17 @@
 /*Configurações das variaveis das cores*/
 /*Configurações do header*/
 
+header, .its-content, .itm-li-int {
+    align-items: center;
+    display: flex;
+}
+
 header {
   background-color: #003366;
   width: 100%;
   padding: 10px 60px;
 }
 
-.frt-itn-hdr, .its-content, .itm-li-int {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-}
-
-
-/*Div que contém os dados do logo e de acessos a outros sites*/
 /*Definições do logo*/
 div.logo {
     font-size: 30pt;
@@ -38,19 +35,25 @@ div.logo a.logo-item {
 
 
 /*Hamburguer menu*/
-body header div.btn-hamb {
+.btn-hamb, .btn-hamb-1{
+    display: none;
+}
+@media (max-width: 680px) {
+.btn-hamb {
     background-color: transparent;
     border: none;
     border-top: 3px solid #fff;
-    display: none;
     cursor: pointer;
+    display: none;
     position: absolute;
-    right: 50px;
+    right: 8%;
     top: 4%;
     z-index: 1000;
 }
 
-div.btn-hamb::after, body header div.btn-hamb::before {
+
+.btn-hamb::after,
+.btn-hamb::before {
     background-color: white;
     content: " ";
     display: block;
@@ -58,20 +61,83 @@ div.btn-hamb::after, body header div.btn-hamb::before {
     width: 30px;
     margin-top: 4px;
 }
+
+.btn-hamb {
+    background-color: transparent;
+    border: none;
+    border-top: 3px solid #fff;
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    top: 4%;
+    z-index: 1000;
+}
+}
+
+
 @media (max-width: 680px) {
-    body header div.btn-hamb {
-      display: block;
-    }
+.btn-hamb-1 {
+    background-color: transparent;
+    border: none;
+    border-top: 3px solid #fff;
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    right: 8%;
+    top: 4%;
+    z-index: 1000;
+}
+
+.btn-hamb-1 {
+    background-color: transparent;
+    border: none;
+    border-top: 3px solid #fff;
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: 4%;
+    z-index: 1000;
+}
+
+.btn-hamb-1::after,
+.btn-hamb-1::before {
+    background-color: rgb(116, 10, 10);
+    content: " ";
+    display: block;
+    height: 4px;
+    width: 30px;
+    margin-top: 4px;
+}
+
 }
 
 /*Configuracoes da nav*/
-nav ul.its-content {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
+
+@media (max-width: 680px) {
+    .content-itm{
+        background: #cecece4f;
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
 }
 
-header div.frt-itn-hdr nav ul.its-content li.int-cnt a {
+.its-content {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+}
+@media (max-width: 680px) {
+    .its-content{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.int-cnt a {
     color: #fff;
     background: transparent;
     border-radius: 20px;
@@ -80,25 +146,20 @@ header div.frt-itn-hdr nav ul.its-content li.int-cnt a {
     font-size: 11pt;
     text-align: center; 
     display: block;
-    width: 100px;
-    margin-left: 50px;
+    width: 85px;
+    margin-left: 20px;
     padding: 5px 10px;
 }
 
-header div.frt-itn-hdr nav ul.its-content li.int-cnt a:hover {
+.int-cnt a:hover {
     color: #333;
     background-color: #fff;
     box-shadow: none;
     transition: 0.5s;
 }
-@media (max-width: 1080px) {
-    body header div.frt-itn-hdr nav {
-      display: none;
-    }
-}
 
 
-  /*Conf. Registro*/
+/*Conf. Registro*/
 #esp-itm a {
     color: #003366;
     display: block;
@@ -107,6 +168,17 @@ header div.frt-itn-hdr nav ul.its-content li.int-cnt a:hover {
     font-size: 16pt;
     font-weight: bold;
     padding: 5px 10px;
+    width: 100px;
+}
+@media (max-width: 680px){
+    #esp-itm{
+        display: block;
+    }
+}
+@media (max-width: 1080px) {
+    #esp-itm{
+        display: none;
+    }
 }
 
 #esp-itm a:hover {

@@ -23,25 +23,18 @@ body header {
   /*Hamburguer menu*/
   /*Conf. Registro*/
 }
-body header div.frt-itn-hdr {
-  align-items: center;
-  display: flex;
-  gap: 100px;
-  /*Definições do logo*/
-  /*Configuracoes da nav*/
-}
-body header div.frt-itn-hdr div.logo {
+div.logo {
   font-size: 30pt;
   font-weight: bold;
 }
-body header div.frt-itn-hdr div.logo a.logo-item {
+.logo a.logo-item {
   color: #ff6600;
 }
-body header div.frt-itn-hdr nav ul.its-content {
+.its-content {
   display: flex;
   /*Conf. de <li>*/
 }
-body header div.frt-itn-hdr nav ul.its-content li.int-cnt a {
+.int-cnt a {
   color: #fff;
   font-weight: bold;
   font-size: 12pt;
@@ -51,17 +44,11 @@ body header div.frt-itn-hdr nav ul.its-content li.int-cnt a {
   margin-left: 50px;
   padding: 5px 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.119);
-}
-body header div.frt-itn-hdr nav ul.its-content li.int-cnt a:hover {
+}.int-cnt a:hover {
   color: #333;
   background-color: #fff;
   box-shadow: none;
   transition: 0.5s;
-}
-@media (max-width: 1080px) {
-  body header div.frt-itn-hdr nav {
-    display: none;
-  }
 }
 body header div.btn-hamb {
   background-color: transparent;
