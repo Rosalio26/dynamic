@@ -14,22 +14,18 @@
 
 header {
   background-color: #003366;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   width: 100%;
-  padding: 10px 50px;
-  /*Conf. Registro*/
+  padding: 10px 60px;
+}
+
+.frt-itn-hdr, .its-content, .itm-li-int {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
 }
 
 
 /*Div que contém os dados do logo e de acessos a outros sites*/
-div.frt-itn-hdr {
-    align-items: center;
-    display: flex;
-    gap: 100px;
-}
-
 /*Definições do logo*/
 div.logo {
     font-size: 30pt;
@@ -40,35 +36,6 @@ div.logo a.logo-item {
     color: #ff6600;
 }   
 
-/*Configuracoes da nav*/
-nav ul.its-content {
-    display: flex;
-    /*Conf. de <li>*/
-}
-
-header div.frt-itn-hdr nav ul.its-content li.int-cnt a {
-    color: #fff;
-    font-weight: bold;
-    font-size: 12pt;
-    text-align: center;
-    display: block;
-    width: 100px;
-    margin-left: 50px;
-    padding: 5px 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.119);
-}
-
-header div.frt-itn-hdr nav ul.its-content li.int-cnt a:hover {
-    color: #333;
-    background-color: #fff;
-    box-shadow: none;
-    transition: 0.5s;
-}
-@media (max-width: 1080px) {
-    body header div.frt-itn-hdr nav {
-      display: none;
-    }
-}
 
 /*Hamburguer menu*/
 body header div.btn-hamb {
@@ -83,8 +50,71 @@ body header div.btn-hamb {
     z-index: 1000;
 }
 
+div.btn-hamb::after, body header div.btn-hamb::before {
+    background-color: white;
+    content: " ";
+    display: block;
+    height: 4px;
+    width: 30px;
+    margin-top: 4px;
+}
+@media (max-width: 680px) {
+    body header div.btn-hamb {
+      display: block;
+    }
+}
+
+/*Configuracoes da nav*/
+nav ul.its-content {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+header div.frt-itn-hdr nav ul.its-content li.int-cnt a {
+    color: #fff;
+    background: transparent;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0), 0 6px 20px 0 rgba(0, 0, 0, 0.096);
+    font-weight: bold;
+    font-size: 11pt;
+    text-align: center; 
+    display: block;
+    width: 100px;
+    margin-left: 50px;
+    padding: 5px 10px;
+}
+
+header div.frt-itn-hdr nav ul.its-content li.int-cnt a:hover {
+    color: #333;
+    background-color: #fff;
+    box-shadow: none;
+    transition: 0.5s;
+}
+@media (max-width: 1080px) {
+    body header div.frt-itn-hdr nav {
+      display: none;
+    }
+}
 
 
+  /*Conf. Registro*/
+#esp-itm a {
+    color: #003366;
+    display: block;
+    background-color: #ff6600;
+    border-radius: 20px;
+    font-size: 16pt;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+#esp-itm a:hover {
+    color: #ff6600;
+    background-color: #333;
+    box-shadow: 0 4px 8px 0 rgba(31, 31, 31, 0.5), 0 6px 20px 0 rgba(24, 24, 24, 0.319);
+    transition: 0.5s;
+}
 
 
 

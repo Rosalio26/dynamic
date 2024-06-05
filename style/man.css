@@ -74,7 +74,7 @@ body header div.btn-hamb {
   top: 4%;
   z-index: 1000;
 }
-body header div.btn-hamb::after, body header div.btn-hamb::before {
+body header  div.btn-hamb::after, body header div.btn-hamb::before {
   background-color: white;
   content: " ";
   display: block;
@@ -87,6 +87,7 @@ body header div.btn-hamb::after, body header div.btn-hamb::before {
     display: block;
   }
 }
+
 body header div#esp-itm a {
   color: #003366;
   display: block;
