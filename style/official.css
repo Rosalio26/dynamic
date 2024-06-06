@@ -12,6 +12,14 @@ header, .its-content {
     align-items: center;
     display: flex;
 }
+button{
+    outline: none;
+    border: none;
+    height: max-content;
+    width: max-content;
+    background-color: transparent;
+    transition: myAnim00 linear 0.5s ;
+}
 
 /*CONFIGURAÇOES DO HEADER*/
 header {
@@ -203,7 +211,7 @@ div.logo a.logo-item {
   ==============*/
 main {
     width: 100%;
-    height: 550px;
+    height: 612px;
     overflow-y: scroll;
 }
 
@@ -268,6 +276,7 @@ main::-webkit-scrollbar {
     color: #dbe4ff;
     font-size: 30pt;
     font-weight: bold;
+    text-transform: uppercase;
 }
 @media (min-width: 1060px) {
     .cnt-frt-st div.cnt-wlm div.container_1 p {
@@ -330,7 +339,7 @@ main::-webkit-scrollbar {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 150px auto;
+    margin: 100px auto 0px auto;
     padding: 40px 40px;
 }
 @media (min-width: 700px) { 
@@ -339,7 +348,7 @@ main::-webkit-scrollbar {
         flex-direction: row;
         justify-content: space-between;
         width: 90%;*/
-        margin: 120px auto;
+        margin: 100px auto 0px auto;
         width: 70%;
         display: grid;
         grid-template-areas: 
@@ -372,7 +381,7 @@ main::-webkit-scrollbar {
         flex-direction: row;
         justify-content: space-between;*/
         width: 90%;
-        margin: 150px auto;
+        margin: 100px auto 0px auto;
         display: grid;
         grid-template-areas: 
         'left center right end'
@@ -477,4 +486,247 @@ main::-webkit-scrollbar {
     border-radius: 0px 20px 20px 0px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     transition: 0.5s;
+}
+
+/*
+===================
+===================
+== Anime Galeria ==
+*/
+.expert {
+    background-color: aqua;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+}
+
+.cnt-exp{
+    position: relative;
+    padding: 50px 100px;
+    z-index: 1000;
+}
+
+.cnt-exp p {
+    color: #002c59;
+    text-transform: lowercase;
+    font-size: 18pt;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+.canvi-color{
+    animation: myAnim00 3s linear 3s infinite alternate;
+    background-color: #003366;
+    position: absolute;
+    border-radius: 1000px 0px 0px 0px;
+
+    width: 480px;
+    height: 5%;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+}
+
+.canvi-color-1{
+    animation: myAnim01 5s linear 3s infinite alternate;
+    background-color: #ff6600;
+    position: absolute;
+    border-radius: 0px 0px 1000px 0px;
+
+    width: 480px;
+    height: 10%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+
+@keyframes myAnim00 {
+    from{
+        background-color: #002c59;
+        right: 0;
+    }
+    to{
+        background-color: #ff6600;
+        right: 0px;
+    }
+}
+
+@keyframes myAnim01 {
+    from{
+        background-color: #ff6600;
+        right: 0;
+    }
+    to{
+        background-color: #002c59;
+        right: 0px;
+    }
+}
+
+
+.loo-pt {
+    background-color: #002c59;
+    box-shadow: 1px 1px 100px 300px #002c59;
+    margin-top: 150px;
+}
+
+.itm-lop {
+    padding: 0px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    line-height: none;
+}
+
+
+@media (min-width: 700px) {
+    .itm-lop {
+        padding: 10px 100px 10px 50px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 100px;
+        line-height: 28pt;
+    }
+}
+
+.sec-lp-fr{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    padding: 0px 0px 0px 0px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000d8;
+}
+@media (min-width: 700px) {
+    .sec-lp-fr{
+        position: absolute;
+        padding: 20px;
+        right: 15%;
+        bottom: 0;
+        background-color: #ffffffda;
+        border-radius: 20px;
+        width: 400px;
+        height: max-content;
+    } 
+}
+@media (min-width: 1100px) {
+    .sec-lp-fr{
+        position: relative;
+        padding: 0px;
+        right: 0;
+        border-radius: 0px;
+        background-color: transparent;
+    }
+}
+
+.lp-fr img {
+    width: 500px;
+    height: 350px;
+    border-radius: 0px;
+}
+@media (min-width: 700px) {
+    .lp-fr img {
+        width: 550px;
+        height: 350px;
+        border-radius: 20px;
+    }   
+}
+
+.sqten {
+    font-weight: normal;
+    color: #fff;
+    font-size: 22pt;
+    text-transform: uppercase;
+    padding: 0px;
+}
+@media (min-width: 700px) {
+    .sqten{
+        font-weight: bold;
+        color: rgb(0, 48, 111);
+        font-size: 20pt;
+    }
+}
+@media (min-width: 1100px) {
+    .sqten{
+        font-weight: normal;
+        color: #fff;
+        font-size: 22pt;
+    }
+}
+
+.sqtern {
+    font-family: cursive;
+    display: block;
+    margin-left: 20px;
+    color: #ff7300;
+    font-size: 17pt;
+    text-transform: lowercase;
+}
+@media (min-width: 700px) {
+    .sqtern{
+        color: #ff7300;
+        font-weight: bold;
+    }
+}
+@media (min-width) {
+    .sqtern{
+        font-weight: normal;
+    }
+}
+
+.uslg {
+    text-transform: uppercase;
+    border-bottom: 2px solid #fff;
+}
+
+.btn-lop {
+    color: #002c59;
+    background-color: #fff;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 15pt;
+
+    display: block;
+    padding: 7px 20px;
+    margin-top: 20px;
+}
+
+.btn-lop:hover{
+    color: #fff;
+    background-color: #002c59;
+    transition: all 0.5s;
+}
+
+@media (min-width: 700px) {
+    .btn-lop {
+        color: #002c59;
+        background-color: #ff6a00;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 15pt;
+    
+        display: block;
+        padding: 7px 20px;
+        margin-top: 20px;
+    }
+}
+@media (min-width: 1100px) {
+    .btn-lop{
+        background-color: #fff;
+    }
+    .btn-lop:hover{
+        color: #002c59;
+        background-color: #ff7300;
+    }
 }
