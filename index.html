@@ -3,46 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Dynamic</title>
-    <link rel="stylesheet" href="./style/style.css">
+
+    <link rel="stylesheet" href="./style/revisor.css">
+    <link rel="stylesheet" href="./style/official.css">
 </head>
 <body>
     <header class="header">
         <div class="logo"><a class="logo-item" href="index.html">Dynamic</a></div>
-        <button id="btn-hamb" class="btn-hamb"></button>
-        <button id="btn-hamb-1" class="btn-hamb-1"></button>
-
+       <!-- <div id="btn-hamb" class="btn-hamb"></div>
+        <div id="btn-hamb-1" class="btn-hamb-1"></div> -->
         <nav class="content-itm">
+            <div class="inter-menu">
+                <button id="show" class="menu-btn" onclick="slideup()">Menu-up</button>
+                <button id="hidden" class="menu-btn" onclick="slidedown()">Menu-down</button>
+            </div>
             <ul class="its-content">
-                <li>
-                    <ul class="itm-li-int">
-                        <li class="int-cnt inc"><a id="lk_itm_1" class="lk_itm" href="./wind/win-lg.html">slow</a></li>
-                        <li class="int-cnt inc"><a id="lk_itm_2" class="lk_itm" href="./wind/win-lg.html">Lite way</a></li>
-                        <li class="int-cnt inc"><a id="lk_itm_3" class="lk_itm" href="./wind/win-lg.html">Lynic</a></li>
-                        <li class="int-cnt inc"><a id="lk_itm_4" class="lk_itm" href="./wind/win-lg.html">Lopp</a></li>
-                    </ul>
-                </li>
-
-                <li id="esp-itm" class="int-cnt esp-itm"><a id="reg_lk" href="./wind/win-lg.html">Register</a></li>
+                <div class="mist">
+                    <li>
+                        <ul class="itm-li-int">
+                            <li class="int-cnt inc"><a id="lk_itm_1" class="lk_itm" href="#">Slow</a></li>
+                            <li class="int-cnt inc"><a id="lk_itm_2" class="lk_itm" href="#">Lite way</a></li>
+                            <li class="int-cnt inc"><a id="lk_itm_3" class="lk_itm" href="#">Lynic</a></li>
+                            <li class="int-cnt inc"><a id="lk_itm_4" class="lk_itm" href="#">Lopp</a></li>
+                        </ul>
+                    </li>
+                    <li id="esp-itm" class="int-cnt esp-itm"><a id="reg_lk" href="#">Register</a></li>
+                </div>
             </ul>
         </nav>
         <script src="js/miniconf.js"></script>
     </header>
     
-  <!--  <main>
+    <main>
         <div id="bst-cnt-itm" class="al-cnt">
-            <--PRIMEIRO CONTEÚDO NO MAIN->
             <div class="cnt-frt-st">
                 <div class="cnt-wlm">
                     <div class="container_1">
-                        <p class="ong-cnt"><span style="font-size: 32pt;">S</span>eja um em outros de <span style="font-weight: 100;">todos e <span style="font-weight: bold; color: rgb(255, 115, 0);">+</span> ninguêm</span></p>
+                        <p class="ong-cnt">A plataforma de comunicação virtual <br> <span style="font-weight: 100; color: #ff7700; font-size: 19pt; line-height: 0;">Para falar com amigos familiares e todo o mundo</span></p>
                     </div>
-                    <button class="btn-cnt"><a class="btn-itm" href="./wind/win-lg.html">start <span>&rarr;</span></a></button>
+                    <button class="btn-cnt"><a class="btn-itm" href="#">start <span>&rarr;</span></a></button>
                 </div>
-                <div class="wlm-img"><img class="img-cnt" src="img/wlm-img.jpg" alt="Imagem de abertura da Dynamic"></div>            
+                <div class="wlm-img"><img class="img-cnt" src="img/welt.jpg" alt="Imagem de abertura da Dynamic"></div>            
             </div>
 
-            <--SEGUNDO CONTEÚDO DO MAIN->
             <div class="cot-itm-ch">
                 <div id="lg_bck_1" class="lg-bck">
                     <div class="cnt-itm-tt">
@@ -54,6 +59,7 @@
                     </div>
                     <button id="btn_lg_bck_1" class="prt-mm"><a class="btn-mm" href="./wind/win-lg.html">ver <span id="ra-rr" class="ra-rr">&rarr;</span></a></button>
                 </div>
+                
                 <div id="lg_bck_2" class="lg-bck">
                     <div class="cnt-itm-tt">
                         <div class="container_2">
@@ -64,6 +70,7 @@
                     </div>
                     <button id="btn_lg_bck_2" class="prt-mm"><a class="btn-mm" href="./wind/win-lg.html">ver <span class="ra-rr">&rarr;</span></a></button>
                 </div>
+
                 <div id="lg_bck_3" class="lg-bck">
                     <div class="cnt-itm-tt">
                         <div class="container_2">
@@ -85,7 +92,8 @@
                     <button id="btn_lg_bck_4" class="prt-mm"><a class="btn-mm" href="./wind/win-lg.html">ver<span class="ra-rr"> &rarr;</span></a></button>
                 </div>
             </div>
-            <div class="scr-typ">
+            
+            <!--<div class="scr-typ">
                 <div class="itm-first" style="height: 150px;">
                 </div>
                 <script src="js/js-one.js"></script>
@@ -106,10 +114,10 @@
                     <button class="btn-csl-lpow"><a class="btn-lp-ow" href="./wind/win-lg.html">Ser &rarr;</a></button>
                 </div>
             </div> 
-        </div>
+        </div>-->
     </main>
     <footer style="background-color: #fff; padding: 15px;">
         <div class="on-ft" style="text-align: left;"><span style="text-align: left; color: #222;">&copy;2024 || dynamic-corpy</span> <span style="text-align: left; color: #222;">Dream</span></div>
-    </footer> -->
+    </footer> 
 </body>
 </html>  

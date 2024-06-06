@@ -24,104 +24,28 @@ header {
 }
 
 /*Definições do logo*/
-div.logo {
-    font-size: 30pt;
-    font-weight: bold;
-}
-
-div.logo a.logo-item {
-    color: #ff6600;
-}   
-
-
-/*Hamburguer menu*/
-.btn-hamb, .btn-hamb-1{
+.its-content{
     display: none;
-}
-@media (max-width: 680px) {
-.btn-hamb {
-    background-color: transparent;
-    border: none;
-    border-top: 3px solid #fff;
-    cursor: pointer;
-    display: none;
-    position: absolute;
-    right: 8%;
-    top: 4%;
-    z-index: 1000;
-}
-
-
-.btn-hamb::after,
-.btn-hamb::before {
-    background-color: white;
-    content: " ";
-    display: block;
-    height: 4px;
-    width: 30px;
-    margin-top: 4px;
-}
-
-.btn-hamb {
-    background-color: transparent;
-    border: none;
-    border-top: 3px solid #fff;
-    cursor: pointer;
-    display: block;
-    position: absolute;
-    top: 4%;
-    z-index: 1000;
-}
-}
-
-
-@media (max-width: 680px) {
-.btn-hamb-1 {
-    background-color: transparent;
-    border: none;
-    border-top: 3px solid #fff;
-    cursor: pointer;
-    display: none;
-    position: absolute;
-    right: 8%;
-    top: 4%;
-    z-index: 1000;
-}
-
-.btn-hamb-1 {
-    background-color: transparent;
-    border: none;
-    border-top: 3px solid #fff;
-    cursor: pointer;
-    display: none;
-    position: absolute;
-    top: 4%;
-    z-index: 1000;
-}
-
-.btn-hamb-1::after,
-.btn-hamb-1::before {
-    background-color: rgb(116, 10, 10);
-    content: " ";
-    display: block;
-    height: 4px;
-    width: 30px;
-    margin-top: 4px;
-}
-
+} 
+@media (min-width: 680px) {
+    .its-content {
+        display: none;
+    }
 }
 
 /*Configuracoes da nav*/
 
 @media (max-width: 680px) {
     .content-itm{
-        background: #cecece4f;
+        background: #0000004f;
         display: none;
         position: absolute;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -132,11 +56,28 @@ div.logo a.logo-item {
 }
 @media (max-width: 680px) {
     .its-content{
-        display: flex;
         flex-direction: column;
+        background-color: #fff;
+        border-radius: 20px;
+        width: 400px;
+        height: max-content;
+        margin: 100px auto;
+        padding: 50px 5px;
+
+        display: flex;
+        align-items: left;
+        justify-content: left;
+        flex-direction: column;
+        flex-wrap: wrap;
     }
 }
 
+@media (min-width: 680px) {
+    .itm-li-int{
+        align-items: start;
+        display: block;
+    }
+}
 .int-cnt a {
     color: #fff;
     background: transparent;
@@ -150,6 +91,19 @@ div.logo a.logo-item {
     margin-left: 20px;
     padding: 5px 10px;
 }
+@media (min-width: 680px) {
+    .int-cnt a{
+        background: #00336605;
+        border-radius: 0px;
+        text-align: left;
+        color: #333;
+        font-size: 17pt;
+        width: 300px;
+        box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.15), 1px 1px 5px 1px rgba(0, 0, 0, 0.068);
+        margin: 20px;
+        margin-left: 0;
+    }
+}
 
 .int-cnt a:hover {
     color: #333;
@@ -159,34 +113,7 @@ div.logo a.logo-item {
 }
 
 
-/*Conf. Registro*/
-#esp-itm a {
-    color: #003366;
-    display: block;
-    background-color: #ff6600;
-    border-radius: 20px;
-    font-size: 16pt;
-    font-weight: bold;
-    padding: 5px 10px;
-    width: 100px;
-}
-@media (max-width: 680px){
-    #esp-itm{
-        display: block;
-    }
-}
-@media (max-width: 1080px) {
-    #esp-itm{
-        display: none;
-    }
-}
 
-#esp-itm a:hover {
-    color: #ff6600;
-    background-color: #333;
-    box-shadow: 0 4px 8px 0 rgba(31, 31, 31, 0.5), 0 6px 20px 0 rgba(24, 24, 24, 0.319);
-    transition: 0.5s;
-}
 
 
 
@@ -195,4 +122,74 @@ main {
     width: 100%;
     height: 612px;
     overflow-y: scroll;
+}
+
+.cnt-frt-st {
+    background-color: #003366;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 70px;
+    width: 100%;
+    margin: 0px auto 0px auto;
+    padding: 100px 110px;
+}
+@media (min-width: 680px) {
+    .cnt-frt-st{
+        background-image: url("../img/welt.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 0px 0px 10px 0px;
+        width: 100%;
+        height: max-content;
+        margin: 0 0;
+        gap: 0;
+    }
+}
+@media (min-width: 1150px) {
+    .cnt-frt-st{
+        background-image: url("../img/welt.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding: 0px 0px 10px 0px;
+        width: 100%;
+        height: max-content;
+        margin: 0 0;
+        gap: 0;
+    }
+}
+
+.cnt-wlm {
+    line-height: 45px;
+}
+
+
+@media (min-width: 1150px) {
+    .container_1{
+        background-color: #003366e8;
+        padding: 10px 40px;
+    }
+    .cnt-frt-st div.cnt-wlm div.container_1 p {
+        color: #e5f2ff;
+        font-size: 25pt;
+        font-weight: bold;
+    }
+}
+
+
+
+
+
+main div#bst-cnt-itm div.cnt-frt-st div.wlm-img img {
+    width: 550px;
+}
+@media (max-width: 680px) {
+    .wlm-img img{
+        display: none;
+    }
+}
+@media (max-width: 1150px) {
+    .wlm-img img{
+        display: none;
+    }
 }
