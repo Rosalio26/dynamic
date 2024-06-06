@@ -15,10 +15,7 @@ header, .its-content {
 button{
     outline: none;
     border: none;
-    height: max-content;
-    width: max-content;
     background-color: transparent;
-    transition: myAnim00 linear 0.5s ;
 }
 
 /*CONFIGURAÇOES DO HEADER*/
@@ -161,6 +158,7 @@ div.logo a.logo-item {
 
 /*==== BOTTÕES DE */
 .menu-btn {
+    background-color: #fff;
     outline: none;
     border: 1px solid #f1f1f1;
     border-radius: 20px;
@@ -500,6 +498,7 @@ main::-webkit-scrollbar {
     height: 300px;
     display: flex;
     align-items: center;
+    margin-top: 150px;
 }
 
 .cnt-exp{
@@ -522,7 +521,7 @@ main::-webkit-scrollbar {
     position: absolute;
     border-radius: 1000px 0px 0px 0px;
 
-    width: 480px;
+    width: 300px;
     height: 5%;
     right: 0;
     bottom: 0;
@@ -535,7 +534,7 @@ main::-webkit-scrollbar {
     position: absolute;
     border-radius: 0px 0px 1000px 0px;
 
-    width: 480px;
+    width: 300px;
     height: 10%;
     left: 0;
     top: 0;
@@ -729,4 +728,44 @@ main::-webkit-scrollbar {
         color: #002c59;
         background-color: #ff7300;
     }
+}
+
+
+.itm-lop-tw{
+    background-color: #fff;
+    width: 100%;
+    height: 300px;
+    margin-top: 150px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.itm-lop-tw p.lp-itm-on{
+    color: #003366;
+    text-align: center;
+    font-size: 25pt;
+    font-weight: bold;
+    text-transform: lowercase;
+}
+
+.itm-lop-tw p.lp-itm-tw{
+    text-transform: uppercase;
+    color: #0080ff;
+    text-align: center;
+    font-size: 17pt;
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid orangered;
+}
+
+.btn-lp-ow{
+    background-color: orangered;
+    color: #fff;
+    font-size: 15pt;
+    padding: 7px 20px;
+    border-radius: 20px;
 }
