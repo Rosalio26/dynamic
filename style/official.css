@@ -255,7 +255,7 @@ main::-webkit-scrollbar {
 .container_1 {
     background-color: #004080e7;
     /*background-color: #003366e8;*/
-    padding: 60px 100px 80px 50px;
+    padding: 60px 0px 80px 40px;
 }
 @media (min-width: 1060px) {
     .container_1{
@@ -331,6 +331,7 @@ main::-webkit-scrollbar {
     flex-direction: column;
     justify-content: space-between;
     margin: 150px auto;
+    padding: 40px 40px;
 }
 @media (min-width: 700px) { 
     .cot-itm-ch {
@@ -400,8 +401,8 @@ main::-webkit-scrollbar {
     justify-content: space-between;
     line-height: 24px;
 
-    width: 335px;
-    height: 380px;
+    width: 280px;
+    height: 350px;
     padding: 20px;
     margin-top: 50px;
 }
