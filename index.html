@@ -5,7 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu perfill | Rosalio Milione</title>
     <link rel="stylesheet" href="style/estilo_geral.css">
-    <script src="script/mini.js"   defer></script>
+    <style>
+        #box1, #box2 {
+            position: relative;
+            cursor: grab;
+            user-select: none;
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+    <script src="script/mini.js" defer></script>
 </head>
 <body>
 
@@ -18,37 +35,44 @@
                 <li class="cnt-info-details-link cert-link"><a href="">certificados</a></li>
                 <li class="cnt-info-details-link sobre-link"><a href="">sobre</a></li>
                 <li class="cnt-info-details-link blog-link"><a href="">blog</a></li>
-                <li class="cnt-info-details-link serv-link"><a href="">serviços</a></li>
+                <li class="cnt-info-details-link serv-link"><a href="">cursos</a></li>
                 <li class="cnt-info-details-link port-link"><a href="">portifolio</a></li>
-                <!--DUPLICANDO PARA SCROOLL INFINITO-->
                 <li class="cnt-info-details-link cv-link"><a href="">CV</a></li>
                 <li class="cnt-info-details-link proj-link"><a href="">projectos</a></li>
                 <li class="cnt-info-details-link cont-link"><a href="">contactos</a></li>
                 <li class="cnt-info-details-link cert-link"><a href="">certificados</a></li>
                 <li class="cnt-info-details-link sobre-link"><a href="">sobre</a></li>
                 <li class="cnt-info-details-link blog-link"><a href="">blog</a></li>
-                <li class="cnt-info-details-link serv-link"><a href="">serviços</a></li>
+                <li class="cnt-info-details-link serv-link"><a href="">cursos</a></li>
                 <li class="cnt-info-details-link port-link"><a href="">portifolio</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="cnt-hed-info pro-fil mon-pro-hed cnt-chl">
+    <div id="box1" class="name-pp">
+        <div class="aco-poll">
+            <h1 class="hed-name-pro">ROSÁLIO ALEXANDRE XINAI MILIONE</h1>
+        </div>
+    </div>
+
+    <div id="box2" class="cnt-hed-info pro-fil mon-pro-hed cnt-chl">
         <div class="chi-fo-mon photo-perfil"></div>
         <button id="toggleBtn" class="chi-fo-mon menu">
             <span class="menu-btn-icon"></span>
             <span class="menu-btn-icon"></span>
             <span class="menu-btn-icon"></span>
         </button>
-
     </div>
+
+    <svg>
+        <path id="path" stroke="#ffbf2a" stroke-width="3" fill="none"/>
+    </svg>
 
     <div id="meuBloco" class="fr-chi-fo-mon cat-fo-mon">
         <button class="btn-close">
             <span class="cnt-btn-close">x</span>
         </button>
     </div>
-
 
     <div class="content-exp">
         
