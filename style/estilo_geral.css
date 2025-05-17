@@ -242,3 +242,35 @@ header
     padding: 1px 10px;
 }
 
+.tlt-archive
+{
+    color: #5375ff;
+    padding: 5px;
+}
+
+.cnt-list-arch
+{
+    padding: 5px;
+}
+
+.item-arch
+{
+    border: 1px solid #283663;
+    border-radius: 3px;
+    width: 90%;
+
+    display: flex;
+    justify-content: space-between;
+    margin: 5px auto;
+    padding: 5px;
+}
+
+.name-arch
+{
+    display: block;
+    font-size: 12pt;
+    letter-spacing: .5px;
+    color: #5b79ac;
+    text-transform: capitalize;
+}
+
