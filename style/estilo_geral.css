@@ -274,3 +274,14 @@ header
     text-transform: capitalize;
 }
 
+p
+{
+    text-align: justify;
+}
+
+.content-exp
+{
+    background-color: #0d1c36;
+    padding: 10px;
+    height: 350px;
+}
