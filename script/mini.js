@@ -1,11 +1,18 @@
-
-var btn = document.querySelector('.menu-btn-icon');
-var bloco = document.querySelector('.fr-chi-fo-mon');
+const btn = document.getElementById('toggleBtn');
+const bloco = document.getElementById('meuBloco');
+const closeBtn = bloco.querySelector('.btn-close');
 
 btn.addEventListener('click', () => {
-    if (bloco.style.display === 'none' || bloco.style.display === '') {
-    bloco.style.display = 'block'; // mostra o bloco
-    } else {
-    bloco.style.display = 'none'; // esconde o bloco
-    }
+  if (bloco.style.display === 'none') {
+    bloco.style.display = 'block';
+    btn.style.display = 'none';
+  } else {
+    bloco.style.display = 'none';
+    btn.style.display = 'block';
+  }
 });
+
+closeBtn.addEventListener('click', () => {
+  bloco.style.display = 'none';
+  btn.style.display = 'block';
+  });
