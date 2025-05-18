@@ -123,6 +123,10 @@ header
     background-color: #010b2cce;
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
 }
 
 .hed-name-pro
@@ -274,16 +278,71 @@ header
     text-transform: capitalize;
 }
 
-p
-{
-    text-align: justify;
-}
 
+
+/*Configuracoes do main principal*/
 .content-exp
 {
     background-color: #0d1c36;
     border-radius: 10px;
     margin-top: 30px;
     padding: 10px;
-    height: 450px;
+    height: 400px;
+    overflow: hidden auto;
+
+}
+
+.tlt-info-abo
+{
+    color: #becbff;
+}
+
+p.cont-for-read
+{
+    color: #becbff;
+    text-align: justify;
+    margin: 5px 0px;
+    padding: 10px 0px;
+    line-height: 25px;
+    letter-spacing: 1px;
+}
+
+span.mark-line
+{
+    color: #002fec;
+}
+
+a.link-more-read
+{
+    border: 1px solid #0e2687;
+    border-radius: 3px;
+    box-shadow: 0px 0px 10px #070c20;
+    color: #002fec;
+    padding: 5px;
+}
+
+a.link-more-read:hover
+{
+    border-radius: 7px;
+    box-shadow: 0px 0px 10px #000f4d52;
+    color: hsl(228, 100%, 62%);
+    transition: color 0.5s ease-in-out;
+}
+
+.ascend
+{
+    margin-top: 40px;
+}
+
+/*Configuracoes dos rodapem*/
+footer
+{
+    padding: 10px 4px;
+}
+
+footer p
+{
+    color: #002fec;
+    font-size: 12pt;
+    letter-spacing: 1px; 
 }
