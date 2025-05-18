@@ -5,6 +5,7 @@
 *
 {
     /*background-color: #0b1020;*/
+    box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 300;
     margin: 0;
@@ -289,7 +290,13 @@ header
     padding: 10px;
     height: 400px;
     overflow: hidden auto;
+    position: relative;
 
+}
+
+.about-opn
+{
+    display: none;
 }
 
 .tlt-info-abo
@@ -302,7 +309,6 @@ p.cont-for-read
     color: #becbff;
     text-align: justify;
     margin: 5px 0px;
-    padding: 10px 0px;
     line-height: 25px;
     letter-spacing: 1px;
 }
@@ -329,9 +335,42 @@ a.link-more-read:hover
     transition: color 0.5s ease-in-out;
 }
 
-.ascend
+.fade {
+    animation-name: fade;
+    animation-duration: 1s;
+}
+
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    bottom: 5%;
+    width: auto;
+    padding: 5px 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: rgba(3, 68, 164, 0.5);
+    border-radius: 3px;
+    user-select: none;
+    transition: 0.3s;
+}
+
+.prev
 {
-    margin-top: 40px;
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
 }
 
 /*Configuracoes dos rodapem*/
