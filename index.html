@@ -3,602 +3,780 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>🎯 Caça aos Tesouros Mágicos</title>
+<title>📱 InfoHub - Descubra o Mundo</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
   
   * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
   }
   
   body {
-    margin: 0;
-    font-family: 'Nunito', sans-serif;
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24, #f0932b, #eb4d4b, #6c5ce7);
-    background-size: 400% 400%;
-    animation: gradientShift 8s ease infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    user-select: none;
     overflow-x: hidden;
   }
   
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  
-  .game-container {
+  .navbar {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    border-radius: 25px;
-    padding: 25px 35px 45px;
-    text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.2);
-    width: 420px;
-    border: 3px solid transparent;
-    background-clip: padding-box;
-    position: relative;
-    overflow: hidden;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
   }
   
-  .game-container::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
-    border-radius: 28px;
-    z-index: -1;
-    animation: rotateBorder 3s linear infinite;
+  .nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
   }
   
-  @keyframes rotateBorder {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  h1 {
-    margin-bottom: 20px;
-    color: #2d3436;
-    font-family: 'Fredoka One', cursive;
-    font-size: 28px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  .logo {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(45deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   
-  .stats {
+  .nav-links {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px;
+    gap: 30px;
   }
   
-  .stat-box {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 12px 18px;
-    border-radius: 15px;
-    color: white;
-    font-weight: 700;
-    font-size: 18px;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-    min-width: 120px;
-    transform: scale(1);
-    transition: transform 0.2s ease;
-  }
-  
-  .stat-box:hover {
-    transform: scale(1.05);
-  }
-  
-  .stat-box.score-box {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
-  }
-  
-  .stat-box.timer-box {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
-  }
-  
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 110px);
-    grid-template-rows: repeat(3, 110px);
-    gap: 20px;
-    justify-content: center;
-    margin: 30px 0;
-  }
-  
-  .hole {
-    width: 110px;
-    height: 110px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 50%;
+  .nav-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
     position: relative;
-    box-shadow: inset 0 8px 15px rgba(0,0,0,0.3), 0 4px 15px rgba(102, 126, 234, 0.3);
+  }
+  
+  .nav-link:hover {
+    color: #667eea;
+    transform: translateY(-2px);
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 20px 50px;
+  }
+  
+  .hero {
+    text-align: center;
+    color: white;
+    margin-bottom: 60px;
+  }
+  
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .hero p {
+    font-size: 20px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 40px;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+  
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+  
+  .info-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  
+  .info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    border-color: rgba(102, 126, 234, 0.3);
+  }
+  
+  .info-card .icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+  }
+  
+  .info-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .info-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .learn-more-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 4px solid rgba(255,255,255,0.2);
+    font-family: 'Poppins', sans-serif;
   }
   
-  .hole:hover {
+  .learn-more-btn:hover {
     transform: scale(1.05);
-    box-shadow: inset 0 8px 15px rgba(0,0,0,0.4), 0 6px 20px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
   }
   
-  .treasure {
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    top: 10px;
-    left: 10px;
-    background: linear-gradient(45deg, #ffd700, #ffed4e);
+  .floating-buttons {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 999;
+  }
+  
+  .floating-btn {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    transform: scale(0) rotate(0deg);
-    user-select: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 40px;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-    border: 3px solid #ff6b6b;
   }
   
-  .treasure::before {
-    content: '💎';
-    animation: bounce 1s ease-in-out infinite;
-  }
-  
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
-  
-  .treasure.visible {
-    opacity: 1;
-    pointer-events: auto;
-    transform: scale(1) rotate(360deg);
-  }
-  
-  .treasure.hit {
-    animation: hitEffect 0.6s ease-out;
-  }
-  
-  @keyframes hitEffect {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3) rotate(180deg); }
-    100% { transform: scale(0) rotate(360deg); opacity: 0; }
-  }
-  
-  #restartButton {
-    margin-top: 25px;
-    padding: 15px 35px;
-    font-size: 20px;
-    font-weight: 700;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: none;
-    border-radius: 50px;
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  .floating-btn.tips {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
     color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    user-select: none;
-    display: none;
-    font-family: 'Nunito', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
   }
   
-  #restartButton:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
-  }
-  
-  #restartButton:active {
-    transform: translateY(0);
-  }
-  
-  .message {
-    margin-top: 20px;
-    font-size: 22px;
-    font-weight: 700;
+  .floating-btn.news {
     background: linear-gradient(45deg, #f093fb, #f5576c);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    min-height: 32px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    color: white;
   }
   
-  .combo {
-    position: absolute;
-    font-size: 24px;
-    font-weight: 700;
-    color: #ff6b6b;
-    pointer-events: none;
-    animation: comboFloat 1s ease-out forwards;
-    z-index: 100;
+  .floating-btn.help {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    color: white;
   }
   
-  @keyframes comboFloat {
-    0% { 
-      transform: translateY(0) scale(0.5);
-      opacity: 1;
-    }
-    100% { 
-      transform: translateY(-50px) scale(1.2);
+  .floating-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal.show {
+    display: flex;
+  }
+  
+  .modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+  }
+  
+  @keyframes modalSlideIn {
+    from {
       opacity: 0;
+      transform: scale(0.8);
     }
-  }
-  
-  .particles {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #ffd700;
-    border-radius: 50%;
-    pointer-events: none;
-    animation: particleExplode 1s ease-out forwards;
-  }
-  
-  @keyframes particleExplode {
-    0% { 
+    to {
+      opacity: 1;
       transform: scale(1);
-      opacity: 1;
     }
-    100% { 
-      transform: scale(0) translate(var(--dx), var(--dy));
-      opacity: 0;
-    }
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+  }
+  
+  .close-btn:hover {
+    color: #333;
+  }
+  
+  .modal h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+  
+  .modal p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
   }
   
   .ad-notification {
     position: fixed;
-    top: 20px;
+    top: 80px;
     right: 20px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 12px 20px;
+    padding: 15px 25px;
     border-radius: 15px;
     font-weight: 600;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
     opacity: 0;
     transform: translateX(300px);
     transition: all 0.5s ease;
-    z-index: 1000;
+    z-index: 1500;
+    max-width: 300px;
   }
   
   .ad-notification.show {
     opacity: 1;
     transform: translateX(0);
   }
+  
+  .stats-bar {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  .stat {
+    flex: 1;
+  }
+  
+  .stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .stat-label {
+    color: #666;
+    font-weight: 500;
+    margin-top: 5px;
+  }
+  
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+    
+    .hero h1 {
+      font-size: 32px;
+    }
+    
+    .hero p {
+      font-size: 16px;
+    }
+    
+    .info-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .floating-buttons {
+      right: 20px;
+      bottom: 20px;
+    }
+    
+    .floating-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+    }
+  }
 </style>
 </head>
 <body>
-  <div class="game-container">
-    <h1>🎯 Caça aos Tesouros Mágicos</h1>
-    
-    <div class="stats">
-      <div class="stat-box score-box">
-        💎 <span id="score">0</span>
+  <nav class="navbar">
+    <div class="nav-content">
+      <div class="logo">📱 InfoHub</div>
+      <div class="nav-links">
+        <a href="#" class="nav-link" onclick="showModal('tech')">Tecnologia</a>
+        <a href="#" class="nav-link" onclick="showModal('health')">Saúde</a>
+        <a href="#" class="nav-link" onclick="showModal('finance')">Finanças</a>
+        <a href="#" class="nav-link" onclick="showModal('education')">Educação</a>
       </div>
-      <div class="stat-box timer-box">
-        ⏰ <span id="time">30</span>s
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="hero">
+      <h1>Descubra o Mundo</h1>
+      <p>Informações valiosas, dicas exclusivas e conhecimentos que transformam vidas. Explore nosso conteúdo e descubra algo novo a cada clique!</p>
+      <button class="cta-button" onclick="showRewardedAd('welcome')">🎁 Conteúdo Premium Grátis</button>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Usuários Ativos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">200+</div>
+        <div class="stat-label">Artigos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Categorias</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">99%</div>
+        <div class="stat-label">Satisfação</div>
       </div>
     </div>
 
-    <div class="grid" id="grid">
-      <!-- 9 buracos -->
-      <div class="hole" data-index="0"><div class="treasure"></div></div>
-      <div class="hole" data-index="1"><div class="treasure"></div></div>
-      <div class="hole" data-index="2"><div class="treasure"></div></div>
-      <div class="hole" data-index="3"><div class="treasure"></div></div>
-      <div class="hole" data-index="4"><div class="treasure"></div></div>
-      <div class="hole" data-index="5"><div class="treasure"></div></div>
-      <div class="hole" data-index="6"><div class="treasure"></div></div>
-      <div class="hole" data-index="7"><div class="treasure"></div></div>
-      <div class="hole" data-index="8"><div class="treasure"></div></div>
-    </div>
+    <div class="info-grid">
+      <div class="info-card" onclick="showRewardedPopup('tech')">
+        <span class="icon">💻</span>
+        <h3>Tecnologia Avançada</h3>
+        <p>Descubra as últimas tendências em IA, blockchain, desenvolvimento mobile e as tecnologias que estão moldando o futuro.</p>
+        <button class="learn-more-btn">Ver Mais</button>
+      </div>
 
-    <button id="restartButton">🔄 Nova Aventura</button>
-    <div class="message" id="message"></div>
+      <div class="info-card" onclick="showRewardedPopup('health')">
+        <span class="icon">🏥</span>
+        <h3>Saúde & Bem-estar</h3>
+        <p>Dicas de especialistas sobre nutrição, exercícios, saúde mental e como manter um estilo de vida equilibrado.</p>
+        <button class="learn-more-btn">Ver Mais</button>
+      </div>
+
+      <div class="info-card" onclick="showRewardedPopup('money')">
+        <span class="icon">💰</span>
+        <h3>Finanças Pessoais</h3>
+        <p>Aprenda a investir, economizar, gerar renda extra e construir um patrimônio sólido para o seu futuro.</p>
+        <button class="learn-more-btn">Ver Mais</button>
+      </div>
+
+      <div class="info-card" onclick="showRewardedPopup('education')">
+        <span class="icon">📚</span>
+        <h3>Educação Online</h3>
+        <p>Cursos gratuitos, tutoriais práticos e recursos educacionais para desenvolver novas habilidades.</p>
+        <button class="learn-more-btn">Ver Mais</button>
+      </div>
+
+      <div class="info-card" onclick="showRewardedPopup('business')">
+        <span class="icon">🚀</span>
+        <h3>Empreendedorismo</h3>
+        <p>Histórias inspiradoras, estratégias de negócios e ferramentas para quem quer começar seu próprio empreendimento.</p>
+        <button class="learn-more-btn">Ver Mais</button>
+      </div>
+
+      <div class="info-card" onclick="showRewardedPopup('lifestyle')">
+        <span class="icon">🌟</span>
+        <h3>Estilo de Vida</h3>
+        <p>Produtividade, viagens, hobbies, relacionamentos e tudo que pode melhorar sua qualidade de vida.</p>
+        <button class="learn-more-btn">Ver Mais</button>
+      </div>
+    </div>
   </div>
 
+  <!-- Botões Flutuantes -->
+  <div class="floating-buttons">
+    <button class="floating-btn tips" onclick="showRewardedAd('tips')" title="Dicas Diárias">💡</button>
+    <button class="floating-btn news" onclick="showRewardedPopup('news')" title="Últimas Notícias">📰</button>
+    <button class="floating-btn help" onclick="showModal('help')" title="Ajuda">❓</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <div id="modal-body">
+        <!-- Conteúdo será inserido dinamicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Notificação de Anúncio -->
   <div class="ad-notification" id="adNotification">
-    📺 Anúncio aparecendo em <span id="adCountdown">5</span>...
+    <div id="adMessage">📺 Anúncio será exibido em <span id="adCountdown">5</span> segundos...</div>
   </div>
 
   <script>
-    const scoreEl = document.getElementById('score');
-    const timeEl = document.getElementById('time');
-    const messageEl = document.getElementById('message');
-    const restartButton = document.getElementById('restartButton');
-    const adNotification = document.getElementById('adNotification');
-    const adCountdown = document.getElementById('adCountdown');
-    const holes = Array.from(document.querySelectorAll('.hole'));
-    const treasures = holes.map(hole => hole.querySelector('.treasure'));
-
-    let score = 0;
-    let time = 30;
-    let timerInterval;
-    let treasureInterval;
-    let activeIndex = null;
-    let combo = 0;
-    let gameStarted = false;
-    
-    // Configurações do sistema de anúncios automático
-    let adsConfig = {
-      frequency: 2,        // 2 anúncios por sessão de 6 minutos
-      capping: 0.1,        // 0.1 horas = 6 minutos
-      interval: 30,        // 30 segundos entre anúncios
-      timeout: 5,          // 5 segundos de delay inicial
-      everyPage: false     // manter sessão entre páginas
-    };
-    
-    let adSession = {
-      adsShown: 0,
-      sessionStart: Date.now(),
-      lastAdTime: 0,
-      countdownActive: false
-    };
-
-    function randomIndex() {
-      let idx;
-      do {
-        idx = Math.floor(Math.random() * holes.length);
-      } while (idx === activeIndex);
-      return idx;
-    }
-
-    function showTreasure() {
-      // Esconde tesouro atual
-      if (activeIndex !== null) {
-        treasures[activeIndex].classList.remove('visible');
-      }
-
-      // Escolhe nova posição
-      activeIndex = randomIndex();
-      treasures[activeIndex].classList.add('visible');
-    }
-
-    function createParticles(x, y) {
-      for (let i = 0; i < 8; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particles';
-        particle.style.left = x + 'px';
-        particle.style.top = y + 'px';
-        particle.style.setProperty('--dx', (Math.random() - 0.5) * 100 + 'px');
-        particle.style.setProperty('--dy', (Math.random() - 0.5) * 100 + 'px');
-        document.body.appendChild(particle);
-        
-        setTimeout(() => particle.remove(), 1000);
-      }
-    }
-
-    function showCombo(x, y, points) {
-      const comboEl = document.createElement('div');
-      comboEl.className = 'combo';
-      comboEl.textContent = `+${points}! 🔥`;
-      comboEl.style.left = x + 'px';
-      comboEl.style.top = y + 'px';
-      document.body.appendChild(comboEl);
-      
-      setTimeout(() => comboEl.remove(), 1000);
-    }
-
-    function updateScore(clickX, clickY) {
-      combo++;
-      const points = combo > 3 ? 15 : 10;
-      score += points;
-      scoreEl.textContent = score;
-      
-      if (combo > 3) {
-        showCombo(clickX, clickY, points);
-      }
-      
-      createParticles(clickX, clickY);
-      updateMessage();
-    }
-
-    function updateMessage() {
-      if (combo > 5) {
-        messageEl.textContent = '🔥 INCRÍVEL! Combo x' + combo;
-      } else if (combo > 3) {
-        messageEl.textContent = '⚡ COMBO x' + combo + '!';
-      } else if (score > 50) {
-        messageEl.textContent = '🌟 Você está dominando!';
-      } else {
-        messageEl.textContent = '💎 Continue coletando tesouros!';
-      }
-    }
-
-    function updateTime() {
-      time--;
-      timeEl.textContent = time;
-      if (time <= 0) {
-        endGame();
-      }
-    }
-
-    function endGame() {
-      clearInterval(timerInterval);
-      clearInterval(treasureInterval);
-      if (activeIndex !== null) {
-        treasures[activeIndex].classList.remove('visible');
-      }
-      activeIndex = null;
-      gameStarted = false;
-      restartButton.style.display = 'inline-block';
-      
-      let finalMessage = '';
-      if (score >= 100) {
-        finalMessage = `🏆 LENDÁRIO! ${score} tesouros coletados!`;
-      } else if (score >= 50) {
-        finalMessage = `🌟 ÉPICO! ${score} tesouros coletados!`;
-      } else {
-        finalMessage = `⏰ Fim de jogo! ${score} tesouros coletados!`;
-      }
-      messageEl.textContent = finalMessage;
-    }
-
-    function startGame() {
-      score = 0;
-      time = 30;
-      combo = 0;
-      gameStarted = true;
-      scoreEl.textContent = score;
-      timeEl.textContent = time;
-      messageEl.textContent = '💎 Colete os tesouros que aparecem!';
-      restartButton.style.display = 'none';
-
-      // Inicia o sistema de anúncios automáticos
-      initializeAdSystem();
-
-      // Começa o timer
-      timerInterval = setInterval(updateTime, 1000);
-
-      // Aparece um tesouro a cada 800ms (mais rápido que antes)
-      showTreasure();
-      treasureInterval = setInterval(showTreasure, 800);
-    }
-
-    // Sistema de anúncios automático
-    function initializeAdSystem() {
-      // Reseta a sessão se necessário
-      const now = Date.now();
-      const sessionTime = (now - adSession.sessionStart) / 1000 / 60 / 60; // em horas
-      
-      if (sessionTime > adsConfig.capping) {
-        adSession = {
+    // Sistema de gerenciamento de anúncios
+    class AdManager {
+      constructor() {
+        this.adSession = {
           adsShown: 0,
-          sessionStart: now,
+          sessionStart: Date.now(),
           lastAdTime: 0,
           countdownActive: false
         };
-      }
-      
-      // Agenda o primeiro anúncio após o timeout inicial
-      if (adSession.adsShown < adsConfig.frequency) {
-        scheduleNextAd(adsConfig.timeout * 1000); // timeout em ms
-      }
-    }
-    
-    function scheduleNextAd(delay) {
-      setTimeout(() => {
-        if (gameStarted && shouldShowAd()) {
-          showAdCountdown();
-        }
-      }, delay);
-    }
-    
-    function shouldShowAd() {
-      const now = Date.now();
-      const timeSinceLastAd = (now - adSession.lastAdTime) / 1000; // em segundos
-      
-      return adSession.adsShown < adsConfig.frequency && 
-             timeSinceLastAd >= adsConfig.interval &&
-             !adSession.countdownActive;
-    }
-    
-    function showAdCountdown() {
-      if (adSession.countdownActive) return;
-      
-      adSession.countdownActive = true;
-      let countdown = 5;
-      adCountdown.textContent = countdown;
-      adNotification.classList.add('show');
-      
-      const countdownInterval = setInterval(() => {
-        countdown--;
-        adCountdown.textContent = countdown;
         
-        if (countdown <= 0) {
-          clearInterval(countdownInterval);
-          adNotification.classList.remove('show');
-          showAutomaticAd();
+        this.adsConfig = {
+          frequency: 2,
+          capping: 0.1,
+          interval: 30,
+          timeout: 5,
+          everyPage: false
+        };
+        
+        this.initAutoAds();
+      }
+      
+      initAutoAds() {
+        // Primeiro anúncio automático após 5 segundos
+        setTimeout(() => {
+          this.scheduleAutoAd();
+        }, this.adsConfig.timeout * 1000);
+      }
+      
+      scheduleAutoAd() {
+        if (this.shouldShowAutoAd()) {
+          this.showAutoAdWithCountdown();
         }
-      }, 1000);
+        
+        // Agenda próximo anúncio
+        setTimeout(() => {
+          this.scheduleAutoAd();
+        }, this.adsConfig.interval * 1000);
+      }
+      
+      shouldShowAutoAd() {
+        const now = Date.now();
+        const sessionTime = (now - this.adSession.sessionStart) / 1000 / 60 / 60;
+        const timeSinceLastAd = (now - this.adSession.lastAdTime) / 1000;
+        
+        return this.adSession.adsShown < this.adsConfig.frequency && 
+               sessionTime < this.adsConfig.capping &&
+               timeSinceLastAd >= this.adsConfig.interval &&
+               !this.adSession.countdownActive;
+      }
+      
+      showAutoAdWithCountdown() {
+        if (this.adSession.countdownActive) return;
+        
+        this.adSession.countdownActive = true;
+        const notification = document.getElementById('adNotification');
+        const countdown = document.getElementById('adCountdown');
+        let count = 5;
+        
+        notification.classList.add('show');
+        
+        const countdownInterval = setInterval(() => {
+          count--;
+          countdown.textContent = count;
+          
+          if (count <= 0) {
+            clearInterval(countdownInterval);
+            notification.classList.remove('show');
+            this.showInAppAd();
+          }
+        }, 1000);
+      }
+      
+      showInAppAd() {
+        if (typeof show_9693195 === 'function') {
+          show_9693195({ 
+            type: 'inApp', 
+            inAppSettings: this.adsConfig
+          }).then(() => {
+            console.log('Anúncio in-app exibido com sucesso');
+            this.updateAdSession();
+          }).catch(error => {
+            console.error('Erro no anúncio in-app:', error);
+            this.adSession.countdownActive = false;
+          });
+        } else {
+          console.log('Simulando anúncio in-app...');
+          this.updateAdSession();
+        }
+      }
+      
+      showRewardedAd(context) {
+        return new Promise((resolve) => {
+          if (typeof show_9693195 === 'function') {
+            show_9693195().then(() => {
+              console.log(`Anúncio recompensado (${context}) exibido`);
+              this.showReward(context);
+              resolve();
+            }).catch(error => {
+              console.error('Erro no anúncio recompensado:', error);
+              resolve();
+            });
+          } else {
+            console.log(`Simulando anúncio recompensado: ${context}`);
+            this.showReward(context);
+            resolve();
+          }
+        });
+      }
+      
+      showRewardedPopup(context) {
+        return new Promise((resolve) => {
+          if (typeof show_9693195 === 'function') {
+            show_9693195('pop').then(() => {
+              console.log(`Anúncio popup (${context}) exibido`);
+              this.showReward(context);
+              resolve();
+            }).catch(error => {
+              console.error('Erro no anúncio popup:', error);
+              resolve();
+            });
+          } else {
+            console.log(`Simulando anúncio popup: ${context}`);
+            this.showReward(context);
+            resolve();
+          }
+        });
+      }
+      
+      showReward(context) {
+        const rewards = {
+          welcome: '🎁 Bem-vindo! Conteúdo premium desbloqueado!',
+          tips: '💡 Dica exclusiva revelada!',
+          news: '📰 Acesso completo às notícias!',
+          tech: '💻 Tutorial avançado liberado!',
+          health: '🏥 Guia de saúde premium!',
+          money: '💰 Estratégia de investimento revelada!',
+          education: '📚 Curso gratuito desbloqueado!',
+          business: '🚀 E-book de empreendedorismo grátis!',
+          lifestyle: '🌟 Planner de produtividade liberado!'
+        };
+        
+        const message = rewards[context] || '✨ Recompensa desbloqueada!';
+        this.showNotification(message);
+      }
+      
+      showNotification(message) {
+        const notification = document.getElementById('adNotification');
+        const messageEl = document.getElementById('adMessage');
+        
+        messageEl.textContent = message;
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+          notification.classList.remove('show');
+        }, 3000);
+      }
+      
+      updateAdSession() {
+        this.adSession.adsShown++;
+        this.adSession.lastAdTime = Date.now();
+        this.adSession.countdownActive = false;
+      }
     }
     
-    function showAutomaticAd() {
-      // Implementa o terceiro código da Monetag: In-App Interstitial
-      if (typeof show_9693195 === 'function') {
-        show_9693195({ 
-          type: 'inApp', 
-          inAppSettings: { 
-            frequency: adsConfig.frequency, 
-            capping: adsConfig.capping, 
-            interval: adsConfig.interval, 
-            timeout: adsConfig.timeout, 
-            everyPage: adsConfig.everyPage 
-          } 
-        }).then(() => {
-          console.log('Anúncio automático exibido com sucesso');
-        }).catch(error => {
-          console.error('Erro ao exibir anúncio automático:', error);
-        });
-      } else {
-        // Fallback se o script não estiver carregado
-        console.log('Script de anúncios não carregado, simulando anúncio...');
+    // Inicializar gerenciador de anúncios
+    const adManager = new AdManager();
+    
+    // Funções para os botões
+    function showRewardedAd(context) {
+      adManager.showRewardedAd(context);
+    }
+    
+    function showRewardedPopup(context) {
+      adManager.showRewardedPopup(context);
+    }
+    
+    // Sistema de Modais
+    const modalContent = {
+      tech: {
+        title: '💻 Tecnologia Avançada',
+        content: `
+          <p>Explore o futuro da tecnologia com nossos artigos sobre:</p>
+          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
+            <li>Inteligência Artificial e Machine Learning</li>
+            <li>Blockchain e Criptomoedas</li>
+            <li>Desenvolvimento Mobile e Web</li>
+            <li>Internet das Coisas (IoT)</li>
+            <li>Realidade Virtual e Aumentada</li>
+          </ul>
+          <p>Mantenha-se atualizado com as tendências que estão transformando o mundo digital!</p>
+        `
+      },
+      health: {
+        title: '🏥 Saúde & Bem-estar',
+        content: `
+          <p>Cuide da sua saúde com informações confiáveis sobre:</p>
+          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
+            <li>Nutrição e Alimentação Saudável</li>
+            <li>Exercícios e Atividade Física</li>
+            <li>Saúde Mental e Mindfulness</li>
+            <li>Prevenção de Doenças</li>
+            <li>Sono e Qualidade de Vida</li>
+          </ul>
+          <p>Transforme seus hábitos e viva com mais qualidade e energia!</p>
+        `
+      },
+      finance: {
+        title: '💰 Finanças Pessoais',
+        content: `
+          <p>Construa sua independência financeira aprendendo sobre:</p>
+          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
+            <li>Investimentos em Ações e Renda Fixa</li>
+            <li>Planejamento Financeiro Pessoal</li>
+            <li>Empreendedorismo Digital</li>
+            <li>Controle de Gastos e Orçamento</li>
+            <li>Educação Financeira</li>
+          </ul>
+          <p>Saia da zona de conforto e construa um futuro próspero!</p>
+        `
+      },
+      education: {
+        title: '📚 Educação Online',
+        content: `
+          <p>Desenvolva novas habilidades com nossos recursos educacionais:</p>
+          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
+            <li>Cursos Gratuitos de Diversas Áreas</li>
+            <li>Tutoriais Práticos e Passo a Passo</li>
+            <li>Certificações Reconhecidas</li>
+            <li>Webinars com Especialistas</li>
+            <li>Materiais Didáticos Exclusivos</li>
+          </ul>
+          <p>Invista em você mesmo e abra novas portas no mercado de trabalho!</p>
+        `
+      },
+      help: {
+        title: '❓ Central de Ajuda',
+        content: `
+          <p>Precisa de ajuda? Estamos aqui para você!</p>
+          <div style="margin: 20px 0;">
+            <h4 style="color: #667eea;">Como usar o InfoHub?</h4>
+            <p style="color: #666;">Clique nos cards para descobrir conteúdos exclusivos. Alguns mostram anúncios que nos ajudam a manter o site gratuito.</p>
+            
+            <h4 style="color: #667eea; margin-top: 20px;">Por que vejo anúncios?</h4>
+            <p style="color: #666;">Os anúncios nos permitem oferecer todo o conteúdo gratuitamente. Em troca, você acessa informações valiosas!</p>
+            
+            <h4 style="color: #667eea; margin-top: 20px;">Contato</h4>
+            <p style="color: #666;">Email: suporte@infohub.com<br>WhatsApp: +258 123 456 789</p>
+          </div>
+        `
       }
+    };
+    
+    function showModal(type) {
+      const modal = document.getElementById('modal');
+      const modalBody = document.getElementById('modal-body');
+      const content = modalContent[type];
       
-      // Atualiza a sessão
-      adSession.adsShown++;
-      adSession.lastAdTime = Date.now();
-      adSession.countdownActive = false;
-      
-      // Agenda próximo anúncio se ainda tiver na quota
-      if (adSession.adsShown < adsConfig.frequency) {
-        scheduleNextAd(adsConfig.interval * 1000);
+      if (content) {
+        modalBody.innerHTML = `
+          <h2>${content.title}</h2>
+          ${content.content}
+        `;
+        modal.classList.add('show');
       }
     }
-
-    // Clique no tesouro
-    holes.forEach((hole, index) => {
-      hole.addEventListener('click', (e) => {
-        if (index === activeIndex && treasures[index].classList.contains('visible')) {
-          // Efeito visual de acerto
-          treasures[index].classList.add('hit');
-          treasures[index].classList.remove('visible');
-          
-          // Atualiza pontuação com posição do clique
-          const rect = hole.getBoundingClientRect();
-          const clickX = rect.left + rect.width / 2;
-          const clickY = rect.top + rect.height / 2;
-          updateScore(clickX, clickY);
-          
-          // Remove o tesouro atual
-          activeIndex = null;
-          
-          setTimeout(() => {
-            treasures[index].classList.remove('hit');
-          }, 600);
-        } else {
-          // Miss - reseta combo
-          combo = 0;
-          messageEl.textContent = '❌ Errou! Combo perdido!';
-        }
+    
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      modal.classList.remove('show');
+    }
+    
+    // Fechar modal ao clicar fora
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) {
+        closeModal();
+      }
+    });
+    
+    // Animações de entrada
+    window.addEventListener('load', () => {
+      const cards = document.querySelectorAll('.info-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.animation = `slideInUp 0.6s ease forwards`;
+        }, index * 100);
       });
     });
-
-    restartButton.addEventListener('click', startGame);
-
-    // Inicia o jogo automaticamente
-    startGame();
   </script>
 
   <!-- Script da Monetag -->
   <script src='//libtl.com/sdk.js' data-zone='9693195' data-sdk='show_9693195'></script>
+  
+  <style>
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </body>
 </html>
