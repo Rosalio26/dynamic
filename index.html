@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>💰 CashHub - Ganhe Dinheiro Assistindo</title>
+<title>📱 InfoHub - Descubra o Mundo</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
   
   * {
     margin: 0;
@@ -42,33 +42,29 @@
   
   .logo {
     font-size: 24px;
-    font-weight: 800;
-    background: linear-gradient(45deg, #00d4aa, #00b894);
+    font-weight: 700;
+    background: linear-gradient(45deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   
-  .earnings-display {
+  .nav-links {
     display: flex;
-    align-items: center;
-    gap: 20px;
-    background: linear-gradient(45deg, #00d4aa, #00b894);
-    padding: 10px 20px;
-    border-radius: 25px;
-    color: white;
-    font-weight: 600;
+    gap: 30px;
   }
   
-  .balance {
-    font-size: 18px;
+  .nav-link {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
   }
   
-  .level-badge {
-    background: rgba(255,255,255,0.2);
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 14px;
+  .nav-link:hover {
+    color: #667eea;
+    transform: translateY(-2px);
   }
   
   .container {
@@ -80,12 +76,12 @@
   .hero {
     text-align: center;
     color: white;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
   }
   
   .hero h1 {
     font-size: 48px;
-    font-weight: 800;
+    font-weight: 700;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   }
@@ -97,51 +93,35 @@
     margin: 0 auto 40px;
   }
   
-  .earnings-info {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 40px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .earnings-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    text-align: center;
-  }
-  
-  .earning-item {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .earning-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: #00d4aa;
-    text-shadow: 0 0 10px rgba(0, 212, 170, 0.3);
-  }
-  
-  .earning-label {
+  .cta-button {
+    display: inline-block;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
     color: white;
-    font-size: 14px;
-    opacity: 0.8;
-    margin-top: 5px;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    border: none;
+    font-family: 'Poppins', sans-serif;
   }
   
-  .ad-cards-grid {
+  .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+  
+  .info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 30px;
     margin-bottom: 60px;
   }
   
-  .ad-card {
+  .info-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 20px;
@@ -150,207 +130,48 @@
     transition: all 0.3s ease;
     cursor: pointer;
     border: 2px solid transparent;
-    position: relative;
-    overflow: hidden;
   }
   
-  .ad-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, #00d4aa, #00b894, #fdcb6e, #e17055);
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
-  }
-  
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
-  
-  .ad-card:hover {
+  .info-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    border-color: rgba(0, 212, 170, 0.3);
+    border-color: rgba(102, 126, 234, 0.3);
   }
   
-  .ad-card .icon {
+  .info-card .icon {
     font-size: 48px;
     margin-bottom: 20px;
     display: block;
   }
   
-  .ad-card h3 {
+  .info-card h3 {
     font-size: 24px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  .ad-card .duration {
-    background: linear-gradient(45deg, #fdcb6e, #e17055);
-    color: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 12px;
     font-weight: 600;
-    display: inline-block;
+    color: #333;
     margin-bottom: 15px;
   }
   
-  .ad-card .reward {
-    font-size: 32px;
-    font-weight: 800;
-    background: linear-gradient(45deg, #00d4aa, #00b894);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 15px;
-  }
-  
-  .ad-card p {
+  .info-card p {
     color: #666;
     line-height: 1.6;
     margin-bottom: 20px;
-    font-size: 14px;
   }
   
-  .watch-btn {
-    background: linear-gradient(45deg, #00d4aa, #00b894);
+  .learn-more-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
     color: white;
     border: none;
-    padding: 12px 30px;
+    padding: 10px 25px;
     border-radius: 25px;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: 'Poppins', sans-serif;
-    width: 100%;
-    font-size: 16px;
   }
   
-  .watch-btn:hover {
+  .learn-more-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 212, 170, 0.4);
-  }
-  
-  .watch-btn:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-  }
-  
-  .progress-section {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 30px;
-    text-align: center;
-  }
-  
-  .level-progress {
-    margin-bottom: 20px;
-  }
-  
-  .level-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-  }
-  
-  .current-level {
-    font-size: 24px;
-    font-weight: 700;
-    color: #667eea;
-  }
-  
-  .next-level {
-    font-size: 16px;
-    color: #666;
-  }
-  
-  .progress-bar {
-    width: 100%;
-    height: 15px;
-    background: #e0e0e0;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #00d4aa, #00b894);
-    border-radius: 10px;
-    transition: width 0.5s ease;
-  }
-  
-  .bonus-multiplier {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: linear-gradient(45deg, #fdcb6e, #e17055);
-    color: white;
-    padding: 20px 40px;
-    border-radius: 15px;
-    font-size: 24px;
-    font-weight: 700;
-    z-index: 2000;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease;
-  }
-  
-  .bonus-multiplier.show {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-  
-  .ad-timer {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    z-index: 3000;
-    display: none;
-  }
-  
-  .ad-timer.show {
-    display: block;
-  }
-  
-  .timer-circle {
-    width: 100px;
-    height: 100px;
-    border: 5px solid #333;
-    border-top: 5px solid #00d4aa;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 20px;
-    position: relative;
-  }
-  
-  .timer-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px;
-    font-weight: 700;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
   }
   
   .floating-buttons {
@@ -368,33 +189,28 @@
     height: 60px;
     border-radius: 50%;
     border: none;
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(45deg, #00d4aa, #00b894);
-    color: white;
-    font-weight: 600;
-    position: relative;
   }
   
-  .floating-btn .reward-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #e17055;
+  .floating-btn.tips {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
     color: white;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
+  }
+  
+  .floating-btn.news {
+    background: linear-gradient(45deg, #f093fb, #f5576c);
+    color: white;
+  }
+  
+  .floating-btn.help {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    color: white;
   }
   
   .floating-btn:hover {
@@ -402,7 +218,130 @@
     box-shadow: 0 6px 20px rgba(0,0,0,0.3);
   }
   
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal.show {
+    display: flex;
+  }
+  
+  .modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+  }
+  
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+  }
+  
+  .close-btn:hover {
+    color: #333;
+  }
+  
+  .modal h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+  
+  .modal p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .ad-notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    opacity: 0;
+    transform: translateX(300px);
+    transition: all 0.5s ease;
+    z-index: 1500;
+    max-width: 300px;
+  }
+  
+  .ad-notification.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .stats-bar {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  .stat {
+    flex: 1;
+  }
+  
+  .stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .stat-label {
+    color: #666;
+    font-weight: 500;
+    margin-top: 5px;
+  }
+  
   @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+    
     .hero h1 {
       font-size: 32px;
     }
@@ -411,17 +350,19 @@
       font-size: 16px;
     }
     
-    .ad-cards-grid {
+    .info-grid {
       grid-template-columns: 1fr;
     }
     
-    .earnings-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .floating-buttons {
+      right: 20px;
+      bottom: 20px;
     }
     
-    .earnings-display {
-      flex-direction: column;
-      gap: 10px;
+    .floating-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
     }
   }
 </style>
@@ -429,362 +370,413 @@
 <body>
   <nav class="navbar">
     <div class="nav-content">
-      <div class="logo">💰 CashHub</div>
-      <div class="earnings-display">
-        <div class="balance">💵 $<span id="totalBalance">0.00</span></div>
-        <div class="level-badge">Nível <span id="userLevel">1</span></div>
+      <div class="logo">📱 InfoHub</div>
+      <div class="nav-links">
+        <a href="#" class="nav-link" onclick="showModal('tech')">Tecnologia</a>
+        <a href="#" class="nav-link" onclick="showModal('health')">Saúde</a>
+        <a href="#" class="nav-link" onclick="showModal('finance')">Finanças</a>
+        <a href="#" class="nav-link" onclick="showModal('education')">Educação</a>
       </div>
     </div>
   </nav>
 
   <div class="container">
     <div class="hero">
-      <h1>💰 Ganhe Dinheiro Real</h1>
-      <p>Assista anúncios e ganhe dinheiro de verdade! Quanto mais você assiste, mais você ganha. Sistema progressivo com bônus por tempo e frequência!</p>
+      <h1>Descubra o Mundo</h1>
+      <p>Informações valiosas, dicas exclusivas e conhecimentos que transformam vidas. Explore nosso conteúdo e descubra algo novo a cada clique!</p>
+      <button class="cta-button" onclick="showRewardedAd('welcome')">🎁 Conteúdo Premium Grátis</button>
     </div>
 
-    <div class="earnings-info">
-      <div class="earnings-grid">
-        <div class="earning-item">
-          <div class="earning-value">$<span id="dailyEarnings">0.00</span></div>
-          <div class="earning-label">Ganho Hoje</div>
-        </div>
-        <div class="earning-item">
-          <div class="earning-value"><span id="adsWatched">0</span></div>
-          <div class="earning-label">Anúncios Assistidos</div>
-        </div>
-        <div class="earning-item">
-          <div class="earning-value">$<span id="avgPerAd">0.50</span></div>
-          <div class="earning-label">Média por Anúncio</div>
-        </div>
-        <div class="earning-item">
-          <div class="earning-value"><span id="currentStreak">0</span></div>
-          <div class="earning-label">Sequência Atual</div>
-        </div>
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Usuários Ativos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">200+</div>
+        <div class="stat-label">Artigos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Categorias</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">99%</div>
+        <div class="stat-label">Satisfação</div>
       </div>
     </div>
 
-    <div class="progress-section">
-      <div class="level-progress">
-        <div class="level-info">
-          <div class="current-level">Nível <span id="levelDisplay">1</span> - <span id="levelName">Iniciante</span></div>
-          <div class="next-level">Próximo nível em <span id="adsToNext">5</span> anúncios</div>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-        </div>
-      </div>
-      <p>🎯 <strong>Bônus do Nível:</strong> +<span id="levelBonus">0</span>% por anúncio | 🔥 <strong>Multiplicador de Sequência:</strong> x<span id="streakMultiplier">1.0</span></p>
-    </div>
-
-    <div class="ad-cards-grid">
-      <div class="ad-card" data-duration="30" data-base-reward="0.25">
-        <span class="icon">📺</span>
-        <h3>Anúncio Rápido</h3>
-        <div class="duration">⏱️ 30 segundos</div>
-        <div class="reward">$0.25</div>
-        <p>Anúncio curto e direto. Perfeito para ganhos rápidos sem perder muito tempo!</p>
-        <button class="watch-btn" onclick="watchAd(30, 0.25, this)">💰 Assistir Anúncio</button>
+    <div class="info-grid">
+      <div class="info-card" onclick="showRewardedPopup('tech')">
+        <span class="icon">💻</span>
+        <h3>Tecnologia Avançada</h3>
+        <p>Descubra as últimas tendências em IA, blockchain, desenvolvimento mobile e as tecnologias que estão moldando o futuro.</p>
+        <button class="learn-more-btn">Ver Mais</button>
       </div>
 
-      <div class="ad-card" data-duration="60" data-base-reward="0.50">
-        <span class="icon">🎬</span>
-        <h3>Anúncio Padrão</h3>
-        <div class="duration">⏱️ 1 minuto</div>
-        <div class="reward">$0.50</div>
-        <p>O clássico de 1 minuto! Melhor custo-benefício para maximizar seus ganhos.</p>
-        <button class="watch-btn" onclick="watchAd(60, 0.50, this)">💰 Assistir Anúncio</button>
+      <div class="info-card" onclick="showRewardedPopup('health')">
+        <span class="icon">🏥</span>
+        <h3>Saúde & Bem-estar</h3>
+        <p>Dicas de especialistas sobre nutrição, exercícios, saúde mental e como manter um estilo de vida equilibrado.</p>
+        <button class="learn-more-btn">Ver Mais</button>
       </div>
 
-      <div class="ad-card" data-duration="90" data-base-reward="0.85">
-        <span class="icon">🎭</span>
-        <h3>Anúncio Premium</h3>
-        <div class="duration">⏱️ 1.5 minutos</div>
-        <div class="reward">$0.85</div>
-        <p>Anúncio mais longo, mas com recompensa maior! Ideal para maximizar ganhos por sessão.</p>
-        <button class="watch-btn" onclick="watchAd(90, 0.85, this)">💰 Assistir Anúncio</button>
+      <div class="info-card" onclick="showRewardedPopup('money')">
+        <span class="icon">💰</span>
+        <h3>Finanças Pessoais</h3>
+        <p>Aprenda a investir, economizar, gerar renda extra e construir um patrimônio sólido para o seu futuro.</p>
+        <button class="learn-more-btn">Ver Mais</button>
       </div>
 
-      <div class="ad-card" data-duration="120" data-base-reward="1.20">
-        <span class="icon">🏆</span>
-        <h3>Anúncio VIP</h3>
-        <div class="duration">⏱️ 2 minutos</div>
-        <div class="reward">$1.20</div>
-        <p>Para os dedicados! Maior recompensa disponível. Desbloqueado no nível 3!</p>
-        <button class="watch-btn" id="vipBtn" onclick="watchAd(120, 1.20, this)" disabled>🔒 Nível 3 Necessário</button>
+      <div class="info-card" onclick="showRewardedPopup('education')">
+        <span class="icon">📚</span>
+        <h3>Educação Online</h3>
+        <p>Cursos gratuitos, tutoriais práticos e recursos educacionais para desenvolver novas habilidades.</p>
+        <button class="learn-more-btn">Ver Mais</button>
       </div>
 
-      <div class="ad-card" data-duration="45" data-base-reward="0.40">
-        <span class="icon">🎯</span>
-        <h3>Anúncio Interativo</h3>
-        <div class="duration">⏱️ 45 segundos</div>
-        <div class="reward">$0.40</div>
-        <p>Anúncio com interação! Responda perguntas simples e ganhe bônus extras.</p>
-        <button class="watch-btn" onclick="watchAd(45, 0.40, this)">💰 Assistir Anúncio</button>
+      <div class="info-card" onclick="showRewardedPopup('business')">
+        <span class="icon">🚀</span>
+        <h3>Empreendedorismo</h3>
+        <p>Histórias inspiradoras, estratégias de negócios e ferramentas para quem quer começar seu próprio empreendimento.</p>
+        <button class="learn-more-btn">Ver Mais</button>
       </div>
 
-      <div class="ad-card" data-duration="75" data-base-reward="0.65">
-        <span class="icon">🎨</span>
-        <h3>Anúncio Criativo</h3>
-        <div class="duration">⏱️ 1.25 minutos</div>
-        <div class="reward">$0.65</div>
-        <p>Anúncios criativos e envolventes de marcas premium. Entretenimento garantido!</p>
-        <button class="watch-btn" onclick="watchAd(75, 0.65, this)">💰 Assistir Anúncio</button>
+      <div class="info-card" onclick="showRewardedPopup('lifestyle')">
+        <span class="icon">🌟</span>
+        <h3>Estilo de Vida</h3>
+        <p>Produtividade, viagens, hobbies, relacionamentos e tudo que pode melhorar sua qualidade de vida.</p>
+        <button class="learn-more-btn">Ver Mais</button>
       </div>
     </div>
   </div>
 
   <!-- Botões Flutuantes -->
   <div class="floating-buttons">
-    <button class="floating-btn" onclick="showBonusAd()" title="Anúncio Bônus">
-      🎁
-      <span class="reward-badge">2x</span>
-    </button>
-    <button class="floating-btn" onclick="showAutoEarn()" title="Ganho Automático">
-      ⚡
-      <span class="reward-badge">$</span>
-    </button>
+    <button class="floating-btn tips" onclick="showRewardedAd('tips')" title="Dicas Diárias">💡</button>
+    <button class="floating-btn news" onclick="showRewardedPopup('news')" title="Últimas Notícias">📰</button>
+    <button class="floating-btn help" onclick="showModal('help')" title="Ajuda">❓</button>
   </div>
 
-  <!-- Timer de Anúncio -->
-  <div class="ad-timer" id="adTimer">
-    <div class="timer-circle">
-      <div class="timer-text" id="timerText">60</div>
-    </div>
-    <h3>Assistindo Anúncio...</h3>
-    <p>Aguarde até o final para receber sua recompensa!</p>
-    <div style="margin-top: 20px;">
-      <strong>Recompensa:</strong> $<span id="currentAdReward">0.50</span>
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <div id="modal-body">
+        <!-- Conteúdo será inserido dinamicamente -->
+      </div>
     </div>
   </div>
 
-  <!-- Multiplicador de Bônus -->
-  <div class="bonus-multiplier" id="bonusMultiplier">
-    🔥 BÔNUS x2.5! +$1.25
+  <!-- Notificação de Anúncio -->
+  <div class="ad-notification" id="adNotification">
+    <div id="adMessage">📺 Anúncio será exibido em <span id="adCountdown">5</span> segundos...</div>
   </div>
 
   <script>
-    class EarningsManager {
+    // Sistema de gerenciamento de anúncios
+    class AdManager {
       constructor() {
-        this.userData = this.loadUserData();
-        this.initializeUI();
-        this.startAutoEarning();
-      }
-      
-      loadUserData() {
-        const defaultData = {
-          totalBalance: 0,
-          dailyEarnings: 0,
-          adsWatched: 0,
-          currentStreak: 0,
-          level: 1,
-          levelProgress: 0,
+        this.adSession = {
+          adsShown: 0,
+          sessionStart: Date.now(),
           lastAdTime: 0,
-          todayDate: new Date().toDateString()
+          countdownActive: false
         };
         
-        const saved = localStorage.getItem('cashHubData');
-        if (saved) {
-          const data = JSON.parse(saved);
-          // Reset daily earnings if new day
-          if (data.todayDate !== new Date().toDateString()) {
-            data.dailyEarnings = 0;
-            data.todayDate = new Date().toDateString();
+        this.adsConfig = {
+          frequency: 2,
+          capping: 0.1,
+          interval: 30,
+          timeout: 5,
+          everyPage: false
+        };
+        
+        this.initAutoAds();
+      }
+      
+      initAutoAds() {
+        // Primeiro anúncio automático após 5 segundos
+        setTimeout(() => {
+          this.scheduleAutoAd();
+        }, this.adsConfig.timeout * 1000);
+      }
+      
+      scheduleAutoAd() {
+        if (this.shouldShowAutoAd()) {
+          this.showAutoAdWithCountdown();
+        }
+        
+        // Agenda próximo anúncio
+        setTimeout(() => {
+          this.scheduleAutoAd();
+        }, this.adsConfig.interval * 1000);
+      }
+      
+      shouldShowAutoAd() {
+        const now = Date.now();
+        const sessionTime = (now - this.adSession.sessionStart) / 1000 / 60 / 60;
+        const timeSinceLastAd = (now - this.adSession.lastAdTime) / 1000;
+        
+        return this.adSession.adsShown < this.adsConfig.frequency && 
+               sessionTime < this.adsConfig.capping &&
+               timeSinceLastAd >= this.adsConfig.interval &&
+               !this.adSession.countdownActive;
+      }
+      
+      showAutoAdWithCountdown() {
+        if (this.adSession.countdownActive) return;
+        
+        this.adSession.countdownActive = true;
+        const notification = document.getElementById('adNotification');
+        const countdown = document.getElementById('adCountdown');
+        let count = 5;
+        
+        notification.classList.add('show');
+        
+        const countdownInterval = setInterval(() => {
+          count--;
+          countdown.textContent = count;
+          
+          if (count <= 0) {
+            clearInterval(countdownInterval);
+            notification.classList.remove('show');
+            this.showInAppAd();
           }
-          return { ...defaultData, ...data };
+        }, 1000);
+      }
+      
+      showInAppAd() {
+        if (typeof show_9693195 === 'function') {
+          show_9693195({ 
+            type: 'inApp', 
+            inAppSettings: this.adsConfig
+          }).then(() => {
+            console.log('Anúncio in-app exibido com sucesso');
+            this.updateAdSession();
+          }).catch(error => {
+            console.error('Erro no anúncio in-app:', error);
+            this.adSession.countdownActive = false;
+          });
+        } else {
+          console.log('Simulando anúncio in-app...');
+          this.updateAdSession();
         }
-        return defaultData;
       }
       
-      saveUserData() {
-        // Note: In Claude.ai artifacts, localStorage isn't available
-        // This would work in a real browser environment
-        try {
-          localStorage.setItem('cashHubData', JSON.stringify(this.userData));
-        } catch (e) {
-          console.log('Storage not available in this environment');
-        }
+      showRewardedAd(context) {
+        return new Promise((resolve) => {
+          if (typeof show_9693195 === 'function') {
+            show_9693195().then(() => {
+              console.log(`Anúncio recompensado (${context}) exibido`);
+              this.showReward(context);
+              resolve();
+            }).catch(error => {
+              console.error('Erro no anúncio recompensado:', error);
+              resolve();
+            });
+          } else {
+            console.log(`Simulando anúncio recompensado: ${context}`);
+            this.showReward(context);
+            resolve();
+          }
+        });
       }
       
-      initializeUI() {
-        this.updateDisplay();
-        this.updateLevelSystem();
+      showRewardedPopup(context) {
+        return new Promise((resolve) => {
+          if (typeof show_9693195 === 'function') {
+            show_9693195('pop').then(() => {
+              console.log(`Anúncio popup (${context}) exibido`);
+              this.showReward(context);
+              resolve();
+            }).catch(error => {
+              console.error('Erro no anúncio popup:', error);
+              resolve();
+            });
+          } else {
+            console.log(`Simulando anúncio popup: ${context}`);
+            this.showReward(context);
+            resolve();
+          }
+        });
       }
       
-      getLevelInfo(level) {
-        const levels = {
-          1: { name: 'Iniciante', bonus: 0, adsRequired: 5 },
-          2: { name: 'Aprendiz', bonus: 10, adsRequired: 15 },
-          3: { name: 'Experiente', bonus: 25, adsRequired: 30 },
-          4: { name: 'Profissional', bonus: 50, adsRequired: 50 },
-          5: { name: 'Expert', bonus: 75, adsRequired: 75 },
-          6: { name: 'Mestre', bonus: 100, adsRequired: 100 },
-          7: { name: 'Lenda', bonus: 150, adsRequired: 150 }
+      showReward(context) {
+        const rewards = {
+          welcome: '🎁 Bem-vindo! Conteúdo premium desbloqueado!',
+          tips: '💡 Dica exclusiva revelada!',
+          news: '📰 Acesso completo às notícias!',
+          tech: '💻 Tutorial avançado liberado!',
+          health: '🏥 Guia de saúde premium!',
+          money: '💰 Estratégia de investimento revelada!',
+          education: '📚 Curso gratuito desbloqueado!',
+          business: '🚀 E-book de empreendedorismo grátis!',
+          lifestyle: '🌟 Planner de produtividade liberado!'
         };
-        return levels[level] || levels[7];
+        
+        const message = rewards[context] || '✨ Recompensa desbloqueada!';
+        this.showNotification(message);
       }
       
-      calculateReward(baseReward) {
-        const levelInfo = this.getLevelInfo(this.userData.level);
-        const levelMultiplier = 1 + (levelInfo.bonus / 100);
-        const streakMultiplier = Math.min(1 + (this.userData.currentStreak * 0.1), 3.0);
+      showNotification(message) {
+        const notification = document.getElementById('adNotification');
+        const messageEl = document.getElementById('adMessage');
         
-        return baseReward * levelMultiplier * streakMultiplier;
-      }
-      
-      updateDisplay() {
-        document.getElementById('totalBalance').textContent = this.userData.totalBalance.toFixed(2);
-        document.getElementById('dailyEarnings').textContent = this.userData.dailyEarnings.toFixed(2);
-        document.getElementById('adsWatched').textContent = this.userData.adsWatched;
-        document.getElementById('currentStreak').textContent = this.userData.currentStreak;
-        document.getElementById('userLevel').textContent = this.userData.level;
-        
-        // Calculate average per ad
-        const avgPerAd = this.userData.adsWatched > 0 ? 
-          this.userData.totalBalance / this.userData.adsWatched : 0.50;
-        document.getElementById('avgPerAd').textContent = avgPerAd.toFixed(2);
-      }
-      
-      updateLevelSystem() {
-        const levelInfo = this.getLevelInfo(this.userData.level);
-        const nextLevelInfo = this.getLevelInfo(this.userData.level + 1);
-        
-        document.getElementById('levelDisplay').textContent = this.userData.level;
-        document.getElementById('levelName').textContent = levelInfo.name;
-        document.getElementById('levelBonus').textContent = levelInfo.bonus;
-        
-        const adsToNext = nextLevelInfo.adsRequired - this.userData.adsWatched;
-        document.getElementById('adsToNext').textContent = Math.max(0, adsToNext);
-        
-        const progress = (this.userData.adsWatched / nextLevelInfo.adsRequired) * 100;
-        document.getElementById('progressFill').style.width = Math.min(progress, 100) + '%';
-        
-        const streakMultiplier = Math.min(1 + (this.userData.currentStreak * 0.1), 3.0);
-        document.getElementById('streakMultiplier').textContent = streakMultiplier.toFixed(1);
-        
-        // Unlock VIP ads at level 3
-        if (this.userData.level >= 3) {
-          const vipBtn = document.getElementById('vipBtn');
-          vipBtn.disabled = false;
-          vipBtn.textContent = '💰 Assistir Anúncio';
-        }
-      }
-      
-      addEarning(amount, duration) {
-        const finalReward = this.calculateReward(amount);
-        
-        this.userData.totalBalance += finalReward;
-        this.userData.dailyEarnings += finalReward;
-        this.userData.adsWatched++;
-        this.userData.currentStreak++;
-        this.userData.lastAdTime = Date.now();
-        
-        // Check for level up
-        const nextLevelInfo = this.getLevelInfo(this.userData.level + 1);
-        if (this.userData.adsWatched >= nextLevelInfo.adsRequired && this.userData.level < 7) {
-          this.userData.level++;
-          this.showLevelUpBonus();
-        }
-        
-        this.updateDisplay();
-        this.updateLevelSystem();
-        this.saveUserData();
-        
-        // Show bonus multiplier effect
-        this.showBonusEffect(finalReward);
-        
-        return finalReward;
-      }
-      
-      showBonusEffect(amount) {
-        const bonus = document.getElementById('bonusMultiplier');
-        const levelInfo = this.getLevelInfo(this.userData.level);
-        const streakMultiplier = Math.min(1 + (this.userData.currentStreak * 0.1), 3.0);
-        
-        bonus.innerHTML = `🔥 BÔNUS x${streakMultiplier.toFixed(1)}! +$${amount.toFixed(2)}`;
-        bonus.classList.add('show');
+        messageEl.textContent = message;
+        notification.classList.add('show');
         
         setTimeout(() => {
-          bonus.classList.remove('show');
-        }, 2000);
-      }
-      
-      showLevelUpBonus() {
-        const bonus = document.getElementById('bonusMultiplier');
-        bonus.innerHTML = `🎉 NÍVEL ${this.userData.level}! Bônus +$5.00!`;
-        bonus.classList.add('show');
-        
-        this.userData.totalBalance += 5.00;
-        this.userData.dailyEarnings += 5.00;
-        
-        setTimeout(() => {
-          bonus.classList.remove('show');
-          this.updateDisplay();
+          notification.classList.remove('show');
         }, 3000);
       }
       
-      startAutoEarning() {
-        setInterval(() => {
-          // Small passive earning every 30 seconds
-          const passiveAmount = 0.01 * this.userData.level;
-          this.userData.totalBalance += passiveAmount;
-          this.userData.dailyEarnings += passiveAmount;
-          this.updateDisplay();
-        }, 30000);
+      updateAdSession() {
+        this.adSession.adsShown++;
+        this.adSession.lastAdTime = Date.now();
+        this.adSession.countdownActive = false;
       }
     }
     
-    // Initialize earnings manager
-    const earningsManager = new EarningsManager();
+    // Inicializar gerenciador de anúncios
+    const adManager = new AdManager();
     
-    function watchAd(duration, baseReward, buttonElement) {
-      // Disable button temporarily
-      buttonElement.disabled = true;
-      buttonElement.textContent = 'Carregando...';
-      
-      // Show ad timer
-      const adTimer = document.getElementById('adTimer');
-      const timerText = document.getElementById('timerText');
-      const currentAdReward = document.getElementById('currentAdReward');
-      
-      const finalReward = earningsManager.calculateReward(baseReward);
-      currentAdReward.textContent = finalReward.toFixed(2);
-      
-      adTimer.classList.add('show');
-      
-      let timeLeft = duration;
-      timerText.textContent = timeLeft;
-      
-      const countdown = setInterval(() => {
-        timeLeft--;
-        timerText.textContent = timeLeft;
-        
-        if (timeLeft <= 0) {
-          clearInterval(countdown);
-          adTimer.classList.remove('show');
-          
-          // Process the ad view with Monetag
-          processAdView(duration, baseReward, buttonElement);
-        }
-      }, 1000);
+    // Funções para os botões
+    function showRewardedAd(context) {
+      adManager.showRewardedAd(context);
     }
     
-    function processAdView(duration, baseReward, buttonElement) {
-      // Show appropriate Monetag ad based on duration
-      let adPromise;
+    function showRewardedPopup(context) {
+      adManager.showRewardedPopup(context);
+    }
+    
+    // Sistema de Modais
+    const modalContent = {
+      tech: {
+        title: '💻 Tecnologia Avançada',
+        content: `
+          <p>Explore o futuro da tecnologia com nossos artigos sobre:</p>
+          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
+            <li>Inteligência Artificial e Machine Learning</li>
+            <li>Blockchain e Criptomoedas</li>
+            <li>Desenvolvimento Mobile e Web</li>
+            <li>Internet das Coisas (IoT)</li>
+            <li>Realidade Virtual e Aumentada</li>
+          </ul>
+          <p>Mantenha-se atualizado com as tendências que estão transformando o mundo digital!</p>
+        `
+      },
+      health: {
+        title: '🏥 Saúde & Bem-estar',
+        content: `
+          <p>Cuide da sua saúde com informações confiáveis sobre:</p>
+          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
+            <li>Nutrição e Alimentação Saudável</li>
+            <li>Exercícios e Atividade Física</li>
+            <li>Saúde Mental e Mindfulness</li>
+            <li>Prevenção de Doenças</li>
+            <li>Sono e Qualidade de Vida</li>
+          </ul>
+          <p>Transforme seus hábitos e viva com mais qualidade e energia!</p>
+        `
+      },
+      finance: {
+        title: '💰 Finanças Pessoais',
+        content: `
+          <p>Construa sua independência financeira aprendendo sobre:</p>
+          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
+            <li>Investimentos em Ações e Renda Fixa</li>
+            <li>Planejamento Financeiro Pessoal</li>
+            <li>Empreendedorismo Digital</li>
+            <li>Controle de Gastos e Orçamento</li>
+            <li>Educação Financeira</li>
+          </ul>
+          <p>Saia da zona de conforto e construa um futuro próspero!</p>
+        `
+      },
+      education: {
+        title: '📚 Educação Online',
+        content: `
+          <p>Desenvolva novas habilidades com nossos recursos educacionais:</p>
+          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
+            <li>Cursos Gratuitos de Diversas Áreas</li>
+            <li>Tutoriais Práticos e Passo a Passo</li>
+            <li>Certificações Reconhecidas</li>
+            <li>Webinars com Especialistas</li>
+            <li>Materiais Didáticos Exclusivos</li>
+          </ul>
+          <p>Invista em você mesmo e abra novas portas no mercado de trabalho!</p>
+        `
+      },
+      help: {
+        title: '❓ Central de Ajuda',
+        content: `
+          <p>Precisa de ajuda? Estamos aqui para você!</p>
+          <div style="margin: 20px 0;">
+            <h4 style="color: #667eea;">Como usar o InfoHub?</h4>
+            <p style="color: #666;">Clique nos cards para descobrir conteúdos exclusivos. Alguns mostram anúncios que nos ajudam a manter o site gratuito.</p>
+            
+            <h4 style="color: #667eea; margin-top: 20px;">Por que vejo anúncios?</h4>
+            <p style="color: #666;">Os anúncios nos permitem oferecer todo o conteúdo gratuitamente. Em troca, você acessa informações valiosas!</p>
+            
+            <h4 style="color: #667eea; margin-top: 20px;">Contato</h4>
+            <p style="color: #666;">Email: suporte@infohub.com<br>WhatsApp: +258 123 456 789</p>
+          </div>
+        `
+      }
+    };
+    
+    function showModal(type) {
+      const modal = document.getElementById('modal');
+      const modalBody = document.getElementById('modal-body');
+      const content = modalContent[type];
       
-      if (duration <= 30) {
-        // Short ads - use rewarded
-        if (typeof show_9693195 === 'function') {
-          adPromise = show_9693195();
-        } else {
-          adPromise = Promise.resolve();
-        }
-      } else if (duration <= 60) {
-        // Medium ads - use rewarded popup
-        if (typeof show_9693195 === 'function') {
-          adPromise = show_9693195('pop');
-        } else {
-          adPromise = Promise.resolve();
-        }
-      } else {
+      if (content) {
+        modalBody.innerHTML = `
+          <h2>${content.title}</h2>
+          ${content.content}
+        `;
+        modal.classList.add('show');
+      }
+    }
+    
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      modal.classList.remove('show');
+    }
+    
+    // Fechar modal ao clicar fora
+    document.getElementById('modal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) {
+        closeModal();
+      }
+    });
+    
+    // Animações de entrada
+    window.addEventListener('load', () => {
+      const cards = document.querySelectorAll('.info-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.style.animation = `slideInUp 0.6s ease forwards`;
+        }, index * 100);
+      });
+    });
+  </script>
+
+  <!-- Script da Monetag -->
+  <script src='//libtl.com/sdk.js' data-zone='9693195' data-sdk='show_9693195'></script>
+  
+  <style>
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</body>
+</html>
