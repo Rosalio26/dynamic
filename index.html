@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Caça às Moedas</title>
+<title>Acerte a Cabeça do Guaxinim</title>
 <style>
   body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,57 +18,99 @@
   .game-container {
     background-color: #fff;
     border-radius: 20px;
-    padding: 30px 40px;
+    padding: 20px 30px 40px;
     text-align: center;
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    width: 350px;
+    width: 380px;
   }
   h1 {
     margin-bottom: 15px;
-    color: #ff9900;
-    text-shadow: 1px 1px 3px #b36700;
+    color: #4a90e2;
+    text-shadow: 1px 1px 3px #003f7f;
   }
   .score, .timer {
     font-size: 24px;
-    margin: 15px 0;
+    margin: 10px 0;
     color: #333;
   }
-  #coinButton, #restartButton {
-    background-color: #ffcc00;
-    border: none;
-    padding: 20px 40px;
-    font-size: 20px;
-    border-radius: 50px;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .hole {
+    width: 100px;
+    height: 100px;
+    background: #7fb3ff;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 0 6px 10px rgba(0,0,0,0.25);
     cursor: pointer;
-    box-shadow: 0 4px 8px #b38600;
-    transition: background-color 0.3s ease;
+  }
+  .head {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 10px;
+    left: 10px;
+    background: url('https://i.imgur.com/DrG4KyV.png') no-repeat center/contain;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
     user-select: none;
   }
-  #coinButton:hover:not(:disabled), #restartButton:hover {
-    background-color: #ffdb4d;
-  }
-  #coinButton:disabled {
-    background-color: #ccc;
-    cursor: default;
+  .head.visible {
+    opacity: 1;
+    pointer-events: auto;
   }
   #restartButton {
-    margin-top: 20px;
+    margin-top: 25px;
+    padding: 12px 30px;
+    font-size: 18px;
+    background-color: #4a90e2;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px #003f7f;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
     display: none;
+  }
+  #restartButton:hover {
+    background-color: #357ABD;
   }
   .message {
     margin-top: 20px;
     font-size: 20px;
     font-weight: bold;
-    color: #007700;
+    color: #004400;
+    min-height: 28px;
   }
 </style>
 </head>
 <body>
   <div class="game-container">
-    <h1>Caça às Moedas</h1>
-    <div class="score">Moedas coletadas: <span id="score">0</span></div>
+    <h1>Acerte a Cabeça do Guaxinim</h1>
+    <div class="score">Pontos: <span id="score">0</span></div>
     <div class="timer">Tempo restante: <span id="time">30</span> segundos</div>
-    <button id="coinButton">Pegar Moeda 🪙</button>
+
+    <div class="grid" id="grid">
+      <!-- 9 buracos -->
+      <div class="hole" data-index="0"><div class="head"></div></div>
+      <div class="hole" data-index="1"><div class="head"></div></div>
+      <div class="hole" data-index="2"><div class="head"></div></div>
+      <div class="hole" data-index="3"><div class="head"></div></div>
+      <div class="hole" data-index="4"><div class="head"></div></div>
+      <div class="hole" data-index="5"><div class="head"></div></div>
+      <div class="hole" data-index="6"><div class="head"></div></div>
+      <div class="hole" data-index="7"><div class="head"></div></div>
+      <div class="hole" data-index="8"><div class="head"></div></div>
+    </div>
+
     <button id="restartButton">Reiniciar Jogo 🔄</button>
     <div class="message" id="message"></div>
   </div>
@@ -76,17 +118,42 @@
   <script>
     const scoreEl = document.getElementById('score');
     const timeEl = document.getElementById('time');
-    const coinButton = document.getElementById('coinButton');
-    const restartButton = document.getElementById('restartButton');
     const messageEl = document.getElementById('message');
+    const restartButton = document.getElementById('restartButton');
+    const holes = Array.from(document.querySelectorAll('.hole'));
+    const heads = holes.map(hole => hole.querySelector('.head'));
 
     let score = 0;
     let time = 30;
     let timerInterval;
+    let headInterval;
+    let activeIndex = null;
+
+    function randomIndex() {
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * holes.length);
+      } while (idx === activeIndex); // não repetir a mesma cova duas vezes seguidas
+      return idx;
+    }
+
+    function showHead() {
+      // Esconde cabeça atual
+      if (activeIndex !== null) {
+        heads[activeIndex].classList.remove('visible');
+        heads[activeIndex].parentElement.style.cursor = 'pointer';
+      }
+
+      // Escolhe nova cova
+      activeIndex = randomIndex();
+      heads[activeIndex].classList.add('visible');
+      heads[activeIndex].parentElement.style.cursor = 'pointer';
+    }
 
     function updateScore() {
       score++;
       scoreEl.textContent = score;
+      updateMessage();
     }
 
     function updateTime() {
@@ -99,9 +166,13 @@
 
     function endGame() {
       clearInterval(timerInterval);
-      coinButton.disabled = true;
-      messageEl.textContent = `⏰ Tempo esgotado! Você coletou ${score} moedas!`;
+      clearInterval(headInterval);
+      if (activeIndex !== null) {
+        heads[activeIndex].classList.remove('visible');
+      }
+      activeIndex = null;
       restartButton.style.display = 'inline-block';
+      messageEl.textContent = `⏰ Tempo esgotado! Você fez ${score} pontos!`;
     }
 
     function startGame() {
@@ -110,32 +181,44 @@
       scoreEl.textContent = score;
       timeEl.textContent = time;
       messageEl.textContent = '';
-      coinButton.disabled = false;
       restartButton.style.display = 'none';
+
+      // Começa o timer
       timerInterval = setInterval(updateTime, 1000);
+
+      // Aparece uma cabeça a cada segundo
+      showHead();
+      headInterval = setInterval(showHead, 1000);
     }
 
     // Função que mostra o anúncio, retorna uma Promise
     function showAd() {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         if (typeof show_9693195 === 'function') {
           show_9693195().then(resolve).catch(err => {
             console.error('Erro ao mostrar anúncio:', err);
-            resolve(); // resolve mesmo com erro para não travar o jogo
+            resolve();
           });
         } else {
-          console.warn('Função show_9693195 não disponível');
-          resolve(); // resolve para seguir o jogo
+          resolve();
         }
       });
     }
 
-    // Clique no botão: mostra anúncio e depois atualiza pontuação
-    coinButton.addEventListener('click', async () => {
-      coinButton.disabled = true; // evita clicar várias vezes durante o anúncio
-      await showAd();
-      updateScore();
-      coinButton.disabled = false;
+    // Clique na cabeça do guaxinim
+    holes.forEach((hole, index) => {
+      hole.addEventListener('click', async () => {
+        if (index === activeIndex) {
+          // Impede múltiplos cliques rápidos
+          holes[index].style.pointerEvents = 'none';
+          await showAd();
+          updateScore();
+          holes[index].style.pointerEvents = 'auto';
+          // Esconde cabeça imediatamente para forçar o jogador a esperar próximo aparecimento
+          heads[index].classList.remove('visible');
+          activeIndex = null;
+        }
+      });
     });
 
     restartButton.addEventListener('click', startGame);
