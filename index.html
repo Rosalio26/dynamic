@@ -3,116 +3,320 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Acerte a Cabeça do Guaxinim</title>
+<title>🎯 Caça aos Tesouros Mágicos</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@600;700&display=swap');
+  
+  * {
+    box-sizing: border-box;
+  }
+  
   body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24, #f0932b, #eb4d4b, #6c5ce7);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     user-select: none;
+    overflow-x: hidden;
   }
+  
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
   .game-container {
-    background-color: #fff;
-    border-radius: 20px;
-    padding: 20px 30px 40px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 25px 35px 45px;
     text-align: center;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    width: 380px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.2);
+    width: 420px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    overflow: hidden;
   }
+  
+  .game-container::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
+    border-radius: 28px;
+    z-index: -1;
+    animation: rotateBorder 3s linear infinite;
+  }
+  
+  @keyframes rotateBorder {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
   h1 {
-    margin-bottom: 15px;
-    color: #4a90e2;
-    text-shadow: 1px 1px 3px #003f7f;
+    margin-bottom: 20px;
+    color: #2d3436;
+    font-family: 'Fredoka One', cursive;
+    font-size: 28px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  .score, .timer {
-    font-size: 24px;
-    margin: 10px 0;
-    color: #333;
+  
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
   }
+  
+  .stat-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 12px 18px;
+    border-radius: 15px;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    min-width: 120px;
+    transform: scale(1);
+    transition: transform 0.2s ease;
+  }
+  
+  .stat-box:hover {
+    transform: scale(1.05);
+  }
+  
+  .stat-box.score-box {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+  }
+  
+  .stat-box.timer-box {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+  }
+  
   .grid {
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 15px;
+    grid-template-columns: repeat(3, 110px);
+    grid-template-rows: repeat(3, 110px);
+    gap: 20px;
     justify-content: center;
-    margin-top: 20px;
+    margin: 30px 0;
   }
+  
   .hole {
-    width: 100px;
-    height: 100px;
-    background: #7fb3ff;
+    width: 110px;
+    height: 110px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 50%;
     position: relative;
-    box-shadow: inset 0 6px 10px rgba(0,0,0,0.25);
+    box-shadow: inset 0 8px 15px rgba(0,0,0,0.3), 0 4px 15px rgba(102, 126, 234, 0.3);
     cursor: pointer;
+    transition: all 0.3s ease;
+    border: 4px solid rgba(255,255,255,0.2);
   }
-  .head {
+  
+  .hole:hover {
+    transform: scale(1.05);
+    box-shadow: inset 0 8px 15px rgba(0,0,0,0.4), 0 6px 20px rgba(102, 126, 234, 0.5);
+  }
+  
+  .treasure {
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     top: 10px;
     left: 10px;
-    background: url('https://i.imgur.com/DrG4KyV.png') no-repeat center/contain;
+    background: linear-gradient(45deg, #ffd700, #ffed4e);
+    border-radius: 50%;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: scale(0) rotate(0deg);
     user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    border: 3px solid #ff6b6b;
   }
-  .head.visible {
+  
+  .treasure::before {
+    content: '💎';
+    animation: bounce 1s ease-in-out infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  
+  .treasure.visible {
     opacity: 1;
     pointer-events: auto;
+    transform: scale(1) rotate(360deg);
   }
+  
+  .treasure.hit {
+    animation: hitEffect 0.6s ease-out;
+  }
+  
+  @keyframes hitEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3) rotate(180deg); }
+    100% { transform: scale(0) rotate(360deg); opacity: 0; }
+  }
+  
   #restartButton {
     margin-top: 25px;
-    padding: 12px 30px;
-    font-size: 18px;
-    background-color: #4a90e2;
+    padding: 15px 35px;
+    font-size: 20px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
-    border-radius: 30px;
-    box-shadow: 0 4px 8px #003f7f;
+    border-radius: 50px;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     user-select: none;
     display: none;
+    font-family: 'Nunito', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
+  
   #restartButton:hover {
-    background-color: #357ABD;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
   }
+  
+  #restartButton:active {
+    transform: translateY(0);
+  }
+  
   .message {
     margin-top: 20px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #004400;
-    min-height: 28px;
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(45deg, #f093fb, #f5576c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    min-height: 32px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .combo {
+    position: absolute;
+    font-size: 24px;
+    font-weight: 700;
+    color: #ff6b6b;
+    pointer-events: none;
+    animation: comboFloat 1s ease-out forwards;
+    z-index: 100;
+  }
+  
+  @keyframes comboFloat {
+    0% { 
+      transform: translateY(0) scale(0.5);
+      opacity: 1;
+    }
+    100% { 
+      transform: translateY(-50px) scale(1.2);
+      opacity: 0;
+    }
+  }
+  
+  .particles {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #ffd700;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleExplode 1s ease-out forwards;
+  }
+  
+  @keyframes particleExplode {
+    0% { 
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% { 
+      transform: scale(0) translate(var(--dx), var(--dy));
+      opacity: 0;
+    }
+  }
+  
+  .ad-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    opacity: 0;
+    transform: translateX(300px);
+    transition: all 0.5s ease;
+    z-index: 1000;
+  }
+  
+  .ad-notification.show {
+    opacity: 1;
+    transform: translateX(0);
   }
 </style>
 </head>
 <body>
   <div class="game-container">
-    <h1>Acerte a Cabeça do Guaxinim</h1>
-    <div class="score">Pontos: <span id="score">0</span></div>
-    <div class="timer">Tempo restante: <span id="time">30</span> segundos</div>
+    <h1>🎯 Caça aos Tesouros Mágicos</h1>
+    
+    <div class="stats">
+      <div class="stat-box score-box">
+        💎 <span id="score">0</span>
+      </div>
+      <div class="stat-box timer-box">
+        ⏰ <span id="time">30</span>s
+      </div>
+    </div>
 
     <div class="grid" id="grid">
       <!-- 9 buracos -->
-      <div class="hole" data-index="0"><div class="head"></div></div>
-      <div class="hole" data-index="1"><div class="head"></div></div>
-      <div class="hole" data-index="2"><div class="head"></div></div>
-      <div class="hole" data-index="3"><div class="head"></div></div>
-      <div class="hole" data-index="4"><div class="head"></div></div>
-      <div class="hole" data-index="5"><div class="head"></div></div>
-      <div class="hole" data-index="6"><div class="head"></div></div>
-      <div class="hole" data-index="7"><div class="head"></div></div>
-      <div class="hole" data-index="8"><div class="head"></div></div>
+      <div class="hole" data-index="0"><div class="treasure"></div></div>
+      <div class="hole" data-index="1"><div class="treasure"></div></div>
+      <div class="hole" data-index="2"><div class="treasure"></div></div>
+      <div class="hole" data-index="3"><div class="treasure"></div></div>
+      <div class="hole" data-index="4"><div class="treasure"></div></div>
+      <div class="hole" data-index="5"><div class="treasure"></div></div>
+      <div class="hole" data-index="6"><div class="treasure"></div></div>
+      <div class="hole" data-index="7"><div class="treasure"></div></div>
+      <div class="hole" data-index="8"><div class="treasure"></div></div>
     </div>
 
-    <button id="restartButton">Reiniciar Jogo 🔄</button>
+    <button id="restartButton">🔄 Nova Aventura</button>
     <div class="message" id="message"></div>
+  </div>
+
+  <div class="ad-notification" id="adNotification">
+    📺 Anúncio aparecendo em <span id="adCountdown">5</span>...
   </div>
 
   <script>
@@ -120,40 +324,103 @@
     const timeEl = document.getElementById('time');
     const messageEl = document.getElementById('message');
     const restartButton = document.getElementById('restartButton');
+    const adNotification = document.getElementById('adNotification');
+    const adCountdown = document.getElementById('adCountdown');
     const holes = Array.from(document.querySelectorAll('.hole'));
-    const heads = holes.map(hole => hole.querySelector('.head'));
+    const treasures = holes.map(hole => hole.querySelector('.treasure'));
 
     let score = 0;
     let time = 30;
     let timerInterval;
-    let headInterval;
+    let treasureInterval;
     let activeIndex = null;
+    let combo = 0;
+    let gameStarted = false;
+    
+    // Configurações do sistema de anúncios automático
+    let adsConfig = {
+      frequency: 2,        // 2 anúncios por sessão de 6 minutos
+      capping: 0.1,        // 0.1 horas = 6 minutos
+      interval: 30,        // 30 segundos entre anúncios
+      timeout: 5,          // 5 segundos de delay inicial
+      everyPage: false     // manter sessão entre páginas
+    };
+    
+    let adSession = {
+      adsShown: 0,
+      sessionStart: Date.now(),
+      lastAdTime: 0,
+      countdownActive: false
+    };
 
     function randomIndex() {
       let idx;
       do {
         idx = Math.floor(Math.random() * holes.length);
-      } while (idx === activeIndex); // não repetir a mesma cova duas vezes seguidas
+      } while (idx === activeIndex);
       return idx;
     }
 
-    function showHead() {
-      // Esconde cabeça atual
+    function showTreasure() {
+      // Esconde tesouro atual
       if (activeIndex !== null) {
-        heads[activeIndex].classList.remove('visible');
-        heads[activeIndex].parentElement.style.cursor = 'pointer';
+        treasures[activeIndex].classList.remove('visible');
       }
 
-      // Escolhe nova cova
+      // Escolhe nova posição
       activeIndex = randomIndex();
-      heads[activeIndex].classList.add('visible');
-      heads[activeIndex].parentElement.style.cursor = 'pointer';
+      treasures[activeIndex].classList.add('visible');
     }
 
-    function updateScore() {
-      score++;
+    function createParticles(x, y) {
+      for (let i = 0; i < 8; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particles';
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        particle.style.setProperty('--dx', (Math.random() - 0.5) * 100 + 'px');
+        particle.style.setProperty('--dy', (Math.random() - 0.5) * 100 + 'px');
+        document.body.appendChild(particle);
+        
+        setTimeout(() => particle.remove(), 1000);
+      }
+    }
+
+    function showCombo(x, y, points) {
+      const comboEl = document.createElement('div');
+      comboEl.className = 'combo';
+      comboEl.textContent = `+${points}! 🔥`;
+      comboEl.style.left = x + 'px';
+      comboEl.style.top = y + 'px';
+      document.body.appendChild(comboEl);
+      
+      setTimeout(() => comboEl.remove(), 1000);
+    }
+
+    function updateScore(clickX, clickY) {
+      combo++;
+      const points = combo > 3 ? 15 : 10;
+      score += points;
       scoreEl.textContent = score;
+      
+      if (combo > 3) {
+        showCombo(clickX, clickY, points);
+      }
+      
+      createParticles(clickX, clickY);
       updateMessage();
+    }
+
+    function updateMessage() {
+      if (combo > 5) {
+        messageEl.textContent = '🔥 INCRÍVEL! Combo x' + combo;
+      } else if (combo > 3) {
+        messageEl.textContent = '⚡ COMBO x' + combo + '!';
+      } else if (score > 50) {
+        messageEl.textContent = '🌟 Você está dominando!';
+      } else {
+        messageEl.textContent = '💎 Continue coletando tesouros!';
+      }
     }
 
     function updateTime() {
@@ -166,67 +433,172 @@
 
     function endGame() {
       clearInterval(timerInterval);
-      clearInterval(headInterval);
+      clearInterval(treasureInterval);
       if (activeIndex !== null) {
-        heads[activeIndex].classList.remove('visible');
+        treasures[activeIndex].classList.remove('visible');
       }
       activeIndex = null;
+      gameStarted = false;
       restartButton.style.display = 'inline-block';
-      messageEl.textContent = `⏰ Tempo esgotado! Você fez ${score} pontos!`;
+      
+      let finalMessage = '';
+      if (score >= 100) {
+        finalMessage = `🏆 LENDÁRIO! ${score} tesouros coletados!`;
+      } else if (score >= 50) {
+        finalMessage = `🌟 ÉPICO! ${score} tesouros coletados!`;
+      } else {
+        finalMessage = `⏰ Fim de jogo! ${score} tesouros coletados!`;
+      }
+      messageEl.textContent = finalMessage;
     }
 
     function startGame() {
       score = 0;
       time = 30;
+      combo = 0;
+      gameStarted = true;
       scoreEl.textContent = score;
       timeEl.textContent = time;
-      messageEl.textContent = '';
+      messageEl.textContent = '💎 Colete os tesouros que aparecem!';
       restartButton.style.display = 'none';
+
+      // Inicia o sistema de anúncios automáticos
+      initializeAdSystem();
 
       // Começa o timer
       timerInterval = setInterval(updateTime, 1000);
 
-      // Aparece uma cabeça a cada segundo
-      showHead();
-      headInterval = setInterval(showHead, 1000);
+      // Aparece um tesouro a cada 800ms (mais rápido que antes)
+      showTreasure();
+      treasureInterval = setInterval(showTreasure, 800);
     }
 
-    // Função que mostra o anúncio, retorna uma Promise
-    function showAd() {
-      return new Promise((resolve) => {
-        if (typeof show_9693195 === 'function') {
-          show_9693195().then(resolve).catch(err => {
-            console.error('Erro ao mostrar anúncio:', err);
-            resolve();
-          });
-        } else {
-          resolve();
+    // Sistema de anúncios automático
+    function initializeAdSystem() {
+      // Reseta a sessão se necessário
+      const now = Date.now();
+      const sessionTime = (now - adSession.sessionStart) / 1000 / 60 / 60; // em horas
+      
+      if (sessionTime > adsConfig.capping) {
+        adSession = {
+          adsShown: 0,
+          sessionStart: now,
+          lastAdTime: 0,
+          countdownActive: false
+        };
+      }
+      
+      // Agenda o primeiro anúncio após o timeout inicial
+      if (adSession.adsShown < adsConfig.frequency) {
+        scheduleNextAd(adsConfig.timeout * 1000); // timeout em ms
+      }
+    }
+    
+    function scheduleNextAd(delay) {
+      setTimeout(() => {
+        if (gameStarted && shouldShowAd()) {
+          showAdCountdown();
         }
-      });
+      }, delay);
+    }
+    
+    function shouldShowAd() {
+      const now = Date.now();
+      const timeSinceLastAd = (now - adSession.lastAdTime) / 1000; // em segundos
+      
+      return adSession.adsShown < adsConfig.frequency && 
+             timeSinceLastAd >= adsConfig.interval &&
+             !adSession.countdownActive;
+    }
+    
+    function showAdCountdown() {
+      if (adSession.countdownActive) return;
+      
+      adSession.countdownActive = true;
+      let countdown = 5;
+      adCountdown.textContent = countdown;
+      adNotification.classList.add('show');
+      
+      const countdownInterval = setInterval(() => {
+        countdown--;
+        adCountdown.textContent = countdown;
+        
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          adNotification.classList.remove('show');
+          showAutomaticAd();
+        }
+      }, 1000);
+    }
+    
+    function showAutomaticAd() {
+      // Implementa o terceiro código da Monetag: In-App Interstitial
+      if (typeof show_9693195 === 'function') {
+        show_9693195({ 
+          type: 'inApp', 
+          inAppSettings: { 
+            frequency: adsConfig.frequency, 
+            capping: adsConfig.capping, 
+            interval: adsConfig.interval, 
+            timeout: adsConfig.timeout, 
+            everyPage: adsConfig.everyPage 
+          } 
+        }).then(() => {
+          console.log('Anúncio automático exibido com sucesso');
+        }).catch(error => {
+          console.error('Erro ao exibir anúncio automático:', error);
+        });
+      } else {
+        // Fallback se o script não estiver carregado
+        console.log('Script de anúncios não carregado, simulando anúncio...');
+      }
+      
+      // Atualiza a sessão
+      adSession.adsShown++;
+      adSession.lastAdTime = Date.now();
+      adSession.countdownActive = false;
+      
+      // Agenda próximo anúncio se ainda tiver na quota
+      if (adSession.adsShown < adsConfig.frequency) {
+        scheduleNextAd(adsConfig.interval * 1000);
+      }
     }
 
-    // Clique na cabeça do guaxinim
+    // Clique no tesouro
     holes.forEach((hole, index) => {
-      hole.addEventListener('click', async () => {
-        if (index === activeIndex) {
-          // Impede múltiplos cliques rápidos
-          holes[index].style.pointerEvents = 'none';
-          await showAd();
-          updateScore();
-          holes[index].style.pointerEvents = 'auto';
-          // Esconde cabeça imediatamente para forçar o jogador a esperar próximo aparecimento
-          heads[index].classList.remove('visible');
+      hole.addEventListener('click', (e) => {
+        if (index === activeIndex && treasures[index].classList.contains('visible')) {
+          // Efeito visual de acerto
+          treasures[index].classList.add('hit');
+          treasures[index].classList.remove('visible');
+          
+          // Atualiza pontuação com posição do clique
+          const rect = hole.getBoundingClientRect();
+          const clickX = rect.left + rect.width / 2;
+          const clickY = rect.top + rect.height / 2;
+          updateScore(clickX, clickY);
+          
+          // Remove o tesouro atual
           activeIndex = null;
+          
+          setTimeout(() => {
+            treasures[index].classList.remove('hit');
+          }, 600);
+        } else {
+          // Miss - reseta combo
+          combo = 0;
+          messageEl.textContent = '❌ Errou! Combo perdido!';
         }
       });
     });
 
     restartButton.addEventListener('click', startGame);
 
+    // Inicia o jogo automaticamente
     startGame();
   </script>
 
-  <!-- Seu script original de anúncios -->
+  <!-- Script da Monetag -->
   <script src='//libtl.com/sdk.js' data-zone='9693195' data-sdk='show_9693195'></script>
 </body>
 </html>
