@@ -33,7 +33,7 @@
     margin: 15px 0;
     color: #333;
   }
-  #coinButton {
+  #coinButton, #restartButton {
     background-color: #ffcc00;
     border: none;
     padding: 20px 40px;
@@ -42,13 +42,18 @@
     cursor: pointer;
     box-shadow: 0 4px 8px #b38600;
     transition: background-color 0.3s ease;
+    user-select: none;
   }
-  #coinButton:hover:not(:disabled) {
+  #coinButton:hover:not(:disabled), #restartButton:hover {
     background-color: #ffdb4d;
   }
   #coinButton:disabled {
     background-color: #ccc;
     cursor: default;
+  }
+  #restartButton {
+    margin-top: 20px;
+    display: none;
   }
   .message {
     margin-top: 20px;
@@ -64,6 +69,7 @@
     <div class="score">Moedas coletadas: <span id="score">0</span></div>
     <div class="timer">Tempo restante: <span id="time">30</span> segundos</div>
     <button id="coinButton">Pegar Moeda 🪙</button>
+    <button id="restartButton">Reiniciar Jogo 🔄</button>
     <div class="message" id="message"></div>
   </div>
 
@@ -71,6 +77,7 @@
     const scoreEl = document.getElementById('score');
     const timeEl = document.getElementById('time');
     const coinButton = document.getElementById('coinButton');
+    const restartButton = document.getElementById('restartButton');
     const messageEl = document.getElementById('message');
 
     let score = 0;
@@ -94,6 +101,7 @@
       clearInterval(timerInterval);
       coinButton.disabled = true;
       messageEl.textContent = `⏰ Tempo esgotado! Você coletou ${score} moedas!`;
+      restartButton.style.display = 'inline-block';
     }
 
     function startGame() {
@@ -103,12 +111,35 @@
       timeEl.textContent = time;
       messageEl.textContent = '';
       coinButton.disabled = false;
+      restartButton.style.display = 'none';
       timerInterval = setInterval(updateTime, 1000);
     }
 
-    coinButton.addEventListener('click', updateScore);
+    // Função que mostra o anúncio, retorna uma Promise
+    function showAd() {
+      return new Promise((resolve, reject) => {
+        if (typeof show_9693195 === 'function') {
+          show_9693195().then(resolve).catch(err => {
+            console.error('Erro ao mostrar anúncio:', err);
+            resolve(); // resolve mesmo com erro para não travar o jogo
+          });
+        } else {
+          console.warn('Função show_9693195 não disponível');
+          resolve(); // resolve para seguir o jogo
+        }
+      });
+    }
 
-    // Começa o jogo automaticamente
+    // Clique no botão: mostra anúncio e depois atualiza pontuação
+    coinButton.addEventListener('click', async () => {
+      coinButton.disabled = true; // evita clicar várias vezes durante o anúncio
+      await showAd();
+      updateScore();
+      coinButton.disabled = false;
+    });
+
+    restartButton.addEventListener('click', startGame);
+
     startGame();
   </script>
 
