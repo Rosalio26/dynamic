@@ -1,199 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoneTag Auto Ads</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #e3e3ff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .app-container {
-            background-color: #3f3c94;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            width: 350px;
-            color: #fff;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .app-container h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .developer {
-            margin-bottom: 20px;
-            font-size: 14px;
-            color: #ddd;
-        }
-
-        .progress-circle {
-            width: 120px;
-            height: 120px;
-            background-color: #524bb3;
-            border-radius: 50%;
-            margin: 20px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .ad-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 10px 0;
-            background-color: #00aaff;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .ad-button:hover {
-            background-color: #008ecc;
-        }
-
-        .toggle-container {
-            margin-top: 20px;
-            font-size: 16px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .toggle-container label {
-            cursor: pointer;
-        }
-
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 30px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: 0.4s;
-            border-radius: 15px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: 0.4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: #28a745;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(28px);
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Caça às Moedas</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    user-select: none;
+  }
+  .game-container {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 30px 40px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    width: 350px;
+  }
+  h1 {
+    margin-bottom: 15px;
+    color: #ff9900;
+    text-shadow: 1px 1px 3px #b36700;
+  }
+  .score, .timer {
+    font-size: 24px;
+    margin: 15px 0;
+    color: #333;
+  }
+  #coinButton {
+    background-color: #ffcc00;
+    border: none;
+    padding: 20px 40px;
+    font-size: 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px #b38600;
+    transition: background-color 0.3s ease;
+  }
+  #coinButton:hover:not(:disabled) {
+    background-color: #ffdb4d;
+  }
+  #coinButton:disabled {
+    background-color: #ccc;
+    cursor: default;
+  }
+  .message {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #007700;
+  }
+</style>
 </head>
-
 <body>
-    <div class="app-container">
-        <h1>MoneTag Auto Ads</h1>
-        <div class="developer"></div>
-        <div class="progress-circle" id="progress">0%</div>
-        <p>Watched Ads: <span id="watchedAds">0</span></p>
-        <p>Earned Points: <span id="earnedPoints">0</span></p>
-        <button class="ad-button" onclick="showAd()">Watch Ad</button>
-        <div class="toggle-container">
-            <label for="autoAdSwitch">Auto Ads:</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="autoAdSwitch" onchange="toggleAutoAds(this)">
-                <span class="slider"></span>
-            </label>
-        </div>
-    </div>
+  <div class="game-container">
+    <h1>Caça às Moedas</h1>
+    <div class="score">Moedas coletadas: <span id="score">0</span></div>
+    <div class="timer">Tempo restante: <span id="time">30</span> segundos</div>
+    <button id="coinButton">Pegar Moeda 🪙</button>
+    <div class="message" id="message"></div>
+  </div>
 
-    <script src='//libtl.com/sdk.js' data-zone='9693195' data-sdk='show_9693195'></script>
-    <script>
-        let watchedAds = 0;
-        let earnedPoints = 0;
-        let autoAdsInterval = null;
+  <script>
+    const scoreEl = document.getElementById('score');
+    const timeEl = document.getElementById('time');
+    const coinButton = document.getElementById('coinButton');
+    const messageEl = document.getElementById('message');
 
-        // Function to display an ad
-        function showAd() {
-            if (typeof show_8578473 === 'function') {
-                show_8578473().then(() => {
-                    watchedAds++;
-                    earnedPoints += 10; // প্রতিটি অ্যাডে ১০ পয়েন্ট
-                    updateDisplay();
-                }).catch(error => {
-                    console.error('Ad failed to load or display:', error);
-                });
-            } else {
-                console.error('Ad script is not loaded or available.');
-            }
-        }
+    let score = 0;
+    let time = 30;
+    let timerInterval;
 
-        // Update the display with current values
-        function updateDisplay() {
-            document.getElementById('watchedAds').innerText = watchedAds;
-            document.getElementById('earnedPoints').innerText = earnedPoints;
-            document.getElementById('progress').innerText = `${watchedAds * 10}%`;
-        }
+    function updateScore() {
+      score++;
+      scoreEl.textContent = score;
+    }
 
-        // Toggle Auto Ads
-        function toggleAutoAds(toggle) {
-            if (toggle.checked) {
-                startAutoAds();
-            } else {
-                stopAutoAds();
-            }
-        }
+    function updateTime() {
+      time--;
+      timeEl.textContent = time;
+      if (time <= 0) {
+        endGame();
+      }
+    }
 
-        // Start auto ads (15-second interval)
-        function startAutoAds() {
-            if (!autoAdsInterval) {
-                autoAdsInterval = setInterval(showAd, 3000); // ১৫ সেকেন্ড পর পর অ্যাড দেখাবে
-            }
-        }
+    function endGame() {
+      clearInterval(timerInterval);
+      coinButton.disabled = true;
+      messageEl.textContent = `⏰ Tempo esgotado! Você coletou ${score} moedas!`;
+    }
 
-        // Stop auto ads
-        function stopAutoAds() {
-            clearInterval(autoAdsInterval);
-            autoAdsInterval = null;
-        }
-    </script>
+    function startGame() {
+      score = 0;
+      time = 30;
+      scoreEl.textContent = score;
+      timeEl.textContent = time;
+      messageEl.textContent = '';
+      coinButton.disabled = false;
+      timerInterval = setInterval(updateTime, 1000);
+    }
+
+    coinButton.addEventListener('click', updateScore);
+
+    // Começa o jogo automaticamente
+    startGame();
+  </script>
+
+  <!-- Seu script original de anúncios -->
+  <script src='//libtl.com/sdk.js' data-zone='9693195' data-sdk='show_9693195'></script>
 </body>
-
 </html>
