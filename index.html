@@ -3,34 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AcadêmicoHub - Início</title>
+  <title>AcadêmicoHub</title>
   <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-  <header>
-    <h1>AcadêmicoHub</h1>
-    <p>Resumos rápidos e questionários para estudo</p>
-  </header>
+  <main>
+    <!-- Menu lateral -->
+    <aside>
+      <h2>📚 Conteúdos</h2>
+      <button onclick="loadPage('paginas/telecom/less1/resumo.html')">Resumo</button>
+      <button onclick="loadPage('paginas/questionario.html')">Questionário</button>
+      <button onclick="loadPage('paginas/sobre.html')">Sobre</button>
+    </aside>
 
-  <main class="container">
-    <h2>📚 Conteúdos Disponíveis</h2>
-    <div class="cards-grid">
-
-      <!-- Bloco de resumo -->
-      <article class="card">
-        <h3>Sistemas de Comunicação</h3>
-        <p>
-          Um sistema de comunicação é a integração de redes de telecomunicações,
-          estações retransmissoras e equipamentos terminais que permitem interconexão e interoperabilidade.
-        </p>
-        <a href="telecomunicaçao/resumo-d-1.html" class="btn">Ver Resumo</a>
-      </article>
-
+    <!-- Área de conteúdo -->
+    <div id="content">
+      <h1>Bem-vindo ao AcadêmicoHub</h1>
+      <p>Selecione um conteúdo no menu à esquerda para visualizar o resumo ou o questionário.</p>
     </div>
   </main>
 
+  <!-- Footer -->
   <footer>
-    <p>AcadêmicoHub © 2025 - Todos os direitos reservados</p>
+    AcadêmicoHub © 2025 - Todos os direitos reservados
   </footer>
+
+  <script>
+    async function loadPage(page) {
+  try {
+    const response = await fetch(page);
+    if (!response.ok) throw new Error("Erro ao carregar página");
+
+    const html = await response.text();
+
+    const content = document.getElementById("content");
+    content.style.opacity = 0; // animação fade-out
+
+    setTimeout(() => {
+      content.innerHTML = html;
+      content.style.opacity = 1; // fade-in
+    }, 200);
+
+  } catch (error) {
+    document.getElementById("content").innerHTML = "<p>⚠ Erro ao carregar conteúdo.</p>";
+  }
+}
+
+  </script>
 </body>
 </html>
