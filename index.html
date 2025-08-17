@@ -1,10 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vision Green - Dashboard</title>
+    <style>
+        /* Apenas estilo básico para visualizar o conteúdo */
+        .dashboard-container { display: flex; height: 100vh; }
+        .sidebar { width: 200px; background: #2c3e50; color: #fff; padding: 20px; }
+        .nav-links li { margin: 10px 0; }
+        .menu-link { color: #fff; text-decoration: none; display: block; padding: 5px; }
+        .menu-link.active { background: #16a085; }
+        .main-content { flex: 1; padding: 20px; overflow-y: auto; }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">
@@ -12,43 +20,50 @@
             <nav>
                 <ul class="nav-links">
                     <li>
-                        <a href="#" class="menu-link active" data-page="exe.html">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span class="links-content">Painel Dash</span>
-                        </a>
+                        <a href="#" class="menu-link active" data-page="exe.html">Painel Dash</a>
                     </li>
-
-                    <!-- <li>
-                        <a href="#" class="menu-link" data-page="personal_assets/aside_menu/chat.php">
-                            <i class="fas fa-envelope"></i>
-                            <span class="links-content">Chat</span>
-                        </a>
-                    </li> -->
+                    <!-- Exemplo de outro menu -->
+                    <!--
+                    <li>
+                        <a href="#" class="menu-link" data-page="chat.html">Chat</a>
+                    </li>
+                    -->
                 </ul>
             </nav>
         </aside>
 
         <main id="main-content" class="main-content">
-
+            <p>Selecione um item do menu para carregar a página.</p>
         </main>
     </div>
 
     <script>
-        document.querySelectorAll('.menu-link').forEach(link => {
-        link.addEventListener('click', async (e) => {
-            e.preventDefault();
-            const pagina = link.getAttribute('data-page');
-            const main = document.getElementById('main-content');
+        // Seleciona todos os links do menu
+        const links = document.querySelectorAll('.menu-link');
+        const main = document.getElementById('main-content');
 
-            try {
-            const response = await fetch(pagina);
-            const conteudo = await response.text();
-            main.innerHTML = conteudo;
-            } catch (err) {
-            main.innerHTML = '<p>Erro ao carregar conteúdo.</p>';
-            console.error('Erro ao carregar página:', err);
-            }
-        });
+        links.forEach(link => {
+            link.addEventListener('click', async (e) => {
+                e.preventDefault();
+
+                // Remove classe active de todos e adiciona ao clicado
+                links.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                const pagina = link.getAttribute('data-page');
+
+                try {
+                    // Fetch usando caminho relativo
+                    const response = await fetch(pagina);
+                    if (!response.ok) throw new Error(`Erro ${response.status} - ${response.statusText}`);
+                    
+                    const conteudo = await response.text();
+                    main.innerHTML = conteudo;
+                } catch (err) {
+                    main.innerHTML = `<p>Erro ao carregar a página: ${err.message}</p>`;
+                    console.error('Erro ao carregar página:', err);
+                }
+            });
         });
     </script>
 </body>
