@@ -1,54 +1,55 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AcadêmicoHub</title>
-  <link rel="stylesheet" href="style/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Green - Dashboard</title>
 </head>
 <body>
-  <main>
-    <!-- Menu lateral -->
-    <aside>
-      <h2>📚 Conteúdos</h2>
-      <button onclick="loadPage('paginas/telecom/less1/resumo.html')">Resumo</button>
-      <button onclick="loadPage('paginas/questionario.html')">Questionário</button>
-      <button onclick="loadPage('paginas/sobre.html')">Sobre</button>
-    </aside>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <nav>
+                <ul class="nav-links">
+                    <li>
+                        <a href="#" class="menu-link active" data-page="exe.html">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span class="links-content">Painel Dash</span>
+                        </a>
+                    </li>
 
-    <!-- Área de conteúdo -->
-    <div id="content">
-      <h1>Bem-vindo ao AcadêmicoHub</h1>
-      <p>Selecione um conteúdo no menu à esquerda para visualizar o resumo ou o questionário.</p>
+                    <!-- <li>
+                        <a href="#" class="menu-link" data-page="personal_assets/aside_menu/chat.php">
+                            <i class="fas fa-envelope"></i>
+                            <span class="links-content">Chat</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </nav>
+        </aside>
+
+        <main id="main-content" class="main-content">
+
+        </main>
     </div>
-  </main>
 
-  <!-- Footer -->
-  <footer>
-    AcadêmicoHub © 2025 - Todos os direitos reservados
-  </footer>
+    <script>
+        document.querySelectorAll('.menu-link').forEach(link => {
+        link.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const pagina = link.getAttribute('data-page');
+            const main = document.getElementById('main-content');
 
-  <script>
-    async function loadPage(page) {
-  try {
-    const response = await fetch(page);
-    if (!response.ok) throw new Error("Erro ao carregar página");
-
-    const html = await response.text();
-
-    const content = document.getElementById("content");
-    content.style.opacity = 0; // animação fade-out
-
-    setTimeout(() => {
-      content.innerHTML = html;
-      content.style.opacity = 1; // fade-in
-    }, 200);
-
-  } catch (error) {
-    document.getElementById("content").innerHTML = "<p>⚠ Erro ao carregar conteúdo.</p>";
-  }
-}
-
-  </script>
+            try {
+            const response = await fetch(pagina);
+            const conteudo = await response.text();
+            main.innerHTML = conteudo;
+            } catch (err) {
+            main.innerHTML = '<p>Erro ao carregar conteúdo.</p>';
+            console.error('Erro ao carregar página:', err);
+            }
+        });
+        });
+    </script>
 </body>
 </html>
