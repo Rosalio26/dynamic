@@ -1,782 +1,310 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>📱 InfoHub - Descubra o Mundo</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-  
-  .navbar {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 15px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-  }
-  
-  .nav-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: 700;
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 30px;
-  }
-  
-  .nav-link {
-    color: #333;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-  }
-  
-  .nav-link:hover {
-    color: #667eea;
-    transform: translateY(-2px);
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 100px 20px 50px;
-  }
-  
-  .hero {
-    text-align: center;
-    color: white;
-    margin-bottom: 60px;
-  }
-  
-  .hero h1 {
-    font-size: 48px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  }
-  
-  .hero p {
-    font-size: 20px;
-    opacity: 0.9;
-    max-width: 600px;
-    margin: 0 auto 40px;
-  }
-  
-  .cta-button {
-    display: inline-block;
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-    color: white;
-    padding: 15px 40px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    cursor: pointer;
-    border: none;
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  .cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-  }
-  
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-    margin-bottom: 60px;
-  }
-  
-  .info-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: 2px solid transparent;
-  }
-  
-  .info-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    border-color: rgba(102, 126, 234, 0.3);
-  }
-  
-  .info-card .icon {
-    font-size: 48px;
-    margin-bottom: 20px;
-    display: block;
-  }
-  
-  .info-card h3 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 15px;
-  }
-  
-  .info-card p {
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
-  
-  .learn-more-btn {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 25px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: 'Poppins', sans-serif;
-  }
-  
-  .learn-more-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-  }
-  
-  .floating-buttons {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 999;
-  }
-  
-  .floating-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .floating-btn.tips {
-    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-    color: white;
-  }
-  
-  .floating-btn.news {
-    background: linear-gradient(45deg, #f093fb, #f5576c);
-    color: white;
-  }
-  
-  .floating-btn.help {
-    background: linear-gradient(45deg, #4facfe, #00f2fe);
-    color: white;
-  }
-  
-  .floating-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-  }
-  
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.8);
-    z-index: 2000;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal.show {
-    display: flex;
-  }
-  
-  .modal-content {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 600px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-    animation: modalSlideIn 0.3s ease;
-  }
-  
-  @keyframes modalSlideIn {
-    from {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #999;
-    transition: color 0.3s ease;
-  }
-  
-  .close-btn:hover {
-    color: #333;
-  }
-  
-  .modal h2 {
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 28px;
-  }
-  
-  .modal p {
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 15px;
-  }
-  
-  .ad-notification {
-    position: fixed;
-    top: 80px;
-    right: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 15px 25px;
-    border-radius: 15px;
-    font-weight: 600;
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
-    opacity: 0;
-    transform: translateX(300px);
-    transition: all 0.5s ease;
-    z-index: 1500;
-    max-width: 300px;
-  }
-  
-  .ad-notification.show {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  
-  .stats-bar {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 15px;
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 40px;
-    text-align: center;
-  }
-  
-  .stat {
-    flex: 1;
-  }
-  
-  .stat-number {
-    font-size: 32px;
-    font-weight: 700;
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .stat-label {
-    color: #666;
-    font-weight: 500;
-    margin-top: 5px;
-  }
-  
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-    }
-    
-    .hero h1 {
-      font-size: 32px;
-    }
-    
-    .hero p {
-      font-size: 16px;
-    }
-    
-    .info-grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .floating-buttons {
-      right: 20px;
-      bottom: 20px;
-    }
-    
-    .floating-btn {
-      width: 50px;
-      height: 50px;
-      font-size: 20px;
-    }
-  }
-</style>
-</head>
-<body>
-  <nav class="navbar">
-    <div class="nav-content">
-      <div class="logo">📱 InfoHub</div>
-      <div class="nav-links">
-        <a href="#" class="nav-link" onclick="showModal('tech')">Tecnologia</a>
-        <a href="#" class="nav-link" onclick="showModal('health')">Saúde</a>
-        <a href="#" class="nav-link" onclick="showModal('finance')">Finanças</a>
-        <a href="#" class="nav-link" onclick="showModal('education')">Educação</a>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container">
-    <div class="hero">
-      <h1>Descubra o Mundo</h1>
-      <p>Informações valiosas, dicas exclusivas e conhecimentos que transformam vidas. Explore nosso conteúdo e descubra algo novo a cada clique!</p>
-      <button class="cta-button" onclick="showRewardedAd('welcome')">🎁 Conteúdo Premium Grátis</button>
-    </div>
-
-    <div class="stats-bar">
-      <div class="stat">
-        <div class="stat-number">50K+</div>
-        <div class="stat-label">Usuários Ativos</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number">200+</div>
-        <div class="stat-label">Artigos</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number">15+</div>
-        <div class="stat-label">Categorias</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number">99%</div>
-        <div class="stat-label">Satisfação</div>
-      </div>
-    </div>
-
-    <div class="info-grid">
-      <div class="info-card" onclick="showRewardedPopup('tech')">
-        <span class="icon">💻</span>
-        <h3>Tecnologia Avançada</h3>
-        <p>Descubra as últimas tendências em IA, blockchain, desenvolvimento mobile e as tecnologias que estão moldando o futuro.</p>
-        <button class="learn-more-btn">Ver Mais</button>
-      </div>
-
-      <div class="info-card" onclick="showRewardedPopup('health')">
-        <span class="icon">🏥</span>
-        <h3>Saúde & Bem-estar</h3>
-        <p>Dicas de especialistas sobre nutrição, exercícios, saúde mental e como manter um estilo de vida equilibrado.</p>
-        <button class="learn-more-btn">Ver Mais</button>
-      </div>
-
-      <div class="info-card" onclick="showRewardedPopup('money')">
-        <span class="icon">💰</span>
-        <h3>Finanças Pessoais</h3>
-        <p>Aprenda a investir, economizar, gerar renda extra e construir um patrimônio sólido para o seu futuro.</p>
-        <button class="learn-more-btn">Ver Mais</button>
-      </div>
-
-      <div class="info-card" onclick="showRewardedPopup('education')">
-        <span class="icon">📚</span>
-        <h3>Educação Online</h3>
-        <p>Cursos gratuitos, tutoriais práticos e recursos educacionais para desenvolver novas habilidades.</p>
-        <button class="learn-more-btn">Ver Mais</button>
-      </div>
-
-      <div class="info-card" onclick="showRewardedPopup('business')">
-        <span class="icon">🚀</span>
-        <h3>Empreendedorismo</h3>
-        <p>Histórias inspiradoras, estratégias de negócios e ferramentas para quem quer começar seu próprio empreendimento.</p>
-        <button class="learn-more-btn">Ver Mais</button>
-      </div>
-
-      <div class="info-card" onclick="showRewardedPopup('lifestyle')">
-        <span class="icon">🌟</span>
-        <h3>Estilo de Vida</h3>
-        <p>Produtividade, viagens, hobbies, relacionamentos e tudo que pode melhorar sua qualidade de vida.</p>
-        <button class="learn-more-btn">Ver Mais</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Botões Flutuantes -->
-  <div class="floating-buttons">
-    <button class="floating-btn tips" onclick="showRewardedAd('tips')" title="Dicas Diárias">💡</button>
-    <button class="floating-btn news" onclick="showRewardedPopup('news')" title="Últimas Notícias">📰</button>
-    <button class="floating-btn help" onclick="showModal('help')" title="Ajuda">❓</button>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()">&times;</button>
-      <div id="modal-body">
-        <!-- Conteúdo será inserido dinamicamente -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Notificação de Anúncio -->
-  <div class="ad-notification" id="adNotification">
-    <div id="adMessage">📺 Anúncio será exibido em <span id="adCountdown">5</span> segundos...</div>
-  </div>
-
-  <script>
-    // Sistema de gerenciamento de anúncios
-    class AdManager {
-      constructor() {
-        this.adSession = {
-          adsShown: 0,
-          sessionStart: Date.now(),
-          lastAdTime: 0,
-          countdownActive: false
-        };
-        
-        this.adsConfig = {
-          frequency: 2,
-          capping: 0.1,
-          interval: 30,
-          timeout: 5,
-          everyPage: false
-        };
-        
-        this.initAutoAds();
-      }
-      
-      initAutoAds() {
-        // Primeiro anúncio automático após 5 segundos
-        setTimeout(() => {
-          this.scheduleAutoAd();
-        }, this.adsConfig.timeout * 1000);
-      }
-      
-      scheduleAutoAd() {
-        if (this.shouldShowAutoAd()) {
-          this.showAutoAdWithCountdown();
-        }
-        
-        // Agenda próximo anúncio
-        setTimeout(() => {
-          this.scheduleAutoAd();
-        }, this.adsConfig.interval * 1000);
-      }
-      
-      shouldShowAutoAd() {
-        const now = Date.now();
-        const sessionTime = (now - this.adSession.sessionStart) / 1000 / 60 / 60;
-        const timeSinceLastAd = (now - this.adSession.lastAdTime) / 1000;
-        
-        return this.adSession.adsShown < this.adsConfig.frequency && 
-               sessionTime < this.adsConfig.capping &&
-               timeSinceLastAd >= this.adsConfig.interval &&
-               !this.adSession.countdownActive;
-      }
-      
-      showAutoAdWithCountdown() {
-        if (this.adSession.countdownActive) return;
-        
-        this.adSession.countdownActive = true;
-        const notification = document.getElementById('adNotification');
-        const countdown = document.getElementById('adCountdown');
-        let count = 5;
-        
-        notification.classList.add('show');
-        
-        const countdownInterval = setInterval(() => {
-          count--;
-          countdown.textContent = count;
-          
-          if (count <= 0) {
-            clearInterval(countdownInterval);
-            notification.classList.remove('show');
-            this.showInAppAd();
-          }
-        }, 1000);
-      }
-      
-      showInAppAd() {
-        if (typeof show_9693195 === 'function') {
-          show_9693195({ 
-            type: 'inApp', 
-            inAppSettings: this.adsConfig
-          }).then(() => {
-            console.log('Anúncio in-app exibido com sucesso');
-            this.updateAdSession();
-          }).catch(error => {
-            console.error('Erro no anúncio in-app:', error);
-            this.adSession.countdownActive = false;
-          });
-        } else {
-          console.log('Simulando anúncio in-app...');
-          this.updateAdSession();
-        }
-      }
-      
-      showRewardedAd(context) {
-        return new Promise((resolve) => {
-          if (typeof show_9693195 === 'function') {
-            show_9693195().then(() => {
-              console.log(`Anúncio recompensado (${context}) exibido`);
-              this.showReward(context);
-              resolve();
-            }).catch(error => {
-              console.error('Erro no anúncio recompensado:', error);
-              resolve();
-            });
-          } else {
-            console.log(`Simulando anúncio recompensado: ${context}`);
-            this.showReward(context);
-            resolve();
-          }
-        });
-      }
-      
-      showRewardedPopup(context) {
-        return new Promise((resolve) => {
-          if (typeof show_9693195 === 'function') {
-            show_9693195('pop').then(() => {
-              console.log(`Anúncio popup (${context}) exibido`);
-              this.showReward(context);
-              resolve();
-            }).catch(error => {
-              console.error('Erro no anúncio popup:', error);
-              resolve();
-            });
-          } else {
-            console.log(`Simulando anúncio popup: ${context}`);
-            this.showReward(context);
-            resolve();
-          }
-        });
-      }
-      
-      showReward(context) {
-        const rewards = {
-          welcome: '🎁 Bem-vindo! Conteúdo premium desbloqueado!',
-          tips: '💡 Dica exclusiva revelada!',
-          news: '📰 Acesso completo às notícias!',
-          tech: '💻 Tutorial avançado liberado!',
-          health: '🏥 Guia de saúde premium!',
-          money: '💰 Estratégia de investimento revelada!',
-          education: '📚 Curso gratuito desbloqueado!',
-          business: '🚀 E-book de empreendedorismo grátis!',
-          lifestyle: '🌟 Planner de produtividade liberado!'
-        };
-        
-        const message = rewards[context] || '✨ Recompensa desbloqueada!';
-        this.showNotification(message);
-      }
-      
-      showNotification(message) {
-        const notification = document.getElementById('adNotification');
-        const messageEl = document.getElementById('adMessage');
-        
-        messageEl.textContent = message;
-        notification.classList.add('show');
-        
-        setTimeout(() => {
-          notification.classList.remove('show');
-        }, 3000);
-      }
-      
-      updateAdSession() {
-        this.adSession.adsShown++;
-        this.adSession.lastAdTime = Date.now();
-        this.adSession.countdownActive = false;
-      }
-    }
-    
-    // Inicializar gerenciador de anúncios
-    const adManager = new AdManager();
-    
-    // Funções para os botões
-    function showRewardedAd(context) {
-      adManager.showRewardedAd(context);
-    }
-    
-    function showRewardedPopup(context) {
-      adManager.showRewardedPopup(context);
-    }
-    
-    // Sistema de Modais
-    const modalContent = {
-      tech: {
-        title: '💻 Tecnologia Avançada',
-        content: `
-          <p>Explore o futuro da tecnologia com nossos artigos sobre:</p>
-          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
-            <li>Inteligência Artificial e Machine Learning</li>
-            <li>Blockchain e Criptomoedas</li>
-            <li>Desenvolvimento Mobile e Web</li>
-            <li>Internet das Coisas (IoT)</li>
-            <li>Realidade Virtual e Aumentada</li>
-          </ul>
-          <p>Mantenha-se atualizado com as tendências que estão transformando o mundo digital!</p>
-        `
-      },
-      health: {
-        title: '🏥 Saúde & Bem-estar',
-        content: `
-          <p>Cuide da sua saúde com informações confiáveis sobre:</p>
-          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
-            <li>Nutrição e Alimentação Saudável</li>
-            <li>Exercícios e Atividade Física</li>
-            <li>Saúde Mental e Mindfulness</li>
-            <li>Prevenção de Doenças</li>
-            <li>Sono e Qualidade de Vida</li>
-          </ul>
-          <p>Transforme seus hábitos e viva com mais qualidade e energia!</p>
-        `
-      },
-      finance: {
-        title: '💰 Finanças Pessoais',
-        content: `
-          <p>Construa sua independência financeira aprendendo sobre:</p>
-          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
-            <li>Investimentos em Ações e Renda Fixa</li>
-            <li>Planejamento Financeiro Pessoal</li>
-            <li>Empreendedorismo Digital</li>
-            <li>Controle de Gastos e Orçamento</li>
-            <li>Educação Financeira</li>
-          </ul>
-          <p>Saia da zona de conforto e construa um futuro próspero!</p>
-        `
-      },
-      education: {
-        title: '📚 Educação Online',
-        content: `
-          <p>Desenvolva novas habilidades com nossos recursos educacionais:</p>
-          <ul style="margin: 20px 0; padding-left: 20px; color: #666;">
-            <li>Cursos Gratuitos de Diversas Áreas</li>
-            <li>Tutoriais Práticos e Passo a Passo</li>
-            <li>Certificações Reconhecidas</li>
-            <li>Webinars com Especialistas</li>
-            <li>Materiais Didáticos Exclusivos</li>
-          </ul>
-          <p>Invista em você mesmo e abra novas portas no mercado de trabalho!</p>
-        `
-      },
-      help: {
-        title: '❓ Central de Ajuda',
-        content: `
-          <p>Precisa de ajuda? Estamos aqui para você!</p>
-          <div style="margin: 20px 0;">
-            <h4 style="color: #667eea;">Como usar o InfoHub?</h4>
-            <p style="color: #666;">Clique nos cards para descobrir conteúdos exclusivos. Alguns mostram anúncios que nos ajudam a manter o site gratuito.</p>
-            
-            <h4 style="color: #667eea; margin-top: 20px;">Por que vejo anúncios?</h4>
-            <p style="color: #666;">Os anúncios nos permitem oferecer todo o conteúdo gratuitamente. Em troca, você acessa informações valiosas!</p>
-            
-            <h4 style="color: #667eea; margin-top: 20px;">Contato</h4>
-            <p style="color: #666;">Email: suporte@infohub.com<br>WhatsApp: +258 123 456 789</p>
-          </div>
-        `
-      }
-    };
-    
-    function showModal(type) {
-      const modal = document.getElementById('modal');
-      const modalBody = document.getElementById('modal-body');
-      const content = modalContent[type];
-      
-      if (content) {
-        modalBody.innerHTML = `
-          <h2>${content.title}</h2>
-          ${content.content}
-        `;
-        modal.classList.add('show');
-      }
-    }
-    
-    function closeModal() {
-      const modal = document.getElementById('modal');
-      modal.classList.remove('show');
-    }
-    
-    // Fechar modal ao clicar fora
-    document.getElementById('modal').addEventListener('click', (e) => {
-      if (e.target === e.currentTarget) {
-        closeModal();
-      }
-    });
-    
-    // Animações de entrada
-    window.addEventListener('load', () => {
-      const cards = document.querySelectorAll('.info-card');
-      cards.forEach((card, index) => {
-        setTimeout(() => {
-          card.style.animation = `slideInUp 0.6s ease forwards`;
-        }, index * 100);
-      });
-    });
-  </script>
-
-  <!-- Script da Monetag -->
-  <script src='//libtl.com/sdk.js' data-zone='9693195' data-sdk='show_9693195'></script>
-  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AcadêmicoHub - Organize e compartilhe resumos de aulas de forma moderna, interativa e colaborativa.">
+  <title>AcadêmicoHub - Resumos de Aulas</title>
   <style>
-    @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    :root {
+      --azul-claro: #3498db;
+      --azul-escuro: #1a365d;
+      --azul-medio: #2c5aa0;
+      --branco: #ffffff;
+      --cinza-claro: #f8f9fa;
+      --erro: #e74c3c;
+      --sucesso: #2ecc71;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, Arial, sans-serif;
+      background: linear-gradient(135deg, var(--azul-escuro), var(--azul-medio));
+      color: var(--branco);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animação de partículas */
+    .background-animation {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      animation: float 6s infinite ease-in-out;
+    }
+    @keyframes float {
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-20px) rotate(180deg)}
+    }
+
+    /* Header */
+    .header {
+      background: rgba(26,54,93,0.95);
+      backdrop-filter: blur(10px);
+      position: sticky; top: 0; z-index: 1000;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .nav-container {
+      max-width: 1200px; margin: auto;
+      padding: 0 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo {
+      font-size: 1.6rem; font-weight: bold;
+    }
+    .nav-menu {
+      list-style: none;
+      display: flex; gap: 1.5rem;
+    }
+    .nav-item a {
+      color: var(--branco);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    .nav-item a:hover,
+    .nav-item a:focus {
+      background: rgba(52,152,219,0.2);
+      outline: none;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center; padding: 4rem 1rem;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(45deg,var(--branco),var(--azul-claro));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .cta-button {
+      background: linear-gradient(45deg, var(--azul-claro), var(--azul-medio));
+      border: none; color: var(--branco);
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .cta-button:hover { transform: scale(1.05); }
+
+    /* Cards */
+    .cards-grid {
+      max-width: 1200px; margin: auto; padding: 2rem;
+      display: grid; gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    }
+    .card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--azul-claro);
+    }
+    .card h3 { color: var(--azul-claro); margin-bottom: .5rem; }
+    .card-meta { font-size: 0.85rem; opacity: 0.8; margin-bottom: .5rem; }
+    .tag {
+      background: rgba(52,152,219,0.3);
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    /* Form */
+    .form-section {
+      max-width: 900px; margin: 3rem auto; padding: 2rem;
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+    }
+    .form-section h2 { color: var(--azul-claro); text-align: center; }
+    .form-group {
+      display: flex; flex-direction: column; margin-bottom: 1rem;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      padding: .8rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      color: var(--branco);
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--azul-claro);
+      outline: none;
+    }
+    .submit-btn {
+      display: block; margin: auto;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(45deg,var(--azul-claro),var(--azul-medio));
+      border: none; border-radius: 12px;
+      color: var(--branco); font-size: 1rem;
+      cursor: pointer;
+    }
+    .submit-btn:disabled { background: gray; cursor: not-allowed; }
+
+    /* Botão voltar ao topo */
+    .back-to-top {
+      position: fixed; bottom: 20px; right: 20px;
+      background: var(--azul-claro);
+      border: none; border-radius: 50%;
+      width: 45px; height: 45px;
+      color: var(--branco); font-size: 1.2rem;
+      cursor: pointer; display: none;
+    }
+    .back-to-top.show { display: block; }
+
+    /* Responsividade */
+    @media(max-width:768px){
+      .nav-menu{flex-direction:column;position:fixed;top:70px;left:-100%;background:rgba(26,54,93,0.98);padding:2rem;width:100%;transition:.3s;}
+      .nav-menu.active{left:0;}
+      .hero h1{font-size:2rem;}
     }
   </style>
+</head>
+<body>
+  <div class="background-animation" id="bgAnimation"></div>
+
+  <header class="header">
+    <div class="nav-container">
+      <div class="logo">📚 AcadêmicoHub</div>
+      <nav>
+        <ul class="nav-menu" id="navMenu" role="menubar">
+          <li class="nav-item"><a href="#home">Início</a></li>
+          <li class="nav-item"><a href="#resumos">Resumos</a></li>
+          <li class="nav-item"><a href="#novo">Novo Resumo</a></li>
+          <li class="nav-item"><a href="#sobre">Sobre</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <h1>Resumos Interativos</h1>
+      <p>Organize e compartilhe seus resumos de forma moderna e eficiente</p>
+      <button class="cta-button" onclick="scrollToSection('novo')">Criar Novo Resumo</button>
+    </section>
+
+    <!-- Resumos -->
+    <section id="resumos">
+      <h2 style="text-align:center;color:var(--azul-claro)">📖 Resumos Recentes</h2>
+      <div class="cards-grid" id="cardsGrid"></div>
+    </section>
+
+    <!-- Form -->
+    <section class="form-section" id="novo">
+      <h2>🚀 Criar Novo Resumo</h2>
+      <form id="resumoForm">
+        <div class="form-group">
+          <label for="titulo">Título</label>
+          <input id="titulo" name="titulo" required>
+        </div>
+        <div class="form-group">
+          <label for="autor">Autor</label>
+          <input id="autor" name="autor" required>
+        </div>
+        <div class="form-group">
+          <label for="disciplina">Disciplina</label>
+          <select id="disciplina" name="disciplina" required>
+            <option value="">Selecione</option>
+            <option>Matemática</option>
+            <option>Programação</option>
+            <option>Química</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="tags">Tags</label>
+          <input id="tags" name="tags" placeholder="ex: web, js">
+        </div>
+        <div class="form-group">
+          <label for="resumo">Resumo</label>
+          <textarea id="resumo" name="resumo" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">📝 Publicar</button>
+      </form>
+    </section>
+  </main>
+
+  <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">⬆</button>
+
+  <script>
+    // Criar partículas
+    function createParticles() {
+      const bg = document.getElementById('bgAnimation');
+      bg.innerHTML = '';
+      for (let i = 0; i < 40; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 4 + 2;
+        p.style.width = p.style.height = size + 'px';
+        p.style.top = Math.random() * innerHeight + 'px';
+        p.style.left = Math.random() * innerWidth + 'px';
+        bg.appendChild(p);
+      }
+    }
+    window.addEventListener('resize', createParticles);
+    createParticles();
+
+    // Scroll suave
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({behavior:'smooth'});
+    }
+
+    // Form
+    document.getElementById('resumoForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const resumo = {
+        titulo: data.get('titulo'),
+        autor: data.get('autor'),
+        disciplina: data.get('disciplina'),
+        tags: data.get('tags').split(',').map(t=>t.trim()).filter(Boolean),
+        resumo: data.get('resumo'),
+        data: new Date().toLocaleDateString('pt-BR')
+      };
+      addCard(resumo);
+      e.target.reset();
+      scrollToSection('resumos');
+    });
+
+    function addCard({titulo,autor,disciplina,tags,resumo,data}) {
+      const grid = document.getElementById('cardsGrid');
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>${titulo}</h3>
+        <div class="card-meta">📅 ${data} | 👤 ${autor}</div>
+        <p>${resumo.substring(0,150)}${resumo.length>150?'...':''}</p>
+        <div>${tags.map(t=>`<span class="tag">${t}</span>`).join(' ')}</div>`;
+      grid.prepend(card);
+    }
+
+    // Botão voltar ao topo
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll',()=>{
+      backToTop.classList.toggle('show',window.scrollY>300);
+    });
+    backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  </script>
 </body>
 </html>
