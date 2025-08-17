@@ -1,114 +1,82 @@
-/* Importa fonte Google Fonts - Roboto */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+:root {
+  --azul-escuro: #1e3a5f;
+  --azul-claro: #3b82f6;
+  --cinza-claro: #f5f7fa;
+  --cinza-medio: #d1d5db;
+  --branco: #fff;
+}
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f9fafb; /* cor de fundo leve */
-  color: #1f2937; /* cinza escuro padrão */
-  line-height: 1.6;
-  scroll-behavior: smooth;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--cinza-claro);
+  color: var(--azul-escuro);
 }
 
-/* Cabeçalho fixo e sombra suave */
 header {
-  position: sticky;
-  top: 0;
-  background: #ffffff;
-  z-index: 1000;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.05);
-  transition: background-color 0.3s ease;
+  background: var(--azul-escuro);
+  color: var(--branco);
+  padding: 1rem;
+  text-align: center;
 }
 
-/* Links do menu */
-nav a {
-  color: #4f46e5; /* índigo */
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-nav a:hover,
-nav a:focus {
-  color: #4338ca; /* tom mais escuro */
-  text-decoration: underline;
+h1, h2 {
+  margin: 0.5rem 0;
 }
 
-/* Botões padrão */
-button,
-a.button {
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  font-weight: 600;
-  border-radius: 0.375rem; /* 6px */
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 2rem 0;
 }
 
-/* Botão principal */
-button, a.button-primary {
-  background-color: #4f46e5; /* índigo */
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-}
-button:hover, a.button-primary:hover {
-  background-color: #4338ca;
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
-/* Formulários */
-input[type="email"],
-input[type="text"],
-textarea {
-  border: 1px solid #d1d5db; /* cinza claro */
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  width: 100%;
-  transition: border-color 0.3s ease;
-}
-input[type="email"]:focus,
-input[type="text"]:focus,
-textarea:focus {
-  border-color: #4f46e5;
-  outline: none;
-  box-shadow: 0 0 0 3px rgb(79 70 229 / 0.3);
+.card {
+  background: var(--branco);
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
 }
 
-/* Cartões (articles e seções) */
-article,
-section > div.bg-white {
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
-  transition: box-shadow 0.3s ease;
-}
-article:hover,
-section > div.bg-white:hover {
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.15);
+.card:hover {
+  transform: scale(1.03);
 }
 
-/* Tags pequenas */
-span.text-xs {
-  background-color: #e0e7ff; /* azul claro */
-  color: #4338ca;
-  font-weight: 600;
-  padding: 0.15rem 0.5rem;
-  border-radius: 9999px;
-  user-select: none;
+.card h3 {
+  margin-top: 0;
+  color: var(--azul-claro);
 }
 
-/* Footer */
+.card p {
+  color: #444;
+}
+
+a.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--azul-claro);
+  color: var(--branco);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+a.btn:hover {
+  background: #2563eb;
+}
+
 footer {
-  font-size: 0.875rem;
-  color: #6b7280; /* cinza médio */
-}
-
-/* Responsividade adicional */
-@media (max-width: 640px) {
-  header nav {
-    display: none;
-  }
-  header button.md\\:hidden {
-    display: inline-block;
-  }
-}
-
-/* Smooth scroll behavior para links internos */
-html {
-  scroll-behavior: smooth;
+  text-align: center;
+  background: var(--azul-escuro);
+  color: var(--branco);
+  padding: 1rem;
+  margin-top: 2rem;
 }
