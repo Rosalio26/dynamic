@@ -305,7 +305,102 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-hei
 <body>
 
 <!-- ═══ ONBOARDING ═══ -->
-<div id="screen-onboard" class="screen active">
+<div id="screen-apresentacao" class="screen active">
+  <div style="min-height:100vh;display:flex;flex-direction:column;background:linear-gradient(160deg,#1A0400 0%,#2D0A00 40%,#1A0800 100%);position:relative;overflow:hidden">
+    <!-- Orbs de fundo -->
+    <div style="position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(192,57,43,.15),transparent 70%);pointer-events:none"></div>
+    <div style="position:absolute;bottom:-60px;left:-60px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(211,84,0,.1),transparent 70%);pointer-events:none"></div>
+
+    <!-- Header -->
+    <div style="padding:32px 24px 0;display:flex;align-items:center;justify-content:space-between">
+      <div style="font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--red)">X<span style="color:rgba(255,255,255,.9)">itique</span></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3);font-weight:500;text-transform:uppercase;letter-spacing:.1em">Group Layout · 2025</div>
+    </div>
+
+    <!-- Corpo principal -->
+    <div style="flex:1;padding:32px 24px 24px;display:flex;flex-direction:column;justify-content:center">
+
+      <!-- Badge -->
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.25);border-radius:20px;padding:6px 14px;width:fit-content;margin-bottom:24px">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 2s ease-in-out infinite"></div>
+        <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.06em;text-transform:uppercase">Proposta de Novo Sistema</span>
+      </div>
+
+      <!-- Título -->
+      <div style="font-family:var(--font-display);font-weight:800;font-size:34px;line-height:1.05;letter-spacing:-1.5px;color:#fff;margin-bottom:20px">
+        A <span style="color:var(--red)">Group Layout</span> está a construir o Xitique Digital
+      </div>
+
+      <!-- Mensagem -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;margin-bottom:24px">
+        <div style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.8">
+          <p style="margin-bottom:12px">Olá! A <strong style="color:#fff">Group Layout</strong> pretende criar um novo sistema de xitique digital — uma plataforma que digitaliza e protege a prática tradicional de poupança colectiva moçambicana.</p>
+          <p style="margin-bottom:12px">O sistema inclui carteiras digitais individuais, pagamentos automáticos via M-Pesa, grupos com ciclos protegidos, sistema de garantias, levantamentos controlados e score de reputação.</p>
+          <p>Antes de avançarmos com o desenvolvimento completo, <strong style="color:var(--red)">precisamos da tua opinião.</strong> O teu voto é importante para nos ajudar a decidir se devemos continuar.</p>
+        </div>
+      </div>
+
+      <!-- Preview do sistema -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px">
+        <div style="background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.2);border-radius:12px;padding:12px">
+          <div style="font-size:20px;margin-bottom:4px">💰</div>
+          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:2px">Carteira digital</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5)">Carrega via M-Pesa</div>
+        </div>
+        <div style="background:rgba(211,84,0,.1);border:1px solid rgba(211,84,0,.2);border-radius:12px;padding:12px">
+          <div style="font-size:20px;margin-bottom:4px">🔄</div>
+          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:2px">Auto-pagamento</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5)">Nunca falhas um mês</div>
+        </div>
+        <div style="background:rgba(232,89,12,.1);border:1px solid rgba(232,89,12,.2);border-radius:12px;padding:12px">
+          <div style="font-size:20px;margin-bottom:4px">🛡️</div>
+          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:2px">Garantias</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5)">Grupo sempre protegido</div>
+        </div>
+        <div style="background:rgba(160,40,20,.1);border:1px solid rgba(160,40,20,.2);border-radius:12px;padding:12px">
+          <div style="font-size:20px;margin-bottom:4px">⭐</div>
+          <div style="font-size:12px;font-weight:600;color:#fff;margin-bottom:2px">Reputação</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5)">Score de confiança</div>
+        </div>
+      </div>
+
+      <!-- Botão de voto -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px;margin-bottom:16px">
+        <div style="text-align:center;margin-bottom:16px">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:17px;color:#fff;margin-bottom:6px">O que achas deste sistema?</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5)">Clica para votar via WhatsApp. Receberemos a tua resposta directamente.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <!-- Botão SIM -->
+          <button onclick="votarWhatsapp('sim')" style="padding:16px 12px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;font-family:var(--font-display);font-weight:700;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .15s;box-shadow:0 4px 20px rgba(37,211,102,.25)">
+            <span style="font-size:22px">👍</span>
+            <span>SIM, continua!</span>
+            <span style="font-size:10px;font-weight:400;opacity:.8">Enviar via WhatsApp</span>
+          </button>
+          <!-- Botão NÃO -->
+          <button onclick="votarWhatsapp('nao')" style="padding:16px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.1);cursor:pointer;background:rgba(255,255,255,.05);color:rgba(255,255,255,.8);font-family:var(--font-display);font-weight:700;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all .15s">
+            <span style="font-size:22px">👎</span>
+            <span>NÃO, obrigado</span>
+            <span style="font-size:10px;font-weight:400;opacity:.5">Enviar via WhatsApp</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Ver demo -->
+      <button onclick="goTo('screen-onboard')" style="width:100%;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.6);font-family:var(--font-display);font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Ver demo do sistema primeiro
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <div style="padding:16px 24px 32px;text-align:center">
+      <div style="font-size:11px;color:rgba(255,255,255,.2)">Group Layout · Maputo, Moçambique · 2025</div>
+    </div>
+  </div>
+</div>
+
+<div id="screen-onboard" class="screen">
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 32px 20px;text-align:center">
     <div class="hero-orb"><div class="hero-symbol">X</div></div>
     <div style="font-family:var(--font-display);font-size:52px;letter-spacing:1px;color:#fff;line-height:1;margin-bottom:14px">XITIQUE<br><span style="color:var(--amber)">GLOBAL</span></div>
@@ -1124,6 +1219,38 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-hei
 
 <script>
 function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
+
+function votarWhatsapp(voto) {
+  const numero = '258851610364'; // Substitui pelo teu número real
+  const nome = 'Utilizador';
+  const data = new Date().toLocaleDateString('pt-MZ', {day:'2-digit',month:'long',year:'numeric'});
+  const hora = new Date().toLocaleTimeString('pt-MZ', {hour:'2-digit',minute:'2-digit'});
+
+  let mensagem = '';
+  if (voto === 'sim') {
+    mensagem =
+      '✅ *VOTO: SIM — Continua o desenvolvimento!*\n\n' +
+      '👋 Olá Group Layout,\n\n' +
+      'Após ver a proposta do sistema Xitique Digital, *voto SIM* — acredito que este sistema tem potencial e apoio o desenvolvimento!\n\n' +
+      '🔥 *O que me convenceu:*\n' +
+      '• Carteira digital integrada com M-Pesa\n' +
+      '• Pagamentos automáticos sem precisar abrir a app\n' +
+      '• Sistema de garantias que protege o grupo\n' +
+      '• Score de reputação para membros de confiança\n\n' +
+      '📅 Votado em: ' + data + ' às ' + hora + '\n\n' +
+      '_Enviado via Xitique Demo — Group Layout_';
+  } else {
+    mensagem =
+      '❌ *VOTO: NÃO — Agradeço mas não apoio*\n\n' +
+      '👋 Olá Group Layout,\n\n' +
+      'Após ver a proposta do sistema Xitique Digital, *voto NÃO* — por agora não apoio o desenvolvimento deste sistema.\n\n' +
+      '📅 Votado em: ' + data + ' às ' + hora + '\n\n' +
+      '_Enviado via Xitique Demo — Group Layout_';
+  }
+
+  const url = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(mensagem);
+  window.open(url, '_blank');
+}
 function openSheet(id){document.getElementById(id).classList.add('open')}
 function closeSheet(id){document.getElementById(id).classList.remove('open')}
 
