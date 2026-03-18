@@ -41,12 +41,315 @@
   --font-d: 'Syne', sans-serif;
   --font-b: 'DM Sans', sans-serif;
   --r: 16px; --r-sm: 10px; --r-xs: 6px;
+
+  /* Desktop sidebar width */
+  --sidebar-w: 260px;
+  --sidebar-collapsed: 72px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-height:100vh;overflow-x:hidden;font-size:16px}
 .screen{display:none;min-height:100vh;flex-direction:column;animation:fadeIn .25s ease}
 .screen.active{display:flex}
 @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════════ */
+/* DESKTOP LAYOUT WRAPPER */
+/* ══════════════════════════════════════════ */
+@media (min-width: 768px) {
+  body {
+    background: var(--bg2);
+  }
+
+  /* Screens that have bottom-nav become desktop layout */
+  .screen.has-sidebar {
+    flex-direction: row;
+    min-height: 100vh;
+    max-width: 100%;
+  }
+
+  /* Sidebar navigation */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    padding: 0;
+    flex-shrink: 0;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.04);
+  }
+
+  .sidebar-logo {
+    padding: 22px 24px 20px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-d);
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--red);
+    letter-spacing: -.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sidebar-logo span { color: var(--text); }
+  .sidebar-logo-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--red), var(--or));
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: #fff;
+    font-size: 18px;
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+  }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: var(--font-b);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text2);
+    transition: all .15s;
+    text-align: left;
+    width: 100%;
+  }
+  .sidebar-item svg { width: 20px; height: 20px; stroke: var(--text3); flex-shrink: 0; transition: stroke .15s; }
+  .sidebar-item:hover { background: var(--bg2); color: var(--text); }
+  .sidebar-item:hover svg { stroke: var(--text2); }
+  .sidebar-item.active { background: var(--red-light); color: var(--red); font-weight: 600; }
+  .sidebar-item.active svg { stroke: var(--red); }
+
+  .sidebar-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text4);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    padding: 12px 14px 6px;
+  }
+
+  .sidebar-footer {
+    padding: 16px 12px;
+    border-top: 1px solid var(--border);
+  }
+  .sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .sidebar-user:hover { background: var(--bg2); }
+  .sidebar-user-av {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), var(--or));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-d); font-weight: 700; font-size: 12px;
+    color: #fff; flex-shrink: 0;
+  }
+  .sidebar-user-info { flex: 1; min-width: 0; }
+  .sidebar-user-name { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sidebar-user-sub { font-size: 11px; color: var(--text3); }
+
+  /* Main content area shifts right */
+  .desktop-main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Top bar on desktop */
+  .desktop-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 28px;
+    background: rgba(255,255,255,.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    min-height: 60px;
+  }
+  .desktop-topbar-title {
+    font-family: var(--font-d);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -.3px;
+  }
+  .desktop-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Content area */
+  .desktop-content {
+    flex: 1;
+    padding: 28px;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  /* Desktop grid layouts */
+  .desktop-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .desktop-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .desktop-grid-home {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  /* Hide mobile-only elements on desktop */
+  .bottom-nav { display: none !important; }
+  .nav { display: none; }
+
+  /* Content gets padding-bottom reset */
+  .content { padding-bottom: 0 !important; }
+
+  /* Desktop card enhancements */
+  .card { transition: box-shadow .15s; }
+  .card:hover { box-shadow: var(--shadow2); }
+
+  /* Desktop wallet hero wider */
+  .wallet-hero { border-radius: 20px; }
+
+  /* Quick grid 4 cols stays, but bigger on desktop */
+  .quick-grid { grid-template-columns: repeat(4, 1fr); }
+  .quick-icon { width: 58px; height: 58px; }
+
+  /* Desktop stat grid */
+  .stat-grid { grid-template-columns: repeat(3, 1fr); }
+
+  /* Group cards in a grid */
+  .groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+
+  /* Screen-specific desktop overrides */
+  #screen-home .content,
+  #screen-wallet .content,
+  #screen-groups .content,
+  #screen-history .content,
+  #screen-profile .content,
+  #screen-group-detail .content {
+    overflow-y: visible;
+  }
+
+  /* Notif dot in topbar */
+  .topbar-notif-btn {
+    position: relative;
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .topbar-notif-btn svg { width: 18px; height: 18px; stroke: var(--text2); }
+  .topbar-notif-dot {
+    position: absolute;
+    top: 6px; right: 6px;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--red);
+    border: 2px solid var(--bg);
+  }
+
+  /* Desktop forms wider */
+  .input, .select { font-size: 14px; padding: 12px 14px; }
+
+  /* Back button visible on desktop for sub-screens */
+  .desktop-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text2);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-b);
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding: 0;
+    transition: color .15s;
+  }
+  .desktop-back:hover { color: var(--red); }
+  .desktop-back svg { width: 18px; height: 18px; }
+
+  /* Sub-screen max width */
+  .desktop-sub-content {
+    max-width: 560px;
+  }
+
+  /* Sidebar badge */
+  .sidebar-badge {
+    margin-left: auto;
+    background: var(--red);
+    color: #fff;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    font-family: var(--font-d);
+  }
+}
+
+/* Tablet (768–1023px): slightly narrower sidebar */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root { --sidebar-w: 220px; }
+  .desktop-content { padding: 20px; }
+  .desktop-grid-home { grid-template-columns: 1fr; }
+  .groups-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Large desktop (1280px+) */
+@media (min-width: 1280px) {
+  .desktop-content { padding: 32px 40px; }
+  :root { --sidebar-w: 280px; }
+}
+
+/* ══════════════════════════════════════════ */
+/* MOBILE STYLES (unchanged) */
+/* ══════════════════════════════════════════ */
 
 /* ── NAV ── */
 .nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;min-height:56px}
@@ -220,6 +523,7 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
 /* ── GROUP CARD ── */
 .group-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden;box-shadow:var(--shadow)}
 .group-card:active{transform:scale(.99);box-shadow:none}
+.group-card:hover{box-shadow:var(--shadow2);transform:translateY(-1px)}
 .group-card-stripe{position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px}
 
 /* ── WALLET HERO ── */
@@ -250,6 +554,16 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
 /* ── SHEET ── */
 .sheet-overlay{position:fixed;inset:0;background:rgba(28,20,16,.45);backdrop-filter:blur(6px);z-index:200;display:none;align-items:flex-end}
 .sheet-overlay.open{display:flex;animation:oIn .2s ease}
+@media (min-width: 768px) {
+  .sheet-overlay.open { align-items: center; justify-content: center; }
+  .sheet {
+    border-radius: 20px !important;
+    max-width: 480px;
+    width: calc(100% - 48px);
+    animation: sScale .25s cubic-bezier(.4,0,.2,1) !important;
+  }
+  @keyframes sScale { from{opacity:0;transform:scale(.95)} to{opacity:1;transform:scale(1)} }
+}
 @keyframes oIn{from{opacity:0}to{opacity:1}}
 .sheet{background:#fff;border-radius:24px 24px 0 0;border-top:1px solid var(--border);padding:20px 20px max(24px,env(safe-area-inset-bottom));width:100%;animation:sUp .28s cubic-bezier(.4,0,.2,1);max-height:92vh;overflow-y:auto}
 @keyframes sUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
@@ -302,6 +616,7 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
 
 /* ── SECTION DIVIDER ── */
 .section-divider{height:8px;background:var(--bg2);margin:0 -20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+@media(min-width:768px){.section-divider{margin:0;border-radius:4px}}
 
 /* UTILS */
 .row{display:flex;align-items:center;gap:10px}
@@ -331,7 +646,6 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
   </div>
 
   <div class="pad">
-    <!-- Proposta -->
     <div class="card mb-16" style="padding:20px">
       <div class="h3 mb-8">O que estamos a criar</div>
       <div class="body mb-16">Pretendemos desenvolver um sistema completo de xitique digital com as seguintes funcionalidades:</div>
@@ -343,19 +657,12 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
       </div>
     </div>
 
-    <!-- Votação -->
     <div class="card mb-16" style="padding:20px;border-color:rgba(37,211,102,.2);background:linear-gradient(135deg,#F0FFF4,#fff)">
       <div class="row mb-4"><svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg><div class="h3">A tua opinião é importante</div></div>
       <div class="caption mb-16">Clica num dos botões abaixo. Serás redireccionado para o WhatsApp para enviar o teu voto directamente para a Group Layout.</div>
       <div class="vote-grid">
-        <button class="vote-btn vote-yes" onclick="votarWA('sim')">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          SIM, continua!
-        </button>
-        <button class="vote-btn vote-no" onclick="votarWA('nao')">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          NÃO, obrigado
-        </button>
+        <button class="vote-btn vote-yes" onclick="votarWA('sim')"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>SIM, continua!</button>
+        <button class="vote-btn vote-no" onclick="votarWA('nao')"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>NÃO, obrigado</button>
       </div>
       <div class="caption mt-12" style="text-align:center">O teu voto será enviado com data e hora via WhatsApp</div>
     </div>
@@ -392,7 +699,7 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
     <div class="nav-title">Criar conta</div>
     <div></div>
   </div>
-  <div class="content pad">
+  <div class="content pad" style="max-width:560px;margin:0 auto;width:100%">
     <div class="step-track">
       <div class="step-item"><div class="step-dot active">1</div><div class="step-label active">Dados</div></div>
       <div class="step-line"></div>
@@ -416,7 +723,7 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
     <div class="nav-title">Criar conta</div>
     <div></div>
   </div>
-  <div class="content pad">
+  <div class="content pad" style="max-width:560px;margin:0 auto;width:100%">
     <div class="step-track">
       <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Dados</div></div>
       <div class="step-line done"></div>
@@ -445,7 +752,7 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
     <div class="nav-title">Entrar</div>
     <div></div>
   </div>
-  <div class="content pad">
+  <div class="content pad" style="max-width:480px;margin:0 auto;width:100%">
     <div class="h2 mb-4">Bem-vindo de volta</div>
     <div class="caption mb-24">Entra com o teu número e PIN.</div>
     <div class="form-group"><div class="form-label"><span>Número de telemóvel</span></div><div class="input-prefix-wrap"><span class="pfx">+258</span><input class="input" type="tel" placeholder="84 000 0000"></div></div>
@@ -460,9 +767,58 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
 </div>
 
 <!-- ══════════════════════════════════════════ -->
-<!-- HOME -->
+<!-- HOME — desktop: sidebar + 2-col layout -->
 <!-- ══════════════════════════════════════════ -->
-<div id="screen-home" class="screen">
+<div id="screen-home" class="screen has-sidebar">
+  <!-- SIDEBAR (desktop only) -->
+  <aside class="sidebar" id="sidebar-home" style="display:none">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">X</div>
+      X<span>itique</span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section-label">Principal</div>
+      <button class="sidebar-item active" onclick="goTo('screen-home')">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Início
+      </button>
+      <button class="sidebar-item" onclick="goTo('screen-wallet')">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        Carteira
+      </button>
+      <button class="sidebar-item" onclick="goTo('screen-groups')">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Grupos
+        <span class="sidebar-badge">2</span>
+      </button>
+      <button class="sidebar-item" onclick="goTo('screen-history')">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Historial
+      </button>
+      <div class="sidebar-section-label" style="margin-top:8px">Ferramentas</div>
+      <button class="sidebar-item" onclick="goTo('screen-create-group')">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        Criar grupo
+      </button>
+      <button class="sidebar-item" onclick="goTo('screen-notif')">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Notificações
+        <span class="sidebar-badge">3</span>
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user" onclick="goTo('screen-profile')">
+        <div class="sidebar-user-av">AM</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name">Ana Macuácua</div>
+          <div class="sidebar-user-sub">Score 94 · ✓ Verificado</div>
+        </div>
+        <svg width="14" height="14" fill="none" stroke="var(--text3)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MOBILE NAV (hidden on desktop) -->
   <div class="nav">
     <div class="nav-logo">X<span>itique</span></div>
     <div style="display:flex;align-items:center;gap:12px">
@@ -470,101 +826,114 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
       <button onclick="goTo('screen-notif')" style="background:none;border:none;cursor:pointer;padding:4px"><svg width="22" height="22" fill="none" stroke="var(--text2)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
     </div>
   </div>
-  <div class="content">
-    <!-- Hero saudação -->
-    <div style="padding:20px 20px 16px;background:linear-gradient(160deg,#FFF5F2 0%,#FFFFFF 70%)">
-      <div class="caption mb-2">Boa tarde,</div>
-      <div class="h1">Ana Macuácua 👋</div>
+
+  <!-- DESKTOP MAIN -->
+  <div class="desktop-main" id="home-desktop-main">
+    <!-- Desktop top bar -->
+    <div class="desktop-topbar" id="home-topbar" style="display:none">
+      <div>
+        <div class="caption">Boa tarde,</div>
+        <div class="desktop-topbar-title">Ana Macuácua 👋</div>
+      </div>
+      <div class="desktop-topbar-actions">
+        <button class="btn btn-primary btn-sm" onclick="goTo('screen-create-group')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Criar grupo
+        </button>
+        <button class="topbar-notif-btn" onclick="goTo('screen-notif')">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <div class="topbar-notif-dot"></div>
+        </button>
+      </div>
     </div>
 
-    <div class="pad" style="padding-top:16px">
-      <!-- Wallet Card -->
-      <div class="wallet-hero mb-16">
-        <div style="font-size:11px;font-weight:600;opacity:.7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;position:relative;z-index:1">CARTEIRA PESSOAL</div>
-        <div class="wallet-amount" style="position:relative;z-index:1">MZN 12.450<span style="font-size:20px;opacity:.8">,00</span></div>
-        <div class="wallet-sub" style="position:relative;z-index:1">Actualizado agora · via M-Pesa</div>
-        <div style="display:flex;gap:8px;margin-top:20px;position:relative;z-index:1">
-          <button onclick="goTo('screen-wallet')" style="flex:1;padding:10px 6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-d);display:flex;align-items:center;justify-content:center;gap:5px;backdrop-filter:blur(4px)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg>Carregar</button>
-          <button onclick="goTo('screen-wallet')" style="flex:1;padding:10px 6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-d);display:flex;align-items:center;justify-content:center;gap:5px;backdrop-filter:blur(4px)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg>Levantar</button>
-          <button onclick="goTo('screen-history')" style="flex:1;padding:10px 6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-d);display:flex;align-items:center;justify-content:center;gap:5px;backdrop-filter:blur(4px)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Historial</button>
+    <div class="content">
+      <!-- Mobile greeting (hidden on desktop) -->
+      <div id="home-mobile-greeting" style="padding:20px 20px 16px;background:linear-gradient(160deg,#FFF5F2 0%,#FFFFFF 70%)">
+        <div class="caption mb-2">Boa tarde,</div>
+        <div class="h1">Ana Macuácua 👋</div>
+      </div>
+
+      <div class="pad" style="padding-top:16px">
+        <!-- Desktop 2-col grid -->
+        <div id="home-desktop-grid" style="display:block">
+          <div class="wallet-hero mb-16">
+            <div style="font-size:11px;font-weight:600;opacity:.7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;position:relative;z-index:1">CARTEIRA PESSOAL</div>
+            <div class="wallet-amount" style="position:relative;z-index:1">MZN 12.450<span style="font-size:20px;opacity:.8">,00</span></div>
+            <div class="wallet-sub" style="position:relative;z-index:1">Actualizado agora · via M-Pesa</div>
+            <div style="display:flex;gap:8px;margin-top:20px;position:relative;z-index:1">
+              <button onclick="goTo('screen-wallet')" style="flex:1;padding:10px 6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-d);display:flex;align-items:center;justify-content:center;gap:5px;backdrop-filter:blur(4px)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg>Carregar</button>
+              <button onclick="goTo('screen-wallet')" style="flex:1;padding:10px 6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-d);display:flex;align-items:center;justify-content:center;gap:5px;backdrop-filter:blur(4px)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg>Levantar</button>
+              <button onclick="goTo('screen-history')" style="flex:1;padding:10px 6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-d);display:flex;align-items:center;justify-content:center;gap:5px;backdrop-filter:blur(4px)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Historial</button>
+            </div>
+          </div>
+
+          <div class="auto-pay-strip">
+            <div class="auto-pay-strip-icon"><svg fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="col"><div style="font-size:13px;font-weight:600;color:var(--red)">Próximo débito automático</div><div class="caption">Amanhã · 500 MZN → Grupo Familia</div></div>
+            <div class="badge badge-red">Auto</div>
+          </div>
         </div>
-      </div>
 
-      <!-- Auto-pay -->
-      <div class="auto-pay-strip">
-        <div class="auto-pay-strip-icon"><svg fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <div class="col"><div style="font-size:13px;font-weight:600;color:var(--red)">Próximo débito automático</div><div class="caption">Amanhã · 500 MZN → Grupo Familia</div></div>
-        <div class="badge badge-red">Auto</div>
-      </div>
-
-      <!-- Quick Actions -->
-      <div class="sec-hdr mt-4"><div class="h3">Acções rápidas</div></div>
-      <div class="quick-grid">
-        <button class="quick-btn" onclick="goTo('screen-create-group')">
-          <div class="quick-icon" style="background:var(--red-light)"><svg fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
-          <span class="quick-label">Criar grupo</span>
-        </button>
-        <button class="quick-btn" onclick="goTo('screen-groups')">
-          <div class="quick-icon" style="background:var(--or-light)"><svg fill="none" stroke="var(--or)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <span class="quick-label">Meus grupos</span>
-        </button>
-        <button class="quick-btn" onclick="goTo('screen-wallet')">
-          <div class="quick-icon" style="background:var(--amber-light)"><svg fill="none" stroke="var(--amber)" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
-          <span class="quick-label">Carteira</span>
-        </button>
-        <button class="quick-btn" onclick="goTo('screen-profile')">
-          <div class="quick-icon" style="background:var(--bg2)"><svg fill="none" stroke="var(--text2)" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
-          <span class="quick-label">Perfil</span>
-        </button>
-      </div>
-
-      <!-- Grupos -->
-      <div class="sec-hdr"><div class="h3">Os meus grupos</div><button class="see-all" onclick="goTo('screen-groups')">Ver todos</button></div>
-
-      <div class="group-card mb-12" onclick="goTo('screen-group-detail')">
-        <div class="group-card-stripe" style="background:var(--red)"></div>
-        <div class="row-between mb-6"><div class="h3">Grupo Familia</div><div class="badge badge-red">Activo · Mês 4/10</div></div>
-        <div class="caption mb-10">10 membros · 500 MZN/mês · A tua vez: Mês 7</div>
-        <div class="av-stack mb-10">
-          <div class="avatar avatar-sm" style="background:var(--red-light);color:var(--red)">AM</div>
-          <div class="avatar avatar-sm" style="background:var(--info-light);color:var(--info)">JM</div>
-          <div class="avatar avatar-sm" style="background:var(--amber-light);color:var(--amber)">SC</div>
-          <div class="avatar avatar-sm" style="background:var(--success-light);color:var(--success)">PC</div>
-          <div class="avatar avatar-sm" style="background:var(--bg3);color:var(--text3)">+6</div>
+        <!-- Quick Actions -->
+        <div class="sec-hdr mt-16"><div class="h3">Acções rápidas</div></div>
+        <div class="quick-grid">
+          <button class="quick-btn" onclick="goTo('screen-create-group')">
+            <div class="quick-icon" style="background:var(--red-light)"><svg fill="none" stroke="var(--red)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
+            <span class="quick-label">Criar grupo</span>
+          </button>
+          <button class="quick-btn" onclick="goTo('screen-groups')">
+            <div class="quick-icon" style="background:var(--or-light)"><svg fill="none" stroke="var(--or)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <span class="quick-label">Meus grupos</span>
+          </button>
+          <button class="quick-btn" onclick="goTo('screen-wallet')">
+            <div class="quick-icon" style="background:var(--amber-light)"><svg fill="none" stroke="var(--amber)" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
+            <span class="quick-label">Carteira</span>
+          </button>
+          <button class="quick-btn" onclick="goTo('screen-profile')">
+            <div class="quick-icon" style="background:var(--bg2)"><svg fill="none" stroke="var(--text2)" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+            <span class="quick-label">Perfil</span>
+          </button>
         </div>
-        <div class="progress-track"><div class="progress-fill" style="width:40%"></div></div>
-        <div class="row-between mt-6"><span class="caption">4 de 10 meses</span><span class="badge badge-red" style="font-size:9px">Auto-pagamento activo</span></div>
-      </div>
 
-      <div class="group-card mb-20" onclick="goTo('screen-group-detail')">
-        <div class="group-card-stripe" style="background:var(--amber)"></div>
-        <div class="row-between mb-6"><div class="h3">Colegas Trabalho</div><div class="badge badge-amber">Aguarda membros</div></div>
-        <div class="caption mb-10">4/6 membros confirmados · 1.000 MZN/mês</div>
-        <div class="progress-track"><div class="progress-fill progress-fill-or" style="width:67%"></div></div>
-        <div class="row-between mt-6"><span class="caption">Faltam 2 membros</span><span class="badge badge-warning">Pendente</span></div>
-      </div>
+        <!-- Grupos -->
+        <div class="sec-hdr"><div class="h3">Os meus grupos</div><button class="see-all" onclick="goTo('screen-groups')">Ver todos</button></div>
+        <div id="home-groups-container" style="display:block">
+          <div class="group-card mb-12" onclick="goTo('screen-group-detail')">
+            <div class="group-card-stripe" style="background:var(--red)"></div>
+            <div class="row-between mb-6"><div class="h3">Grupo Familia</div><div class="badge badge-red">Activo · Mês 4/10</div></div>
+            <div class="caption mb-10">10 membros · 500 MZN/mês · A tua vez: Mês 7</div>
+            <div class="av-stack mb-10">
+              <div class="avatar avatar-sm" style="background:var(--red-light);color:var(--red)">AM</div>
+              <div class="avatar avatar-sm" style="background:var(--info-light);color:var(--info)">JM</div>
+              <div class="avatar avatar-sm" style="background:var(--amber-light);color:var(--amber)">SC</div>
+              <div class="avatar avatar-sm" style="background:var(--success-light);color:var(--success)">PC</div>
+              <div class="avatar avatar-sm" style="background:var(--bg3);color:var(--text3)">+6</div>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:40%"></div></div>
+            <div class="row-between mt-6"><span class="caption">4 de 10 meses</span><span class="badge badge-red" style="font-size:9px">Auto-pagamento activo</span></div>
+          </div>
+          <div class="group-card mb-20" onclick="goTo('screen-group-detail')">
+            <div class="group-card-stripe" style="background:var(--amber)"></div>
+            <div class="row-between mb-6"><div class="h3">Colegas Trabalho</div><div class="badge badge-amber">Aguarda membros</div></div>
+            <div class="caption mb-10">4/6 membros confirmados · 1.000 MZN/mês</div>
+            <div class="progress-track"><div class="progress-fill progress-fill-or" style="width:67%"></div></div>
+            <div class="row-between mt-6"><span class="caption">Faltam 2 membros</span><span class="badge badge-warning">Pendente</span></div>
+          </div>
+        </div>
 
-      <!-- Transacções recentes -->
-      <div class="sec-hdr"><div class="h3">Transacções recentes</div><button class="see-all" onclick="goTo('screen-history')">Ver todas</button></div>
-      <div class="card" style="padding:4px 16px">
-        <div class="list-item">
-          <div class="list-item-icon" style="background:var(--red-light)"><svg fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div>
-          <div class="list-item-body"><div class="list-item-title">Auto-débito · Grupo Familia</div><div class="list-item-sub">Hoje · 08:00 · Automático</div></div>
-          <div class="list-item-right"><div class="list-item-amount text-red">- 500 MZN</div></div>
-        </div>
-        <div class="list-item">
-          <div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg></div>
-          <div class="list-item-body"><div class="list-item-title">Fundo recebido · Grupo Familia</div><div class="list-item-sub">5 Jan · Posição 4</div></div>
-          <div class="list-item-right"><div class="list-item-amount text-success">+ 5.000 MZN</div></div>
-        </div>
-        <div class="list-item" style="border-bottom:none">
-          <div class="list-item-icon" style="background:var(--or-light)"><svg fill="none" stroke="var(--or)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div>
-          <div class="list-item-body"><div class="list-item-title">Carregamento M-Pesa</div><div class="list-item-sub">3 Jan · 10:22</div></div>
-          <div class="list-item-right"><div class="list-item-amount" style="color:var(--or)">+ 10.000 MZN</div></div>
+        <!-- Transacções recentes -->
+        <div class="sec-hdr"><div class="h3">Transacções recentes</div><button class="see-all" onclick="goTo('screen-history')">Ver todas</button></div>
+        <div class="card" style="padding:4px 16px">
+          <div class="list-item"><div class="list-item-icon" style="background:var(--red-light)"><svg fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Auto-débito · Grupo Familia</div><div class="list-item-sub">Hoje · 08:00 · Automático</div></div><div class="list-item-right"><div class="list-item-amount text-red">- 500 MZN</div></div></div>
+          <div class="list-item"><div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg></div><div class="list-item-body"><div class="list-item-title">Fundo recebido · Grupo Familia</div><div class="list-item-sub">5 Jan · Posição 4</div></div><div class="list-item-right"><div class="list-item-amount text-success">+ 5.000 MZN</div></div></div>
+          <div class="list-item" style="border-bottom:none"><div class="list-item-icon" style="background:var(--or-light)"><svg fill="none" stroke="var(--or)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Carregamento M-Pesa</div><div class="list-item-sub">3 Jan · 10:22</div></div><div class="list-item-right"><div class="list-item-amount" style="color:var(--or)">+ 10.000 MZN</div></div></div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Mobile bottom nav -->
   <div class="bottom-nav">
     <button class="bnav-item active" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Início</span></button>
     <button class="bnav-item" onclick="goTo('screen-wallet')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg><span>Carteira</span></button>
@@ -575,313 +944,228 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
 </div>
 
 <!-- ══════════════════════════════════════════ -->
-<!-- CRIAR GRUPO — PASSO 1: REGRAS -->
+<!-- CRIAR GRUPO — passos -->
 <!-- ══════════════════════════════════════════ -->
-<div id="screen-create-group" class="screen">
-  <div class="nav">
-    <button class="nav-back" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
-    <div class="nav-title">Criar grupo</div>
-    <div></div>
-  </div>
-  <div class="content pad">
-    <div class="step-track">
-      <div class="step-item"><div class="step-dot active">1</div><div class="step-label active">Regras</div></div>
-      <div class="step-line"></div>
-      <div class="step-item"><div class="step-dot">2</div><div class="step-label">Valores</div></div>
-      <div class="step-line"></div>
-      <div class="step-item"><div class="step-dot">3</div><div class="step-label">Membros</div></div>
-      <div class="step-line"></div>
-      <div class="step-item"><div class="step-dot">4</div><div class="step-label">Confirmar</div></div>
-    </div>
-
-    <div class="h2 mb-4">Antes de criar o grupo</div>
-    <div class="caption mb-20">Lê atentamente as regras do sistema Xitique.</div>
-
-    <div class="card mb-14" style="padding:18px">
-      <div class="row mb-12"><div style="width:32px;height:32px;border-radius:8px;background:var(--red-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" fill="none" stroke="var(--red)" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="col"><div class="h3">Contribuição mínima: 100 MZN/mês</div><div class="caption">O valor mínimo por membro por mês é de 100 MZN.</div></div></div>
-      <div class="row mb-12"><div style="width:32px;height:32px;border-radius:8px;background:var(--or-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" fill="none" stroke="var(--or)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="col"><div class="h3">Mínimo 3, máximo 30 membros</div><div class="caption">O grupo só começa quando todos os membros confirmarem.</div></div></div>
-      <div class="row mb-12"><div style="width:32px;height:32px;border-radius:8px;background:var(--success-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" fill="none" stroke="var(--success)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="col"><div class="h3">Depósito de garantia: 2× contribuição</div><div class="caption">Pago antes de entrar. Devolvido no fim do ciclo.</div></div></div>
-      <div class="row"><div style="width:32px;height:32px;border-radius:8px;background:var(--info-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" fill="none" stroke="var(--info)" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="col"><div class="h3">Fundo pago no 1.º de cada mês</div><div class="caption">O membro da vez recebe automaticamente via M-Pesa.</div></div></div>
-    </div>
-
-    <div class="alert alert-warning mb-20"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>O fundo do grupo <strong>só pode ser levantado automaticamente</strong> pelo sistema. Nenhum administrador tem acesso directo ao dinheiro.</p></div>
-
-    <button class="btn btn-primary" onclick="goTo('screen-create-group-2')">Entendi — Continuar</button>
+<div id="screen-create-group" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Início</button><button class="sidebar-item" onclick="goTo('screen-wallet')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Carteira</button><button class="sidebar-item active" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button><button class="sidebar-item" onclick="goTo('screen-history')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Historial</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div><div class="sidebar-user-sub">Score 94</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none"><button class="desktop-back" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Voltar</button><div class="desktop-topbar-title">Criar grupo</div><div></div></div>
+    <div class="nav"><button class="nav-back" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Criar grupo</div><div></div></div>
+    <div class="content"><div class="pad desktop-sub-content" style="margin:0 auto">
+      <div class="step-track">
+        <div class="step-item"><div class="step-dot active">1</div><div class="step-label active">Regras</div></div>
+        <div class="step-line"></div>
+        <div class="step-item"><div class="step-dot">2</div><div class="step-label">Valores</div></div>
+        <div class="step-line"></div>
+        <div class="step-item"><div class="step-dot">3</div><div class="step-label">Membros</div></div>
+        <div class="step-line"></div>
+        <div class="step-item"><div class="step-dot">4</div><div class="step-label">Confirmar</div></div>
+      </div>
+      <div class="h2 mb-4">Antes de criar o grupo</div>
+      <div class="caption mb-20">Lê atentamente as regras do sistema Xitique.</div>
+      <div class="card mb-14" style="padding:18px">
+        <div class="row mb-12"><div style="width:32px;height:32px;border-radius:8px;background:var(--red-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" fill="none" stroke="var(--red)" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="col"><div class="h3">Contribuição mínima: 100 MZN/mês</div><div class="caption">O valor mínimo por membro por mês é de 100 MZN.</div></div></div>
+        <div class="row mb-12"><div style="width:32px;height:32px;border-radius:8px;background:var(--or-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" fill="none" stroke="var(--or)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="col"><div class="h3">Mínimo 3, máximo 30 membros</div><div class="caption">O grupo só começa quando todos os membros confirmarem.</div></div></div>
+        <div class="row mb-12"><div style="width:32px;height:32px;border-radius:8px;background:var(--success-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" fill="none" stroke="var(--success)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="col"><div class="h3">Depósito de garantia: 2× contribuição</div><div class="caption">Pago antes de entrar. Devolvido no fim do ciclo.</div></div></div>
+        <div class="row"><div style="width:32px;height:32px;border-radius:8px;background:var(--info-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" fill="none" stroke="var(--info)" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="col"><div class="h3">Fundo pago no 1.º de cada mês</div><div class="caption">O membro da vez recebe automaticamente via M-Pesa.</div></div></div>
+      </div>
+      <div class="alert alert-warning mb-20"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>O fundo do grupo <strong>só pode ser levantado automaticamente</strong> pelo sistema. Nenhum administrador tem acesso directo ao dinheiro.</p></div>
+      <button class="btn btn-primary" onclick="goTo('screen-create-group-2')">Entendi — Continuar</button>
+    </div></div>
   </div>
 </div>
 
-<!-- CRIAR GRUPO — PASSO 2: VALORES -->
-<div id="screen-create-group-2" class="screen">
-  <div class="nav">
-    <button class="nav-back" onclick="goTo('screen-create-group')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
-    <div class="nav-title">Criar grupo</div>
-    <div></div>
-  </div>
-  <div class="content pad">
-    <div class="step-track">
-      <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Regras</div></div>
-      <div class="step-line done"></div>
-      <div class="step-item"><div class="step-dot active">2</div><div class="step-label active">Valores</div></div>
-      <div class="step-line"></div>
-      <div class="step-item"><div class="step-dot">3</div><div class="step-label">Membros</div></div>
-      <div class="step-line"></div>
-      <div class="step-item"><div class="step-dot">4</div><div class="step-label">Confirmar</div></div>
-    </div>
-
-    <div class="h2 mb-4">Definir os valores</div>
-    <div class="caption mb-20">Define o nome, valor e número de membros do grupo.</div>
-
-    <div class="form-group"><div class="form-label"><span>Nome do grupo</span></div><input class="input" id="grp-nome" type="text" placeholder="Ex: Grupo Familia, Colegas..."></div>
-
-    <div class="form-group">
-      <div class="form-label"><span>Contribuição mensal</span><small>Mínimo: 100 MZN</small></div>
-      <div class="amount-big" id="amount-box">
-        <div class="amount-big-cur">MZN</div>
-        <div class="amount-big-val" id="grp-amount-display">500</div>
+<div id="screen-create-group-2" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Início</button><button class="sidebar-item active" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none"><button class="desktop-back" onclick="goTo('screen-create-group')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Voltar</button><div class="desktop-topbar-title">Criar grupo · Valores</div><div></div></div>
+    <div class="nav"><button class="nav-back" onclick="goTo('screen-create-group')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Criar grupo</div><div></div></div>
+    <div class="content"><div class="pad desktop-sub-content" style="margin:0 auto">
+      <div class="step-track">
+        <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Regras</div></div>
+        <div class="step-line done"></div>
+        <div class="step-item"><div class="step-dot active">2</div><div class="step-label active">Valores</div></div>
+        <div class="step-line"></div>
+        <div class="step-item"><div class="step-dot">3</div><div class="step-label">Membros</div></div>
+        <div class="step-line"></div>
+        <div class="step-item"><div class="step-dot">4</div><div class="step-label">Confirmar</div></div>
       </div>
-      <div id="amount-error" class="input-hint error" style="display:none">O valor mínimo é 100 MZN</div>
-      <div class="keypad">
-        <div class="key" onclick="addD('1')">1</div><div class="key" onclick="addD('2')">2</div><div class="key" onclick="addD('3')">3</div>
-        <div class="key" onclick="addD('4')">4</div><div class="key" onclick="addD('5')">5</div><div class="key" onclick="addD('6')">6</div>
-        <div class="key" onclick="addD('7')">7</div><div class="key" onclick="addD('8')">8</div><div class="key" onclick="addD('9')">9</div>
-        <div class="key key-func" onclick="addD('000')">000</div><div class="key" onclick="addD('0')">0</div><div class="key key-func" onclick="delD()">⌫</div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="form-label"><span>Número de membros</span><small>Entre 3 e 30</small></div>
-      <div style="display:flex;align-items:center;gap:12px">
-        <button onclick="changeMembers(-1)" style="width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg2);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);flex-shrink:0">−</button>
-        <div style="flex:1;text-align:center">
-          <div class="mono" id="grp-members-display" style="font-size:36px;letter-spacing:-1px;color:var(--text)">10</div>
-          <div class="caption">membros</div>
+      <div class="h2 mb-4">Definir os valores</div>
+      <div class="caption mb-20">Define o nome, valor e número de membros do grupo.</div>
+      <div class="form-group"><div class="form-label"><span>Nome do grupo</span></div><input class="input" id="grp-nome" type="text" placeholder="Ex: Grupo Familia, Colegas..."></div>
+      <div class="form-group">
+        <div class="form-label"><span>Contribuição mensal</span><small>Mínimo: 100 MZN</small></div>
+        <div class="amount-big" id="amount-box"><div class="amount-big-cur">MZN</div><div class="amount-big-val" id="grp-amount-display">500</div></div>
+        <div id="amount-error" class="input-hint error" style="display:none">O valor mínimo é 100 MZN</div>
+        <div class="keypad">
+          <div class="key" onclick="addD('1')">1</div><div class="key" onclick="addD('2')">2</div><div class="key" onclick="addD('3')">3</div>
+          <div class="key" onclick="addD('4')">4</div><div class="key" onclick="addD('5')">5</div><div class="key" onclick="addD('6')">6</div>
+          <div class="key" onclick="addD('7')">7</div><div class="key" onclick="addD('8')">8</div><div class="key" onclick="addD('9')">9</div>
+          <div class="key key-func" onclick="addD('000')">000</div><div class="key" onclick="addD('0')">0</div><div class="key key-func" onclick="delD()">⌫</div>
         </div>
-        <button onclick="changeMembers(1)" style="width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg2);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);flex-shrink:0">+</button>
       </div>
-      <div id="members-error" class="input-hint error" style="display:none">O mínimo é 3 membros</div>
-    </div>
-
-    <!-- Preview automático -->
-    <div class="card-inset" id="grp-preview" style="padding:16px;margin-top:4px;margin-bottom:20px">
-      <div class="label mb-10">Resumo do grupo</div>
-      <div class="row-between mb-6"><span class="body" style="font-size:13px">Fundo por mês</span><span class="mono text-red" id="prev-fundo">5.000 MZN</span></div>
-      <div class="row-between mb-6"><span class="body" style="font-size:13px">Depósito de garantia</span><span class="mono" style="color:var(--or)" id="prev-garantia">1.000 MZN</span></div>
-      <div class="row-between mb-6"><span class="body" style="font-size:13px">Duração do ciclo</span><span class="mono" id="prev-duracao">10 meses</span></div>
-      <div class="row-between"><span class="body" style="font-size:13px">Cada membro recebe</span><span class="mono text-success" id="prev-recebe">5.000 MZN</span></div>
-    </div>
-
-    <div class="form-group mb-0">
-      <div class="form-label"><span>Data de início</span></div>
-      <input class="input" type="date" id="grp-data">
-    </div>
-
-    <div class="toggle-row mt-16 mb-20" style="border:none;padding:0">
-      <div class="toggle-info"><div class="h3">Pagamento automático activo</div><div class="caption">Debita da carteira 1 dia antes do prazo</div></div>
-      <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
-    </div>
-
-    <button class="btn btn-primary" onclick="validarGrupo()">Continuar — Convidar membros</button>
+      <div class="form-group">
+        <div class="form-label"><span>Número de membros</span><small>Entre 3 e 30</small></div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <button onclick="changeMembers(-1)" style="width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg2);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);flex-shrink:0">−</button>
+          <div style="flex:1;text-align:center"><div class="mono" id="grp-members-display" style="font-size:36px;letter-spacing:-1px;color:var(--text)">10</div><div class="caption">membros</div></div>
+          <button onclick="changeMembers(1)" style="width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border2);background:var(--bg2);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);flex-shrink:0">+</button>
+        </div>
+        <div id="members-error" class="input-hint error" style="display:none">O mínimo é 3 membros</div>
+      </div>
+      <div class="card-inset" id="grp-preview" style="padding:16px;margin-top:4px;margin-bottom:20px">
+        <div class="label mb-10">Resumo do grupo</div>
+        <div class="row-between mb-6"><span class="body" style="font-size:13px">Fundo por mês</span><span class="mono text-red" id="prev-fundo">5.000 MZN</span></div>
+        <div class="row-between mb-6"><span class="body" style="font-size:13px">Depósito de garantia</span><span class="mono" style="color:var(--or)" id="prev-garantia">1.000 MZN</span></div>
+        <div class="row-between mb-6"><span class="body" style="font-size:13px">Duração do ciclo</span><span class="mono" id="prev-duracao">10 meses</span></div>
+        <div class="row-between"><span class="body" style="font-size:13px">Cada membro recebe</span><span class="mono text-success" id="prev-recebe">5.000 MZN</span></div>
+      </div>
+      <div class="form-group mb-0"><div class="form-label"><span>Data de início</span></div><input class="input" type="date" id="grp-data"></div>
+      <div class="toggle-row mt-16 mb-20" style="border:none;padding:0">
+        <div class="toggle-info"><div class="h3">Pagamento automático activo</div><div class="caption">Debita da carteira 1 dia antes do prazo</div></div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+      </div>
+      <button class="btn btn-primary" onclick="validarGrupo()">Continuar — Convidar membros</button>
+    </div></div>
   </div>
 </div>
 
-<!-- CRIAR GRUPO — PASSO 3: MEMBROS -->
-<div id="screen-create-group-3" class="screen">
-  <div class="nav">
-    <button class="nav-back" onclick="goTo('screen-create-group-2')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
-    <div class="nav-title">Criar grupo</div>
-    <div></div>
-  </div>
-  <div class="content pad">
-    <div class="step-track">
-      <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Regras</div></div>
-      <div class="step-line done"></div>
-      <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Valores</div></div>
-      <div class="step-line done"></div>
-      <div class="step-item"><div class="step-dot active">3</div><div class="step-label active">Membros</div></div>
-      <div class="step-line"></div>
-      <div class="step-item"><div class="step-dot">4</div><div class="step-label">Confirmar</div></div>
-    </div>
-
-    <div class="h2 mb-4">Convidar membros</div>
-    <div class="caption mb-16">O grupo só começa quando todos os <span id="invite-count" class="text-red">10 membros</span> confirmarem.</div>
-
-    <div class="alert alert-info mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Cada membro convidado receberá um link pelo WhatsApp. Ao aceitar, pagará o depósito de garantia de <span id="invite-garantia" class="text-red">1.000 MZN</span> para confirmar a entrada.</p></div>
-
-    <div class="form-group">
-      <div class="form-label"><span>Adicionar por número de telemóvel</span></div>
-      <div style="display:flex;gap:8px">
-        <div class="input-prefix-wrap" style="flex:1"><span class="pfx">+258</span><input class="input" id="member-phone" type="tel" placeholder="84 000 0000"></div>
-        <button onclick="addMember()" style="padding:0 18px;border-radius:var(--r-sm);background:var(--red);color:#fff;border:none;cursor:pointer;font-family:var(--font-d);font-weight:700;font-size:14px;flex-shrink:0">+</button>
+<div id="screen-create-group-3" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Início</button><button class="sidebar-item active" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none"><button class="desktop-back" onclick="goTo('screen-create-group-2')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Voltar</button><div class="desktop-topbar-title">Criar grupo · Membros</div><div></div></div>
+    <div class="nav"><button class="nav-back" onclick="goTo('screen-create-group-2')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Criar grupo</div><div></div></div>
+    <div class="content"><div class="pad desktop-sub-content" style="margin:0 auto">
+      <div class="step-track">
+        <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Regras</div></div>
+        <div class="step-line done"></div>
+        <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Valores</div></div>
+        <div class="step-line done"></div>
+        <div class="step-item"><div class="step-dot active">3</div><div class="step-label active">Membros</div></div>
+        <div class="step-line"></div>
+        <div class="step-item"><div class="step-dot">4</div><div class="step-label">Confirmar</div></div>
       </div>
-    </div>
-
-    <div class="sec-hdr mt-4"><div class="h3">Lista de convidados</div><span class="badge badge-red" id="member-count-badge">1/10</span></div>
-    <div class="card" style="padding:4px 16px" id="member-list-display">
-      <div class="member-row">
-        <div class="avatar" style="background:var(--red-light);color:var(--red)">AM</div>
-        <div class="col"><div class="list-item-title">Ana Macuácua (Tu)</div><div class="caption">+258 84 123 4567 · Criador</div></div>
-        <div class="badge badge-success">Confirmado</div>
+      <div class="h2 mb-4">Convidar membros</div>
+      <div class="caption mb-16">O grupo só começa quando todos os <span id="invite-count" class="text-red">10 membros</span> confirmarem.</div>
+      <div class="alert alert-info mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Cada membro convidado receberá um link pelo WhatsApp. Ao aceitar, pagará o depósito de garantia de <span id="invite-garantia" class="text-red">1.000 MZN</span> para confirmar a entrada.</p></div>
+      <div class="form-group">
+        <div class="form-label"><span>Adicionar por número de telemóvel</span></div>
+        <div style="display:flex;gap:8px">
+          <div class="input-prefix-wrap" style="flex:1"><span class="pfx">+258</span><input class="input" id="member-phone" type="tel" placeholder="84 000 0000"></div>
+          <button onclick="addMember()" style="padding:0 18px;border-radius:var(--r-sm);background:var(--red);color:#fff;border:none;cursor:pointer;font-family:var(--font-d);font-weight:700;font-size:14px;flex-shrink:0">+</button>
+        </div>
       </div>
-    </div>
-
-    <div class="progress-track mt-16 mb-8"><div class="progress-fill progress-fill-or" id="member-progress" style="width:10%"></div></div>
-    <div class="row-between"><span class="caption" id="member-progress-label">1 de 10 membros confirmados</span><span class="caption text-red" id="member-progress-pct">10%</span></div>
-
-    <button class="btn btn-or mt-20" onclick="goTo('screen-create-group-4')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
-      Enviar convites via WhatsApp
-    </button>
-    <button class="btn btn-ghost mt-10" onclick="goTo('screen-create-group-4')">Continuar sem enviar agora</button>
+      <div class="sec-hdr mt-4"><div class="h3">Lista de convidados</div><span class="badge badge-red" id="member-count-badge">1/10</span></div>
+      <div class="card" style="padding:4px 16px" id="member-list-display">
+        <div class="member-row"><div class="avatar" style="background:var(--red-light);color:var(--red)">AM</div><div class="col"><div class="list-item-title">Ana Macuácua (Tu)</div><div class="caption">+258 84 123 4567 · Criador</div></div><div class="badge badge-success">Confirmado</div></div>
+      </div>
+      <div class="progress-track mt-16 mb-8"><div class="progress-fill progress-fill-or" id="member-progress" style="width:10%"></div></div>
+      <div class="row-between"><span class="caption" id="member-progress-label">1 de 10 membros confirmados</span><span class="caption text-red" id="member-progress-pct">10%</span></div>
+      <button class="btn btn-or mt-20" onclick="goTo('screen-create-group-4')"><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>Enviar convites via WhatsApp</button>
+      <button class="btn btn-ghost mt-10" onclick="goTo('screen-create-group-4')">Continuar sem enviar agora</button>
+    </div></div>
   </div>
 </div>
 
-<!-- CRIAR GRUPO — PASSO 4: CONFIRMAÇÃO -->
-<div id="screen-create-group-4" class="screen">
-  <div class="nav">
-    <button class="nav-back" onclick="goTo('screen-create-group-3')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
-    <div class="nav-title">Criar grupo</div>
-    <div></div>
-  </div>
-  <div class="content pad">
-    <div class="step-track">
-      <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Regras</div></div>
-      <div class="step-line done"></div>
-      <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Valores</div></div>
-      <div class="step-line done"></div>
-      <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Membros</div></div>
-      <div class="step-line done"></div>
-      <div class="step-item"><div class="step-dot active">4</div><div class="step-label active">Confirmar</div></div>
-    </div>
-
-    <div class="h2 mb-4">Confirmar criação</div>
-    <div class="caption mb-20">Revê os detalhes antes de criar o grupo.</div>
-
-    <div class="card mb-16" style="padding:20px">
-      <div class="row-between mb-14"><div class="h3" id="confirm-nome">Grupo Familia</div><div class="badge badge-red">Novo grupo</div></div>
-      <div class="breakdown" style="border:none;background:transparent;padding:0">
-        <div class="breakdown-row"><span class="lbl">Contribuição mensal</span><span class="val text-red" id="confirm-contrib">500 MZN</span></div>
-        <div class="breakdown-row"><span class="lbl">Número de membros</span><span class="val" id="confirm-members">10 membros</span></div>
-        <div class="breakdown-row"><span class="lbl">Fundo por mês</span><span class="val" id="confirm-fundo">5.000 MZN</span></div>
-        <div class="breakdown-row"><span class="lbl">Depósito de garantia</span><span class="val" style="color:var(--or)" id="confirm-garantia">1.000 MZN</span></div>
-        <div class="breakdown-row"><span class="lbl">Duração do ciclo</span><span class="val" id="confirm-duracao">10 meses</span></div>
-        <div class="breakdown-row"><span class="lbl">Data de início</span><span class="val" id="confirm-data">1 Fev 2025</span></div>
-        <div class="breakdown-row"><span class="lbl">Auto-pagamento</span><span class="val text-success">Activo</span></div>
-        <div class="breakdown-row"><span>Cada membro recebe</span><span class="val text-success" id="confirm-recebe">5.000 MZN</span></div>
+<div id="screen-create-group-4" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Início</button><button class="sidebar-item active" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none"><button class="desktop-back" onclick="goTo('screen-create-group-3')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Voltar</button><div class="desktop-topbar-title">Criar grupo · Confirmar</div><div></div></div>
+    <div class="nav"><button class="nav-back" onclick="goTo('screen-create-group-3')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Criar grupo</div><div></div></div>
+    <div class="content"><div class="pad desktop-sub-content" style="margin:0 auto">
+      <div class="step-track">
+        <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Regras</div></div>
+        <div class="step-line done"></div>
+        <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Valores</div></div>
+        <div class="step-line done"></div>
+        <div class="step-item"><div class="step-dot done"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="step-label done">Membros</div></div>
+        <div class="step-line done"></div>
+        <div class="step-item"><div class="step-dot active">4</div><div class="step-label active">Confirmar</div></div>
       </div>
-    </div>
-
-    <div class="alert alert-or mb-20"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Ao criar o grupo, pagarás o depósito de garantia de <strong id="confirm-garantia-alert">1.000 MZN</strong> da tua carteira. O grupo só começa quando todos os membros pagarem o depósito.</p></div>
-
-    <button class="btn btn-primary mb-10" onclick="criarGrupo()">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-      Criar grupo e pagar garantia
-    </button>
-    <button class="btn btn-ghost" onclick="goTo('screen-home')">Cancelar</button>
+      <div class="h2 mb-4">Confirmar criação</div>
+      <div class="caption mb-20">Revê os detalhes antes de criar o grupo.</div>
+      <div class="card mb-16" style="padding:20px">
+        <div class="row-between mb-14"><div class="h3" id="confirm-nome">Grupo Familia</div><div class="badge badge-red">Novo grupo</div></div>
+        <div class="breakdown" style="border:none;background:transparent;padding:0">
+          <div class="breakdown-row"><span class="lbl">Contribuição mensal</span><span class="val text-red" id="confirm-contrib">500 MZN</span></div>
+          <div class="breakdown-row"><span class="lbl">Número de membros</span><span class="val" id="confirm-members">10 membros</span></div>
+          <div class="breakdown-row"><span class="lbl">Fundo por mês</span><span class="val" id="confirm-fundo">5.000 MZN</span></div>
+          <div class="breakdown-row"><span class="lbl">Depósito de garantia</span><span class="val" style="color:var(--or)" id="confirm-garantia">1.000 MZN</span></div>
+          <div class="breakdown-row"><span class="lbl">Duração do ciclo</span><span class="val" id="confirm-duracao">10 meses</span></div>
+          <div class="breakdown-row"><span class="lbl">Data de início</span><span class="val" id="confirm-data">1 Fev 2025</span></div>
+          <div class="breakdown-row"><span class="lbl">Auto-pagamento</span><span class="val text-success">Activo</span></div>
+          <div class="breakdown-row"><span>Cada membro recebe</span><span class="val text-success" id="confirm-recebe">5.000 MZN</span></div>
+        </div>
+      </div>
+      <div class="alert alert-or mb-20"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Ao criar o grupo, pagarás o depósito de garantia de <strong id="confirm-garantia-alert">1.000 MZN</strong> da tua carteira.</p></div>
+      <button class="btn btn-primary mb-10" onclick="criarGrupo()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Criar grupo e pagar garantia</button>
+      <button class="btn btn-ghost" onclick="goTo('screen-home')">Cancelar</button>
+    </div></div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════ -->
 <!-- DETALHE DO GRUPO -->
 <!-- ══════════════════════════════════════════ -->
-<div id="screen-group-detail" class="screen">
-  <div class="nav">
-    <button class="nav-back" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
-    <div class="nav-title">Grupo Familia</div>
-    <button class="nav-action" onclick="openSheet('sheet-group-opts')">⋯</button>
-  </div>
-  <div class="content">
-    <!-- Ciclo header -->
-    <div style="padding:20px;background:linear-gradient(160deg,#FFF5F2,var(--bg))">
-      <div style="display:flex;align-items:center;gap:20px">
-        <div class="ring-wrap">
-          <svg width="110" height="110" viewBox="0 0 110 110">
-            <circle cx="55" cy="55" r="46" fill="none" stroke="var(--bg3)" stroke-width="8"/>
-            <circle cx="55" cy="55" r="46" fill="none" stroke="var(--red)" stroke-width="8" stroke-dasharray="289" stroke-dashoffset="173" stroke-linecap="round"/>
-          </svg>
-          <div class="ring-center"><div class="mono text-red" style="font-size:22px">40%</div><div class="caption">ciclo</div></div>
-        </div>
-        <div style="flex:1">
-          <div class="label mb-4">Mês 4 de 10</div>
-          <div class="h2 mb-4">Grupo Familia</div>
-          <div class="caption mb-8">Próxima vez: <span class="text-red">Mês 7 · Mar 2025</span></div>
-          <div class="badge badge-success">Tudo em dia ✓</div>
-        </div>
-      </div>
+<div id="screen-group-detail" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Início</button><button class="sidebar-item" onclick="goTo('screen-wallet')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Carteira</button><button class="sidebar-item active" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button><button class="sidebar-item" onclick="goTo('screen-history')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Historial</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div><div class="sidebar-user-sub">Score 94</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none">
+      <button class="desktop-back" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Grupos</button>
+      <div class="desktop-topbar-title">Grupo Familia</div>
+      <button class="btn btn-ghost btn-sm" onclick="openSheet('sheet-group-opts')">⋯ Opções</button>
     </div>
-
-    <div class="section-divider"></div>
-
-    <div class="pad">
-      <!-- Stats -->
-      <div class="stat-grid">
-        <div class="stat-card"><div class="label">Fundo/mês</div><div class="stat-value text-red">5.000</div><div class="caption">MZN</div></div>
-        <div class="stat-card"><div class="label">Membros</div><div class="stat-value">10</div><div class="caption">activos</div></div>
-        <div class="stat-card"><div class="label">Garantia</div><div class="stat-value" style="color:var(--or)">1.000</div><div class="caption">MZN/pessoa</div></div>
-      </div>
-
-      <!-- Carteira do grupo -->
-      <div class="sec-hdr"><div class="h3">Carteira do grupo</div></div>
-      <div class="card mb-16" style="padding:18px;background:linear-gradient(135deg,#3C1A10,#5C2010);border:none">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;z-index:1">
-          <div><div style="font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">Acumulado</div><div class="mono" style="font-size:24px;color:#fff;letter-spacing:-1px">20.000</div><div style="font-size:11px;color:rgba(255,255,255,.4)">MZN</div></div>
-          <div><div style="font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">A pagar</div><div class="mono" style="font-size:24px;color:#F4A27A;letter-spacing:-1px">30.000</div><div style="font-size:11px;color:rgba(255,255,255,.4)">MZN restantes</div></div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px">
-          <button class="btn btn-sm" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.15);font-size:12px" onclick="goTo('screen-paid-list')">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-            Já pagos (3)
-          </button>
-          <button class="btn btn-sm" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.15);font-size:12px" onclick="goTo('screen-pending-list')">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            A pagar (7)
-          </button>
+    <div class="nav"><button class="nav-back" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Grupo Familia</div><button class="nav-action" onclick="openSheet('sheet-group-opts')">⋯</button></div>
+    <div class="content">
+      <div style="padding:20px;background:linear-gradient(160deg,#FFF5F2,var(--bg))">
+        <div style="display:flex;align-items:center;gap:20px">
+          <div class="ring-wrap">
+            <svg width="110" height="110" viewBox="0 0 110 110"><circle cx="55" cy="55" r="46" fill="none" stroke="var(--bg3)" stroke-width="8"/><circle cx="55" cy="55" r="46" fill="none" stroke="var(--red)" stroke-width="8" stroke-dasharray="289" stroke-dashoffset="173" stroke-linecap="round"/></svg>
+            <div class="ring-center"><div class="mono text-red" style="font-size:22px">40%</div><div class="caption">ciclo</div></div>
+          </div>
+          <div style="flex:1">
+            <div class="label mb-4">Mês 4 de 10</div>
+            <div class="h2 mb-4">Grupo Familia</div>
+            <div class="caption mb-8">Próxima vez: <span class="text-red">Mês 7 · Mar 2025</span></div>
+            <div class="badge badge-success">Tudo em dia ✓</div>
+          </div>
         </div>
       </div>
-
-      <!-- Membros -->
-      <div class="sec-hdr"><div class="h3">Membros</div><div class="badge badge-red">10 activos</div></div>
-      <div class="card mb-16" style="padding:4px 16px">
-        <div class="member-row">
-          <div class="pos-badge pos-done">P1</div>
-          <div class="avatar" style="background:var(--success-light);color:var(--success)">MC</div>
-          <div class="col"><div class="list-item-title">Maria Cossa</div><div class="caption text-success">Recebeu 5.000 MZN · 1 Nov</div></div>
-          <div class="badge badge-success">Pago</div>
+      <div class="section-divider"></div>
+      <div class="pad">
+        <div class="stat-grid">
+          <div class="stat-card"><div class="label">Fundo/mês</div><div class="stat-value text-red">5.000</div><div class="caption">MZN</div></div>
+          <div class="stat-card"><div class="label">Membros</div><div class="stat-value">10</div><div class="caption">activos</div></div>
+          <div class="stat-card"><div class="label">Garantia</div><div class="stat-value" style="color:var(--or)">1.000</div><div class="caption">MZN/pessoa</div></div>
         </div>
-        <div class="member-row">
-          <div class="pos-badge pos-done">P2</div>
-          <div class="avatar" style="background:var(--success-light);color:var(--success)">RN</div>
-          <div class="col"><div class="list-item-title">Rui Nhantumbo</div><div class="caption text-success">Recebeu 5.000 MZN · 1 Dez</div></div>
-          <div class="badge badge-success">Pago</div>
+        <!-- Desktop: 2-col layout for group detail -->
+        <div id="group-detail-layout" style="display:block">
+          <div class="sec-hdr"><div class="h3">Carteira do grupo</div></div>
+          <div class="card mb-16" style="padding:18px;background:linear-gradient(135deg,#3C1A10,#5C2010);border:none">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;z-index:1">
+              <div><div style="font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">Acumulado</div><div class="mono" style="font-size:24px;color:#fff;letter-spacing:-1px">20.000</div><div style="font-size:11px;color:rgba(255,255,255,.4)">MZN</div></div>
+              <div><div style="font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px">A pagar</div><div class="mono" style="font-size:24px;color:#F4A27A;letter-spacing:-1px">30.000</div><div style="font-size:11px;color:rgba(255,255,255,.4)">MZN restantes</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px">
+              <button class="btn btn-sm" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.15);font-size:12px" onclick="goTo('screen-paid-list')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Já pagos (3)</button>
+              <button class="btn btn-sm" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.15);font-size:12px" onclick="goTo('screen-pending-list')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>A pagar (7)</button>
+            </div>
+          </div>
+          <div class="sec-hdr"><div class="h3">Membros</div><div class="badge badge-red">10 activos</div></div>
+          <div class="card mb-16" style="padding:4px 16px">
+            <div class="member-row"><div class="pos-badge pos-done">P1</div><div class="avatar" style="background:var(--success-light);color:var(--success)">MC</div><div class="col"><div class="list-item-title">Maria Cossa</div><div class="caption text-success">Recebeu 5.000 MZN · 1 Nov</div></div><div class="badge badge-success">Pago</div></div>
+            <div class="member-row"><div class="pos-badge pos-done">P2</div><div class="avatar" style="background:var(--success-light);color:var(--success)">RN</div><div class="col"><div class="list-item-title">Rui Nhantumbo</div><div class="caption text-success">Recebeu 5.000 MZN · 1 Dez</div></div><div class="badge badge-success">Pago</div></div>
+            <div class="member-row"><div class="pos-badge pos-done">P3</div><div class="avatar" style="background:var(--success-light);color:var(--success)">SB</div><div class="col"><div class="list-item-title">Sara Banze</div><div class="caption text-success">Recebeu 5.000 MZN · 1 Jan</div></div><div class="badge badge-success">Pago</div></div>
+            <div class="member-row"><div class="pos-badge pos-current">P4</div><div class="avatar" style="background:var(--red-light);color:var(--red)">JM</div><div class="col"><div class="list-item-title">João Manhiça</div><div class="caption text-red">Próximo · 1 Fev 2025</div></div><div class="badge badge-red">Próximo</div></div>
+            <div class="member-row" style="border-bottom:none"><div class="pos-badge pos-next">P5</div><div class="avatar" style="background:var(--red-light);color:var(--red)">AM</div><div class="col"><div class="list-item-title">Ana Macuácua <span class="caption">(Tu)</span></div><div class="caption">1 Mar 2025</div></div><div class="badge badge-gray">Aguarda</div></div>
+          </div>
         </div>
-        <div class="member-row">
-          <div class="pos-badge pos-done">P3</div>
-          <div class="avatar" style="background:var(--success-light);color:var(--success)">SB</div>
-          <div class="col"><div class="list-item-title">Sara Banze</div><div class="caption text-success">Recebeu 5.000 MZN · 1 Jan</div></div>
-          <div class="badge badge-success">Pago</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+          <button class="btn btn-secondary btn-sm" onclick="goTo('screen-withdraw')">Levantar fundo</button>
+          <button class="btn btn-ghost btn-sm" onclick="openSheet('sheet-exit')">Pedir saída</button>
         </div>
-        <div class="member-row">
-          <div class="pos-badge pos-current">P4</div>
-          <div class="avatar" style="background:var(--red-light);color:var(--red)">JM</div>
-          <div class="col"><div class="list-item-title">João Manhiça</div><div class="caption text-red">Próximo · 1 Fev 2025</div></div>
-          <div class="badge badge-red">Próximo</div>
-        </div>
-        <div class="member-row" style="border-bottom:none">
-          <div class="pos-badge pos-next">P5</div>
-          <div class="avatar" style="background:var(--red-light);color:var(--red)">AM</div>
-          <div class="col"><div class="list-item-title">Ana Macuácua <span class="caption">(Tu)</span></div><div class="caption">1 Mar 2025</div></div>
-          <div class="badge badge-gray">Aguarda</div>
-        </div>
+        <button class="btn btn-or btn-sm" onclick="goTo('screen-deposit')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg>Fazer contribuição manual</button>
       </div>
-
-      <!-- Acções -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-        <button class="btn btn-secondary btn-sm" onclick="goTo('screen-withdraw')">Levantar fundo</button>
-        <button class="btn btn-ghost btn-sm" onclick="openSheet('sheet-exit')">Pedir saída</button>
-      </div>
-      <button class="btn btn-or btn-sm" onclick="goTo('screen-deposit')">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
-        Fazer contribuição manual
-      </button>
     </div>
   </div>
   <div class="bottom-nav">
@@ -893,172 +1177,120 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════ -->
-<!-- LISTA JÁ PAGOS -->
-<!-- ══════════════════════════════════════════ -->
-<div id="screen-paid-list" class="screen">
-  <div class="nav"><button class="nav-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Já foram pagos</div><div></div></div>
-  <div class="content pad">
-    <div class="alert alert-success mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p><strong>3 membros</strong> já receberam. Total pago: <strong>15.000 MZN</strong>.</p></div>
-    <div class="card" style="padding:4px 16px">
-      <div class="member-row"><div class="pos-badge pos-done">P1</div><div class="avatar" style="background:var(--success-light);color:var(--success)">MC</div><div class="col"><div class="list-item-title">Maria Cossa</div><div class="caption">1 Nov 2024 · M-Pesa automático</div></div><div class="list-item-right"><div class="list-item-amount text-success">5.000 MZN</div><div class="list-item-date">Pago</div></div></div>
-      <div class="member-row"><div class="pos-badge pos-done">P2</div><div class="avatar" style="background:var(--success-light);color:var(--success)">RN</div><div class="col"><div class="list-item-title">Rui Nhantumbo</div><div class="caption">1 Dez 2024 · M-Pesa automático</div></div><div class="list-item-right"><div class="list-item-amount text-success">5.000 MZN</div><div class="list-item-date">Pago</div></div></div>
-      <div class="member-row" style="border-bottom:none"><div class="pos-badge pos-done">P3</div><div class="avatar" style="background:var(--success-light);color:var(--success)">SB</div><div class="col"><div class="list-item-title">Sara Banze</div><div class="caption">1 Jan 2025 · M-Pesa automático</div></div><div class="list-item-right"><div class="list-item-amount text-success">5.000 MZN</div><div class="list-item-date">Pago</div></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════ -->
-<!-- LISTA A PAGAR -->
-<!-- ══════════════════════════════════════════ -->
-<div id="screen-pending-list" class="screen">
-  <div class="nav"><button class="nav-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">A serem pagos</div><div></div></div>
-  <div class="content pad">
-    <div class="alert alert-or mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><p><strong>7 membros</strong> aguardam. Os pagamentos são automáticos no 1.º de cada mês.</p></div>
-    <div class="card" style="padding:4px 16px">
-      <div class="member-row"><div class="pos-badge pos-current">P4</div><div class="avatar" style="background:var(--red-light);color:var(--red)">JM</div><div class="col"><div class="list-item-title">João Manhiça</div><div class="caption text-red">1 Fevereiro 2025 · Em 18 dias</div></div><div class="list-item-right"><div class="list-item-amount text-red">5.000 MZN</div><div><div class="badge badge-red" style="font-size:9px">Próximo</div></div></div></div>
-      <div class="member-row"><div class="pos-badge pos-next">P5</div><div class="avatar" style="background:var(--or-light);color:var(--or)">AM</div><div class="col"><div class="list-item-title">Ana Macuácua (Tu)</div><div class="caption">1 Março 2025</div></div><div class="list-item-right"><div class="list-item-amount">5.000 MZN</div></div></div>
-      <div class="member-row"><div class="pos-badge pos-pending">P6</div><div class="avatar" style="background:var(--bg3);color:var(--text2)">PC</div><div class="col"><div class="list-item-title">Paulo Cumbe</div><div class="caption">1 Abril 2025</div></div><div class="list-item-right"><div class="list-item-amount">5.000 MZN</div></div></div>
-      <div class="member-row"><div class="pos-badge pos-pending">P7</div><div class="avatar" style="background:var(--bg3);color:var(--text2)">SC</div><div class="col"><div class="list-item-title">Sónia Chaúque</div><div class="caption">1 Maio 2025</div></div><div class="list-item-right"><div class="list-item-amount">5.000 MZN</div></div></div>
-      <div class="member-row" style="border-bottom:none"><div class="pos-badge pos-pending" style="font-size:10px">P8-10</div><div class="avatar" style="background:var(--bg3);color:var(--text3)">···</div><div class="col"><div class="list-item-title">3 membros restantes</div><div class="caption">Jun, Jul, Ago 2025</div></div><div class="list-item-right"><div class="list-item-amount">15.000 MZN</div></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════ -->
-<!-- DEPÓSITO / CONTRIBUIÇÃO -->
-<!-- ══════════════════════════════════════════ -->
-<div id="screen-deposit" class="screen">
-  <div class="nav"><button class="nav-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Contribuição</div><div></div></div>
-  <div class="content pad">
-    <div class="h2 mb-4">Contribuição mensal</div>
-    <div class="caption mb-20">Janeiro 2025 · Grupo Familia</div>
-
-    <div class="card mb-16" style="padding:16px;border-color:rgba(192,57,43,.2);background:var(--red-light)">
-      <div class="row-between">
-        <div><div class="h3 text-red">Grupo Familia</div><div class="caption mt-4">Vence amanhã · 15 Janeiro 2025</div></div>
-        <div class="mono text-red" style="font-size:22px">500 MZN</div>
-      </div>
-    </div>
-
-    <div class="sec-hdr"><div class="h3">Método de pagamento</div></div>
-    <div class="card mb-10" style="padding:14px 16px;border-color:rgba(192,57,43,.2)">
-      <div class="row">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--red-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
-        <div class="col"><div style="font-size:13px;font-weight:600">Carteira Xitique</div><div class="caption">Saldo: 12.450 MZN</div></div>
-        <div style="width:20px;height:20px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-      </div>
-    </div>
-    <div class="card mb-20" style="padding:14px 16px">
-      <div class="row">
-        <div style="width:36px;height:36px;border-radius:10px;background:#F0FFF4;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg></div>
-        <div class="col"><div style="font-size:13px;font-weight:600">M-Pesa directo</div><div class="caption">+258 84 123 4567</div></div>
-        <div style="width:20px;height:20px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center"><div style="width:10px;height:10px;border-radius:50%;background:var(--bg4)"></div></div>
-      </div>
-    </div>
-
-    <div class="breakdown mb-20">
-      <div class="breakdown-row"><span class="lbl">Contribuição mensal</span><span class="val">500 MZN</span></div>
-      <div class="breakdown-row"><span class="lbl">Taxa da plataforma (5%)</span><span class="val text-red">- 25 MZN</span></div>
-      <div class="breakdown-row"><span>Total debitado</span><span class="val text-red">525 MZN</span></div>
-    </div>
-
-    <button class="btn btn-primary mb-10" onclick="openSheet('sheet-confirm-deposit')">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
-      Pagar 500 MZN agora
-    </button>
-    <button class="btn btn-ghost" onclick="goTo('screen-group-detail')">Cancelar</button>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════ -->
-<!-- LEVANTAMENTO -->
-<!-- ══════════════════════════════════════════ -->
-<div id="screen-withdraw" class="screen">
-  <div class="nav"><button class="nav-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Levantamento</div><div></div></div>
-  <div class="content pad">
-    <div class="h2 mb-4">Levantar fundo</div>
-    <div class="caption mb-16">Grupo Familia · Calculado automaticamente</div>
-
-    <div class="alert alert-or mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Recebeste <strong>5.000 MZN</strong>. O sistema calculou automaticamente quanto podes levantar com base nos membros que já receberam.</p></div>
-
-    <div class="breakdown mb-16">
-      <div class="breakdown-row"><span class="lbl">Fundo total recebido</span><span class="val">5.000 MZN</span></div>
-      <div class="breakdown-row"><span class="lbl">3 membros já receberam (× 500 MZN)</span><span class="val text-success">↑ 1.500 MZN disponíveis</span></div>
-      <div class="breakdown-row"><span class="lbl">6 membros ainda não receberam</span><span class="val text-red">🔒 3.000 MZN bloqueados</span></div>
-      <div class="breakdown-row"><span class="lbl">Contribuição própria · fim do ciclo</span><span class="val" style="color:var(--amber)">⏳ 500 MZN reservados</span></div>
-      <div class="breakdown-row"><span>Somente podes levantar agora</span><span class="val text-red" style="font-size:20px">1.500 MZN</span></div>
-    </div>
-
-    <div class="alert alert-success mb-20"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>Os 3.000 MZN ficam bloqueados automaticamente para proteger os 6 membros que ainda não receberam. Os teus 500 MZN voltam no fim do ciclo.</p></div>
-
-    <div class="sec-hdr"><div class="h3">Destino</div></div>
-    <div class="card mb-20" style="padding:14px 16px;border-color:rgba(192,57,43,.2)">
-      <div class="row">
-        <div style="width:36px;height:36px;border-radius:10px;background:var(--red-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
-        <div class="col"><div style="font-size:13px;font-weight:600">Carteira Xitique</div><div class="caption">Fica disponível para usar na app</div></div>
-        <div style="width:20px;height:20px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-      </div>
-    </div>
-
-    <button class="btn btn-primary mb-10" onclick="openSheet('sheet-confirm-withdraw')">
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg>
-      Levantar 1.500 MZN
-    </button>
-    <button class="btn btn-ghost" onclick="goTo('screen-group-detail')">Cancelar</button>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════ -->
-<!-- CARTEIRA PESSOAL -->
-<!-- ══════════════════════════════════════════ -->
-<div id="screen-wallet" class="screen">
-  <div class="nav"><div class="nav-logo">X<span>itique</span></div><div></div></div>
-  <div class="content">
-    <div style="padding:20px;background:linear-gradient(160deg,#FFF5F2,var(--bg))">
-      <div class="wallet-hero">
-        <div style="font-size:11px;font-weight:600;opacity:.7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;position:relative;z-index:1">SALDO DISPONÍVEL</div>
-        <div class="wallet-amount" style="position:relative;z-index:1">MZN 12.450<span style="font-size:20px;opacity:.8">,00</span></div>
-        <div class="wallet-sub" style="position:relative;z-index:1">Carregado via M-Pesa · Actualizado agora</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px;position:relative;z-index:1">
-          <button onclick="openSheet('sheet-load-wallet')" style="padding:11px 8px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-d);display:flex;align-items:center;justify-content:center;gap:6px;backdrop-filter:blur(4px)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg>Carregar M-Pesa</button>
-          <button onclick="openSheet('sheet-send-wallet')" style="padding:11px 8px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-d);display:flex;align-items:center;justify-content:center;gap:6px;backdrop-filter:blur(4px)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg>Enviar M-Pesa</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="pad">
-      <!-- Auto-pagamento -->
-      <div class="sec-hdr"><div class="h3">Pagamento automático</div><div class="badge badge-success">Activo</div></div>
-      <div class="card mb-20" style="padding:16px">
-        <div class="toggle-row" style="padding-bottom:14px">
-          <div class="toggle-info"><div class="h3">Débito automático</div><div class="caption">Paga grupos 1 dia antes do prazo</div></div>
-          <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
-        </div>
-        <div style="margin-top:14px">
-          <div class="caption mb-10" style="font-weight:600;color:var(--text2)">Próximos débitos</div>
-          <div class="list-item">
-            <div style="width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0"></div>
-            <div class="col"><div style="font-size:13px;font-weight:500">Grupo Familia · Jan 2025</div><div class="caption">Amanhã · 14 Jan</div></div>
-            <div class="mono text-red" style="font-size:14px">500 MZN</div>
-          </div>
-          <div class="list-item" style="border-bottom:none">
-            <div style="width:8px;height:8px;border-radius:50%;background:var(--or);flex-shrink:0"></div>
-            <div class="col"><div style="font-size:13px;font-weight:500">Colegas Trabalho · Jan 2025</div><div class="caption">Em 6 dias · 20 Jan</div></div>
-            <div class="mono" style="color:var(--or);font-size:14px">1.000 MZN</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="alert alert-or mb-20"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p><strong>Protecção de saldo insuficiente:</strong> Se a carteira não tiver saldo no dia do débito, recebes alerta imediato. Tens 48h para carregar. Se não carregares, o depósito de garantia cobre automaticamente.</p></div>
-
-      <!-- Movimentos -->
-      <div class="sec-hdr"><div class="h3">Movimentos</div><button class="see-all" onclick="goTo('screen-history')">Ver todos</button></div>
+<!-- Paid/Pending lists, Deposit, Withdraw — same structure -->
+<div id="screen-paid-list" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item active" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none"><button class="desktop-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Grupo Familia</button><div class="desktop-topbar-title">Já foram pagos</div><div></div></div>
+    <div class="nav"><button class="nav-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Já foram pagos</div><div></div></div>
+    <div class="content"><div class="pad desktop-sub-content" style="margin:0 auto">
+      <div class="alert alert-success mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p><strong>3 membros</strong> já receberam. Total pago: <strong>15.000 MZN</strong>.</p></div>
       <div class="card" style="padding:4px 16px">
-        <div class="list-item"><div class="list-item-icon" style="background:var(--red-light)"><svg fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Auto-débito · Grupo Familia</div><div class="list-item-sub">Hoje · 08:00 · Automático</div></div><div class="list-item-right"><div class="list-item-amount text-red">- 500 MZN</div></div></div>
-        <div class="list-item"><div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg></div><div class="list-item-body"><div class="list-item-title">Fundo recebido · Grupo Familia</div><div class="list-item-sub">5 Jan · Posição 4</div></div><div class="list-item-right"><div class="list-item-amount text-success">+ 5.000 MZN</div></div></div>
-        <div class="list-item"><div class="list-item-icon" style="background:var(--or-light)"><svg fill="none" stroke="var(--or)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Carregamento M-Pesa</div><div class="list-item-sub">3 Jan · 10:22</div></div><div class="list-item-right"><div class="list-item-amount" style="color:var(--or)">+ 10.000 MZN</div></div></div>
-        <div class="list-item" style="border-bottom:none"><div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="list-item-body"><div class="list-item-title">Devolução garantia · Ciclo 2023</div><div class="list-item-sub">31 Dez 2023</div></div><div class="list-item-right"><div class="list-item-amount text-success">+ 1.000 MZN</div></div></div>
+        <div class="member-row"><div class="pos-badge pos-done">P1</div><div class="avatar" style="background:var(--success-light);color:var(--success)">MC</div><div class="col"><div class="list-item-title">Maria Cossa</div><div class="caption">1 Nov 2024</div></div><div class="list-item-right"><div class="list-item-amount text-success">5.000 MZN</div></div></div>
+        <div class="member-row"><div class="pos-badge pos-done">P2</div><div class="avatar" style="background:var(--success-light);color:var(--success)">RN</div><div class="col"><div class="list-item-title">Rui Nhantumbo</div><div class="caption">1 Dez 2024</div></div><div class="list-item-right"><div class="list-item-amount text-success">5.000 MZN</div></div></div>
+        <div class="member-row" style="border-bottom:none"><div class="pos-badge pos-done">P3</div><div class="avatar" style="background:var(--success-light);color:var(--success)">SB</div><div class="col"><div class="list-item-title">Sara Banze</div><div class="caption">1 Jan 2025</div></div><div class="list-item-right"><div class="list-item-amount text-success">5.000 MZN</div></div></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<div id="screen-pending-list" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item active" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none"><button class="desktop-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Grupo Familia</button><div class="desktop-topbar-title">A serem pagos</div><div></div></div>
+    <div class="nav"><button class="nav-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">A serem pagos</div><div></div></div>
+    <div class="content"><div class="pad desktop-sub-content" style="margin:0 auto">
+      <div class="alert alert-or mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><p><strong>7 membros</strong> aguardam. Os pagamentos são automáticos no 1.º de cada mês.</p></div>
+      <div class="card" style="padding:4px 16px">
+        <div class="member-row"><div class="pos-badge pos-current">P4</div><div class="avatar" style="background:var(--red-light);color:var(--red)">JM</div><div class="col"><div class="list-item-title">João Manhiça</div><div class="caption text-red">1 Fevereiro 2025 · Em 18 dias</div></div><div class="list-item-right"><div class="list-item-amount text-red">5.000 MZN</div><div><div class="badge badge-red" style="font-size:9px">Próximo</div></div></div></div>
+        <div class="member-row"><div class="pos-badge pos-next">P5</div><div class="avatar" style="background:var(--or-light);color:var(--or)">AM</div><div class="col"><div class="list-item-title">Ana Macuácua (Tu)</div><div class="caption">1 Março 2025</div></div><div class="list-item-right"><div class="list-item-amount">5.000 MZN</div></div></div>
+        <div class="member-row"><div class="pos-badge pos-pending">P6</div><div class="avatar" style="background:var(--bg3);color:var(--text2)">PC</div><div class="col"><div class="list-item-title">Paulo Cumbe</div><div class="caption">1 Abril 2025</div></div><div class="list-item-right"><div class="list-item-amount">5.000 MZN</div></div></div>
+        <div class="member-row" style="border-bottom:none"><div class="pos-badge pos-pending" style="font-size:10px">P7+</div><div class="avatar" style="background:var(--bg3);color:var(--text3)">···</div><div class="col"><div class="list-item-title">4 membros restantes</div><div class="caption">Mai–Ago 2025</div></div><div class="list-item-right"><div class="list-item-amount">20.000 MZN</div></div></div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<!-- Deposit & Withdraw screens kept simple, add sidebar wrapper -->
+<div id="screen-deposit" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item active" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none"><button class="desktop-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Grupo Familia</button><div class="desktop-topbar-title">Contribuição</div><div></div></div>
+    <div class="nav"><button class="nav-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Contribuição</div><div></div></div>
+    <div class="content"><div class="pad desktop-sub-content" style="margin:0 auto">
+      <div class="h2 mb-4">Contribuição mensal</div>
+      <div class="caption mb-20">Janeiro 2025 · Grupo Familia</div>
+      <div class="card mb-16" style="padding:16px;border-color:rgba(192,57,43,.2);background:var(--red-light)"><div class="row-between"><div><div class="h3 text-red">Grupo Familia</div><div class="caption mt-4">Vence amanhã · 15 Janeiro 2025</div></div><div class="mono text-red" style="font-size:22px">500 MZN</div></div></div>
+      <div class="sec-hdr"><div class="h3">Método de pagamento</div></div>
+      <div class="card mb-10" style="padding:14px 16px;border-color:rgba(192,57,43,.2)"><div class="row"><div style="width:36px;height:36px;border-radius:10px;background:var(--red-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div><div class="col"><div style="font-size:13px;font-weight:600">Carteira Xitique</div><div class="caption">Saldo: 12.450 MZN</div></div><div style="width:20px;height:20px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center"><svg width="10" height="10" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div></div>
+      <div class="breakdown mb-20"><div class="breakdown-row"><span class="lbl">Contribuição mensal</span><span class="val">500 MZN</span></div><div class="breakdown-row"><span class="lbl">Taxa da plataforma (5%)</span><span class="val text-red">- 25 MZN</span></div><div class="breakdown-row"><span>Total debitado</span><span class="val text-red">525 MZN</span></div></div>
+      <button class="btn btn-primary mb-10" onclick="openSheet('sheet-confirm-deposit')"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg>Pagar 500 MZN agora</button>
+      <button class="btn btn-ghost" onclick="goTo('screen-group-detail')">Cancelar</button>
+    </div></div>
+  </div>
+</div>
+
+<div id="screen-withdraw" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item active" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none"><button class="desktop-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Grupo Familia</button><div class="desktop-topbar-title">Levantamento</div><div></div></div>
+    <div class="nav"><button class="nav-back" onclick="goTo('screen-group-detail')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Levantamento</div><div></div></div>
+    <div class="content"><div class="pad desktop-sub-content" style="margin:0 auto">
+      <div class="h2 mb-4">Levantar fundo</div>
+      <div class="caption mb-16">Grupo Familia · Calculado automaticamente</div>
+      <div class="alert alert-or mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Recebeste <strong>5.000 MZN</strong>. O sistema calculou automaticamente quanto podes levantar.</p></div>
+      <div class="breakdown mb-16"><div class="breakdown-row"><span class="lbl">Fundo total recebido</span><span class="val">5.000 MZN</span></div><div class="breakdown-row"><span class="lbl">3 membros já receberam</span><span class="val text-success">↑ 1.500 MZN disponíveis</span></div><div class="breakdown-row"><span class="lbl">6 membros ainda não receberam</span><span class="val text-red">🔒 3.000 MZN bloqueados</span></div><div class="breakdown-row"><span class="lbl">Contribuição própria</span><span class="val" style="color:var(--amber)">⏳ 500 MZN reservados</span></div><div class="breakdown-row"><span>Somente podes levantar agora</span><span class="val text-red" style="font-size:20px">1.500 MZN</span></div></div>
+      <div class="alert alert-success mb-20"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>Os 3.000 MZN ficam bloqueados automaticamente para proteger os 6 membros que ainda não receberam.</p></div>
+      <button class="btn btn-primary mb-10" onclick="openSheet('sheet-confirm-withdraw')"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg>Levantar 1.500 MZN</button>
+      <button class="btn btn-ghost" onclick="goTo('screen-group-detail')">Cancelar</button>
+    </div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- CARTEIRA -->
+<!-- ══════════════════════════════════════════ -->
+<div id="screen-wallet" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Início</button><button class="sidebar-item active"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Carteira</button><button class="sidebar-item" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button><button class="sidebar-item" onclick="goTo('screen-history')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Historial</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div><div class="sidebar-user-sub">Score 94</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none">
+      <div class="desktop-topbar-title">Carteira</div>
+      <div class="desktop-topbar-actions">
+        <button class="btn btn-primary btn-sm" onclick="openSheet('sheet-load-wallet')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg>Carregar</button>
+        <button class="btn btn-ghost btn-sm" onclick="openSheet('sheet-send-wallet')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg>Enviar</button>
+      </div>
+    </div>
+    <div class="nav"><div class="nav-logo">X<span>itique</span></div><div></div></div>
+    <div class="content">
+      <div style="padding:20px;background:linear-gradient(160deg,#FFF5F2,var(--bg))">
+        <div class="wallet-hero">
+          <div style="font-size:11px;font-weight:600;opacity:.7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;position:relative;z-index:1">SALDO DISPONÍVEL</div>
+          <div class="wallet-amount" style="position:relative;z-index:1">MZN 12.450<span style="font-size:20px;opacity:.8">,00</span></div>
+          <div class="wallet-sub" style="position:relative;z-index:1">Carregado via M-Pesa · Actualizado agora</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px;position:relative;z-index:1">
+            <button onclick="openSheet('sheet-load-wallet')" style="padding:11px 8px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-d);display:flex;align-items:center;justify-content:center;gap:6px;backdrop-filter:blur(4px)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg>Carregar M-Pesa</button>
+            <button onclick="openSheet('sheet-send-wallet')" style="padding:11px 8px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-d);display:flex;align-items:center;justify-content:center;gap:6px;backdrop-filter:blur(4px)"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg>Enviar M-Pesa</button>
+          </div>
+        </div>
+      </div>
+      <div class="pad">
+        <div class="sec-hdr"><div class="h3">Pagamento automático</div><div class="badge badge-success">Activo</div></div>
+        <div class="card mb-20" style="padding:16px">
+          <div class="toggle-row" style="padding-bottom:14px"><div class="toggle-info"><div class="h3">Débito automático</div><div class="caption">Paga grupos 1 dia antes do prazo</div></div><div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div></div>
+          <div style="margin-top:14px">
+            <div class="caption mb-10" style="font-weight:600;color:var(--text2)">Próximos débitos</div>
+            <div class="list-item"><div style="width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0"></div><div class="col"><div style="font-size:13px;font-weight:500">Grupo Familia · Jan 2025</div><div class="caption">Amanhã · 14 Jan</div></div><div class="mono text-red" style="font-size:14px">500 MZN</div></div>
+            <div class="list-item" style="border-bottom:none"><div style="width:8px;height:8px;border-radius:50%;background:var(--or);flex-shrink:0"></div><div class="col"><div style="font-size:13px;font-weight:500">Colegas Trabalho · Jan 2025</div><div class="caption">Em 6 dias · 20 Jan</div></div><div class="mono" style="color:var(--or);font-size:14px">1.000 MZN</div></div>
+          </div>
+        </div>
+        <div class="alert alert-or mb-20"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p><strong>Protecção de saldo insuficiente:</strong> Se a carteira não tiver saldo no dia do débito, recebes alerta imediato. Tens 48h para carregar. Se não carregares, o depósito de garantia cobre automaticamente.</p></div>
+        <div class="sec-hdr"><div class="h3">Movimentos</div><button class="see-all" onclick="goTo('screen-history')">Ver todos</button></div>
+        <div class="card" style="padding:4px 16px">
+          <div class="list-item"><div class="list-item-icon" style="background:var(--red-light)"><svg fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Auto-débito · Grupo Familia</div><div class="list-item-sub">Hoje · 08:00 · Automático</div></div><div class="list-item-right"><div class="list-item-amount text-red">- 500 MZN</div></div></div>
+          <div class="list-item"><div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg></div><div class="list-item-body"><div class="list-item-title">Fundo recebido · Grupo Familia</div><div class="list-item-sub">5 Jan · Posição 4</div></div><div class="list-item-right"><div class="list-item-amount text-success">+ 5.000 MZN</div></div></div>
+          <div class="list-item"><div class="list-item-icon" style="background:var(--or-light)"><svg fill="none" stroke="var(--or)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Carregamento M-Pesa</div><div class="list-item-sub">3 Jan · 10:22</div></div><div class="list-item-right"><div class="list-item-amount" style="color:var(--or)">+ 10.000 MZN</div></div></div>
+          <div class="list-item" style="border-bottom:none"><div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="list-item-body"><div class="list-item-title">Devolução garantia · Ciclo 2023</div><div class="list-item-sub">31 Dez 2023</div></div><div class="list-item-right"><div class="list-item-amount text-success">+ 1.000 MZN</div></div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1074,36 +1306,24 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
 <!-- ══════════════════════════════════════════ -->
 <!-- GRUPOS -->
 <!-- ══════════════════════════════════════════ -->
-<div id="screen-groups" class="screen">
-  <div class="nav"><div class="nav-logo">X<span>itique</span></div><button class="nav-action" onclick="goTo('screen-create-group')">+ Criar</button></div>
-  <div class="content pad">
-    <div class="h2 mb-4">Os meus grupos</div>
-    <div class="caption mb-20">2 grupos activos · 1 pendente</div>
-    <div class="group-card mb-12" onclick="goTo('screen-group-detail')">
-      <div class="group-card-stripe" style="background:var(--red)"></div>
-      <div class="row-between mb-6"><div class="h3">Grupo Familia</div><div class="badge badge-red">Activo · Mês 4</div></div>
-      <div class="caption mb-10">10 membros · 500 MZN/mês · Tua vez: Mês 7</div>
-      <div class="progress-track mb-6"><div class="progress-fill" style="width:40%"></div></div>
-      <div class="row-between"><span class="caption">4/10 meses completos</span><span class="badge badge-success" style="font-size:9px">Auto-pagamento ✓</span></div>
+<div id="screen-groups" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Início</button><button class="sidebar-item" onclick="goTo('screen-wallet')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Carteira</button><button class="sidebar-item active"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button><button class="sidebar-item" onclick="goTo('screen-history')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Historial</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div><div class="sidebar-user-sub">Score 94</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none">
+      <div class="desktop-topbar-title">Os meus grupos</div>
+      <button class="btn btn-primary btn-sm" onclick="goTo('screen-create-group')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Criar grupo</button>
     </div>
-    <div class="group-card mb-12" onclick="goTo('screen-group-detail')">
-      <div class="group-card-stripe" style="background:var(--success)"></div>
-      <div class="row-between mb-6"><div class="h3">Poupança 2024</div><div class="badge badge-success">Concluído</div></div>
-      <div class="caption mb-10">8 membros · 300 MZN/mês · Ciclo terminado</div>
-      <div class="progress-track mb-6"><div class="progress-fill progress-fill-success" style="width:100%"></div></div>
-      <div class="caption">Concluído em Dez 2024 · Garantias devolvidas</div>
+    <div class="nav"><div class="nav-logo">X<span>itique</span></div><button class="nav-action" onclick="goTo('screen-create-group')">+ Criar</button></div>
+    <div class="content pad">
+      <div class="h2 mb-4">Os meus grupos</div>
+      <div class="caption mb-20">2 grupos activos · 1 pendente</div>
+      <div class="groups-grid">
+        <div class="group-card" onclick="goTo('screen-group-detail')"><div class="group-card-stripe" style="background:var(--red)"></div><div class="row-between mb-6"><div class="h3">Grupo Familia</div><div class="badge badge-red">Activo · Mês 4</div></div><div class="caption mb-10">10 membros · 500 MZN/mês · Tua vez: Mês 7</div><div class="progress-track mb-6"><div class="progress-fill" style="width:40%"></div></div><div class="row-between"><span class="caption">4/10 meses completos</span><span class="badge badge-success" style="font-size:9px">Auto ✓</span></div></div>
+        <div class="group-card" onclick="goTo('screen-group-detail')"><div class="group-card-stripe" style="background:var(--success)"></div><div class="row-between mb-6"><div class="h3">Poupança 2024</div><div class="badge badge-success">Concluído</div></div><div class="caption mb-10">8 membros · 300 MZN/mês · Ciclo terminado</div><div class="progress-track mb-6"><div class="progress-fill progress-fill-success" style="width:100%"></div></div><div class="caption">Concluído em Dez 2024 · Garantias devolvidas</div></div>
+        <div class="group-card" onclick="goTo('screen-group-detail')"><div class="group-card-stripe" style="background:var(--amber)"></div><div class="row-between mb-6"><div class="h3">Colegas Trabalho</div><div class="badge badge-amber">Aguarda membros</div></div><div class="caption mb-10">4/6 membros · 1.000 MZN/mês</div><div class="progress-track mb-6"><div class="progress-fill progress-fill-or" style="width:67%"></div></div><div class="caption text-red">Faltam 2 membros para começar</div></div>
+      </div>
+      <button class="btn btn-secondary mt-16" onclick="goTo('screen-create-group')"><svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Criar novo grupo</button>
     </div>
-    <div class="group-card mb-20" onclick="goTo('screen-group-detail')">
-      <div class="group-card-stripe" style="background:var(--amber)"></div>
-      <div class="row-between mb-6"><div class="h3">Colegas Trabalho</div><div class="badge badge-amber">Aguarda membros</div></div>
-      <div class="caption mb-10">4/6 membros · 1.000 MZN/mês</div>
-      <div class="progress-track mb-6"><div class="progress-fill progress-fill-or" style="width:67%"></div></div>
-      <div class="caption text-red">Faltam 2 membros para começar</div>
-    </div>
-    <button class="btn btn-secondary" onclick="goTo('screen-create-group')">
-      <svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Criar novo grupo
-    </button>
   </div>
   <div class="bottom-nav">
     <button class="bnav-item" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Início</span></button>
@@ -1117,25 +1337,29 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
 <!-- ══════════════════════════════════════════ -->
 <!-- HISTORIAL -->
 <!-- ══════════════════════════════════════════ -->
-<div id="screen-history" class="screen">
-  <div class="nav"><div class="nav-logo">X<span>itique</span></div><button class="nav-action">Filtrar</button></div>
-  <div class="content pad">
-    <div class="h2 mb-16">Historial</div>
-    <div class="stat-grid mb-20">
-      <div class="stat-card"><div class="label">Recebido</div><div class="stat-value text-success">15.000</div><div class="caption">MZN · ciclo actual</div></div>
-      <div class="stat-card"><div class="label">Contribuído</div><div class="stat-value">2.000</div><div class="caption">MZN · 4 pagamentos</div></div>
-      <div class="stat-card"><div class="label">Automáticos</div><div class="stat-value text-red">4</div><div class="caption">pagamentos auto</div></div>
-    </div>
-    <div class="label mb-10">Janeiro 2025</div>
-    <div class="card mb-16" style="padding:4px 16px">
-      <div class="list-item"><div class="list-item-icon" style="background:var(--red-light)"><svg fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Auto-débito · Grupo Familia</div><div class="list-item-sub">15 Jan · Automático</div></div><div class="list-item-right"><div class="list-item-amount text-red">- 500 MZN</div></div></div>
-      <div class="list-item" style="border-bottom:none"><div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg></div><div class="list-item-body"><div class="list-item-title">Fundo recebido · Grupo Familia</div><div class="list-item-sub">5 Jan · Posição 4</div></div><div class="list-item-right"><div class="list-item-amount text-success">+ 5.000 MZN</div></div></div>
-    </div>
-    <div class="label mb-10">Dezembro 2024</div>
-    <div class="card mb-16" style="padding:4px 16px">
-      <div class="list-item"><div class="list-item-icon" style="background:var(--red-light)"><svg fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Auto-débito · Grupo Familia</div><div class="list-item-sub">15 Dez · Automático</div></div><div class="list-item-right"><div class="list-item-amount text-red">- 500 MZN</div></div></div>
-      <div class="list-item"><div class="list-item-icon" style="background:var(--or-light)"><svg fill="none" stroke="var(--or)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Depósito garantia · Colegas</div><div class="list-item-sub">1 Dez · Entrada no grupo</div></div><div class="list-item-right"><div class="list-item-amount" style="color:var(--or)">- 2.000 MZN</div></div></div>
-      <div class="list-item" style="border-bottom:none"><div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="list-item-body"><div class="list-item-title">Devolução garantia · Ciclo 2023</div><div class="list-item-sub">31 Dez · Fim do ciclo</div></div><div class="list-item-right"><div class="list-item-amount text-success">+ 1.000 MZN</div></div></div>
+<div id="screen-history" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Início</button><button class="sidebar-item" onclick="goTo('screen-wallet')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Carteira</button><button class="sidebar-item" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button><button class="sidebar-item active"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Historial</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div><div class="sidebar-user-sub">Score 94</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none"><div class="desktop-topbar-title">Historial</div><button class="btn btn-ghost btn-sm">Filtrar</button></div>
+    <div class="nav"><div class="nav-logo">X<span>itique</span></div><button class="nav-action">Filtrar</button></div>
+    <div class="content pad">
+      <div class="h2 mb-16">Historial</div>
+      <div class="stat-grid mb-20">
+        <div class="stat-card"><div class="label">Recebido</div><div class="stat-value text-success">15.000</div><div class="caption">MZN · ciclo actual</div></div>
+        <div class="stat-card"><div class="label">Contribuído</div><div class="stat-value">2.000</div><div class="caption">MZN · 4 pagamentos</div></div>
+        <div class="stat-card"><div class="label">Automáticos</div><div class="stat-value text-red">4</div><div class="caption">pagamentos auto</div></div>
+      </div>
+      <div class="label mb-10">Janeiro 2025</div>
+      <div class="card mb-16" style="padding:4px 16px">
+        <div class="list-item"><div class="list-item-icon" style="background:var(--red-light)"><svg fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Auto-débito · Grupo Familia</div><div class="list-item-sub">15 Jan · Automático</div></div><div class="list-item-right"><div class="list-item-amount text-red">- 500 MZN</div></div></div>
+        <div class="list-item" style="border-bottom:none"><div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg></div><div class="list-item-body"><div class="list-item-title">Fundo recebido · Grupo Familia</div><div class="list-item-sub">5 Jan · Posição 4</div></div><div class="list-item-right"><div class="list-item-amount text-success">+ 5.000 MZN</div></div></div>
+      </div>
+      <div class="label mb-10">Dezembro 2024</div>
+      <div class="card mb-16" style="padding:4px 16px">
+        <div class="list-item"><div class="list-item-icon" style="background:var(--red-light)"><svg fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Auto-débito · Grupo Familia</div><div class="list-item-sub">15 Dez · Automático</div></div><div class="list-item-right"><div class="list-item-amount text-red">- 500 MZN</div></div></div>
+        <div class="list-item"><div class="list-item-icon" style="background:var(--or-light)"><svg fill="none" stroke="var(--or)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="list-item-body"><div class="list-item-title">Depósito garantia · Colegas</div><div class="list-item-sub">1 Dez · Entrada no grupo</div></div><div class="list-item-right"><div class="list-item-amount" style="color:var(--or)">- 2.000 MZN</div></div></div>
+        <div class="list-item" style="border-bottom:none"><div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="list-item-body"><div class="list-item-title">Devolução garantia · Ciclo 2023</div><div class="list-item-sub">31 Dez · Fim do ciclo</div></div><div class="list-item-right"><div class="list-item-amount text-success">+ 1.000 MZN</div></div></div>
+      </div>
     </div>
   </div>
   <div class="bottom-nav">
@@ -1150,23 +1374,22 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
 <!-- ══════════════════════════════════════════ -->
 <!-- NOTIFICAÇÕES -->
 <!-- ══════════════════════════════════════════ -->
-<div id="screen-notif" class="screen">
-  <div class="nav"><button class="nav-back" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Notificações</div><button class="nav-action">Limpar</button></div>
-  <div class="content pad">
-    <div class="card mb-12" style="padding:16px;border-color:rgba(192,57,43,.2);background:var(--red-light)">
-      <div class="row mb-10"><div style="width:36px;height:36px;border-radius:10px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="col"><div style="font-size:14px;font-weight:600;color:var(--red)">Paulo Cumbe quer sair do grupo</div><div class="caption mt-2">Já recebeu o fundo. A tua aprovação é necessária.</div></div></div>
-      <div class="card-inset" style="padding:12px;margin-bottom:12px;background:#fff">
-        <div class="breakdown-row" style="padding:6px 0"><span class="lbl">Fundo recebido</span><span class="val">5.000 MZN</span></div>
-        <div class="breakdown-row" style="padding:6px 0"><span class="lbl">Valor bloqueado</span><span class="val text-red">3.000 MZN</span></div>
-        <div class="breakdown-row" style="padding:6px 0;border-top:none"><span class="lbl">Levantará agora</span><span class="val text-success">500 MZN</span></div>
+<div id="screen-notif" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Início</button></nav><div class="sidebar-footer"><div class="sidebar-user" onclick="goTo('screen-profile')"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name">Ana Macuácua</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none"><button class="desktop-back" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Início</button><div class="desktop-topbar-title">Notificações</div><button class="nav-action">Limpar</button></div>
+    <div class="nav"><button class="nav-back" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button><div class="nav-title">Notificações</div><button class="nav-action">Limpar</button></div>
+    <div class="content pad" style="max-width:640px">
+      <div class="card mb-12" style="padding:16px;border-color:rgba(192,57,43,.2);background:var(--red-light)">
+        <div class="row mb-10"><div style="width:36px;height:36px;border-radius:10px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="col"><div style="font-size:14px;font-weight:600;color:var(--red)">Paulo Cumbe quer sair do grupo</div><div class="caption mt-2">Já recebeu o fundo. A tua aprovação é necessária.</div></div></div>
+        <div class="vote-grid"><button class="vote-btn vote-yes" onclick="goTo('screen-home')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Aprovar saída</button><button class="vote-btn vote-no" onclick="goTo('screen-home')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Recusar</button></div>
+        <div class="caption mt-10">Há 2 horas · Grupo Familia</div>
       </div>
-      <div class="vote-grid"><button class="vote-btn vote-yes" onclick="goTo('screen-home')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Aprovar saída</button><button class="vote-btn vote-no" onclick="goTo('screen-home')"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Recusar</button></div>
-      <div class="caption mt-10">Há 2 horas · Grupo Familia</div>
-    </div>
-    <div class="card" style="padding:4px 16px">
-      <div class="list-item"><div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="list-item-body"><div class="list-item-title">Auto-pagamento processado</div><div class="list-item-sub">500 MZN · Grupo Familia · Hoje 08:00</div></div></div>
-      <div class="list-item"><div class="list-item-icon" style="background:var(--amber-light)"><svg fill="none" stroke="var(--amber)" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><div class="list-item-body"><div class="list-item-title">Saldo insuficiente coberto</div><div class="list-item-sub">Garantia de Sónia usada · Ciclo não afectado</div></div></div>
-      <div class="list-item" style="border-bottom:none"><div class="list-item-icon" style="background:var(--info-light)"><svg fill="none" stroke="var(--info)" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div><div class="list-item-body"><div class="list-item-title">Novo convite de grupo</div><div class="list-item-sub">Sónia convidou-te · Poupança Natal 2025</div></div><div class="list-item-right"><button class="btn-xs btn-secondary" onclick="goTo('screen-home')">Ver</button></div></div>
+      <div class="card" style="padding:4px 16px">
+        <div class="list-item"><div class="list-item-icon" style="background:var(--success-light)"><svg fill="none" stroke="var(--success)" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="list-item-body"><div class="list-item-title">Auto-pagamento processado</div><div class="list-item-sub">500 MZN · Grupo Familia · Hoje 08:00</div></div></div>
+        <div class="list-item"><div class="list-item-icon" style="background:var(--amber-light)"><svg fill="none" stroke="var(--amber)" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><div class="list-item-body"><div class="list-item-title">Saldo insuficiente coberto</div><div class="list-item-sub">Garantia de Sónia usada · Ciclo não afectado</div></div></div>
+        <div class="list-item" style="border-bottom:none"><div class="list-item-icon" style="background:var(--info-light)"><svg fill="none" stroke="var(--info)" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div><div class="list-item-body"><div class="list-item-title">Novo convite de grupo</div><div class="list-item-sub">Sónia convidou-te · Poupança Natal 2025</div></div><div class="list-item-right"><button class="btn-xs btn-secondary" onclick="goTo('screen-home')">Ver</button></div></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1174,36 +1397,40 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
 <!-- ══════════════════════════════════════════ -->
 <!-- PERFIL -->
 <!-- ══════════════════════════════════════════ -->
-<div id="screen-profile" class="screen">
-  <div class="nav"><div class="nav-logo">X<span>itique</span></div><button class="nav-action" onclick="goTo('screen-onboard')">Sair</button></div>
-  <div class="content">
-    <div class="profile-hero">
-      <div class="profile-av">AM</div>
-      <div class="h2 mb-2">Ana Macuácua</div>
-      <div class="caption">+258 84 123 4567 · ✓ Verificado</div>
-      <div class="mt-10"><div class="badge badge-red">Membro desde Jan 2024</div></div>
-    </div>
-    <div style="margin:0 20px 20px;background:linear-gradient(135deg,#FFF5F2,var(--bg2));border:1px solid rgba(192,57,43,.15);border-radius:var(--r);padding:20px">
-      <div class="label mb-8">Score de reputação</div>
-      <div class="rep-score" style="font-family:var(--font-d);font-weight:800;font-size:48px;color:var(--red);letter-spacing:-2px;line-height:1;margin-bottom:4px">94</div>
-      <div style="font-size:12px;color:var(--red);font-weight:500">Excelente — Membro de confiança</div>
-      <div class="rep-bar-track"><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar"></div></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px;text-align:center">
-        <div><div class="label">Ciclos</div><div class="mono" style="font-size:18px;margin-top:4px">3</div><div class="caption">completos</div></div>
-        <div><div class="label">Pontualidade</div><div class="mono text-success" style="font-size:18px;margin-top:4px">100%</div><div class="caption">sempre em dia</div></div>
-        <div><div class="label">Saídas</div><div class="mono" style="font-size:18px;margin-top:4px">0</div><div class="caption">antecipadas</div></div>
+<div id="screen-profile" class="screen has-sidebar">
+  <aside class="sidebar" style="display:none"><div class="sidebar-logo"><div class="sidebar-logo-icon">X</div>X<span>itique</span></div><nav class="sidebar-nav"><button class="sidebar-item" onclick="goTo('screen-home')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Início</button><button class="sidebar-item" onclick="goTo('screen-wallet')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Carteira</button><button class="sidebar-item" onclick="goTo('screen-groups')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Grupos</button><button class="sidebar-item" onclick="goTo('screen-history')"><svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Historial</button></nav><div class="sidebar-footer"><div class="sidebar-user" style="background:var(--red-light);border-radius:10px"><div class="sidebar-user-av">AM</div><div class="sidebar-user-info"><div class="sidebar-user-name" style="color:var(--red)">Ana Macuácua</div><div class="sidebar-user-sub">Score 94 · Excelente</div></div></div></div></aside>
+  <div class="desktop-main">
+    <div class="desktop-topbar" style="display:none"><div class="desktop-topbar-title">Perfil</div><button class="nav-action" onclick="goTo('screen-onboard')">Sair</button></div>
+    <div class="nav"><div class="nav-logo">X<span>itique</span></div><button class="nav-action" onclick="goTo('screen-onboard')">Sair</button></div>
+    <div class="content">
+      <div class="profile-hero">
+        <div class="profile-av">AM</div>
+        <div class="h2 mb-2">Ana Macuácua</div>
+        <div class="caption">+258 84 123 4567 · ✓ Verificado</div>
+        <div class="mt-10"><div class="badge badge-red">Membro desde Jan 2024</div></div>
       </div>
-    </div>
-    <div class="pad" style="padding-top:0">
-      <div class="card" style="padding:4px 16px">
-        <div class="toggle-row"><div class="toggle-info"><div class="h3">Pagamento automático</div><div class="caption">Débita 1 dia antes do prazo</div></div><div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div></div>
-        <div class="toggle-row"><div class="toggle-info"><div class="h3">Alertas de saldo baixo</div><div class="caption">Avisa quando a carteira está baixa</div></div><div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div></div>
-        <div class="toggle-row"><div class="toggle-info"><div class="h3">Notificações de votação</div><div class="caption">Pedidos de saída do grupo</div></div><div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div></div>
+      <div style="margin:0 20px 20px;background:linear-gradient(135deg,#FFF5F2,var(--bg2));border:1px solid rgba(192,57,43,.15);border-radius:var(--r);padding:20px">
+        <div class="label mb-8">Score de reputação</div>
+        <div style="font-family:var(--font-d);font-weight:800;font-size:48px;color:var(--red);letter-spacing:-2px;line-height:1;margin-bottom:4px">94</div>
+        <div style="font-size:12px;color:var(--red);font-weight:500">Excelente — Membro de confiança</div>
+        <div class="rep-bar-track"><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar on"></div><div class="rep-bar"></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px;text-align:center">
+          <div><div class="label">Ciclos</div><div class="mono" style="font-size:18px;margin-top:4px">3</div><div class="caption">completos</div></div>
+          <div><div class="label">Pontualidade</div><div class="mono text-success" style="font-size:18px;margin-top:4px">100%</div><div class="caption">sempre em dia</div></div>
+          <div><div class="label">Saídas</div><div class="mono" style="font-size:18px;margin-top:4px">0</div><div class="caption">antecipadas</div></div>
+        </div>
       </div>
-      <div class="card mt-12" style="padding:4px 16px">
-        <div class="list-item" style="cursor:pointer" onclick="goTo('screen-home')"><div class="col"><div class="list-item-title">Segurança e PIN</div></div><svg width="16" height="16" fill="none" stroke="var(--text3)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
-        <div class="list-item" style="cursor:pointer" onclick="goTo('screen-home')"><div class="col"><div class="list-item-title">Métodos de pagamento</div></div><svg width="16" height="16" fill="none" stroke="var(--text3)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
-        <div class="list-item" style="cursor:pointer;border-bottom:none" onclick="goTo('screen-apresentacao')"><div class="col"><div class="list-item-title text-red">Votar no sistema</div><div class="caption">Dá a tua opinião sobre o Xitique</div></div><svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+      <div class="pad" style="padding-top:0">
+        <div class="card" style="padding:4px 16px">
+          <div class="toggle-row"><div class="toggle-info"><div class="h3">Pagamento automático</div><div class="caption">Débita 1 dia antes do prazo</div></div><div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div></div>
+          <div class="toggle-row"><div class="toggle-info"><div class="h3">Alertas de saldo baixo</div><div class="caption">Avisa quando a carteira está baixa</div></div><div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div></div>
+          <div class="toggle-row"><div class="toggle-info"><div class="h3">Notificações de votação</div><div class="caption">Pedidos de saída do grupo</div></div><div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div></div>
+        </div>
+        <div class="card mt-12" style="padding:4px 16px">
+          <div class="list-item" style="cursor:pointer" onclick="goTo('screen-home')"><div class="col"><div class="list-item-title">Segurança e PIN</div></div><svg width="16" height="16" fill="none" stroke="var(--text3)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+          <div class="list-item" style="cursor:pointer" onclick="goTo('screen-home')"><div class="col"><div class="list-item-title">Métodos de pagamento</div></div><svg width="16" height="16" fill="none" stroke="var(--text3)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+          <div class="list-item" style="cursor:pointer;border-bottom:none" onclick="goTo('screen-apresentacao')"><div class="col"><div class="list-item-title text-red">Votar no sistema</div><div class="caption">Dá a tua opinião sobre o Xitique</div></div><svg width="16" height="16" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1217,21 +1444,13 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
 </div>
 
 <!-- ══════════════════════════════════════════ -->
-<!-- SHEETS -->
+<!-- SHEETS (unchanged) -->
 <!-- ══════════════════════════════════════════ -->
 <div class="sheet-overlay" id="sheet-confirm-deposit" onclick="closeSheet('sheet-confirm-deposit')">
   <div class="sheet" onclick="event.stopPropagation()">
     <div class="sheet-handle"></div>
-    <div style="text-align:center;margin-bottom:20px">
-      <div style="width:56px;height:56px;border-radius:16px;background:var(--success-light);margin:0 auto 12px;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" fill="none" stroke="var(--success)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div>
-      <div class="h2">500 MZN</div>
-      <div class="caption mt-4">Grupo Familia · Janeiro 2025</div>
-    </div>
-    <div class="breakdown mb-16">
-      <div class="breakdown-row"><span class="lbl">Contribuição</span><span class="val">500 MZN</span></div>
-      <div class="breakdown-row"><span class="lbl">Taxa plataforma (5%)</span><span class="val text-red">25 MZN</span></div>
-      <div class="breakdown-row"><span>Total debitado</span><span class="val text-red">525 MZN</span></div>
-    </div>
+    <div style="text-align:center;margin-bottom:20px"><div style="width:56px;height:56px;border-radius:16px;background:var(--success-light);margin:0 auto 12px;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" fill="none" stroke="var(--success)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7-7 7 7"/></svg></div><div class="h2">500 MZN</div><div class="caption mt-4">Grupo Familia · Janeiro 2025</div></div>
+    <div class="breakdown mb-16"><div class="breakdown-row"><span class="lbl">Contribuição</span><span class="val">500 MZN</span></div><div class="breakdown-row"><span class="lbl">Taxa plataforma (5%)</span><span class="val text-red">25 MZN</span></div><div class="breakdown-row"><span>Total debitado</span><span class="val text-red">525 MZN</span></div></div>
     <div class="alert alert-success mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><p>O pagamento será processado imediatamente da tua carteira Xitique.</p></div>
     <button class="btn btn-primary mb-10" onclick="closeSheet('sheet-confirm-deposit');goTo('screen-home')">Confirmar pagamento</button>
     <button class="btn btn-ghost" onclick="closeSheet('sheet-confirm-deposit')">Cancelar</button>
@@ -1241,17 +1460,8 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
 <div class="sheet-overlay" id="sheet-confirm-withdraw" onclick="closeSheet('sheet-confirm-withdraw')">
   <div class="sheet" onclick="event.stopPropagation()">
     <div class="sheet-handle"></div>
-    <div style="text-align:center;margin-bottom:20px">
-      <div style="width:56px;height:56px;border-radius:16px;background:var(--red-light);margin:0 auto 12px;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" fill="none" stroke="var(--red)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg></div>
-      <div class="h2">1.500 MZN</div>
-      <div class="caption mt-4">Carteira Xitique · Ana Macuácua</div>
-    </div>
-    <div class="breakdown mb-16">
-      <div class="breakdown-row"><span class="lbl">Levantas agora</span><span class="val text-success">1.500 MZN</span></div>
-      <div class="breakdown-row"><span class="lbl">Bloqueado (6 membros)</span><span class="val text-red">🔒 3.000 MZN</span></div>
-      <div class="breakdown-row"><span class="lbl">Teus · fim do ciclo</span><span class="val" style="color:var(--amber)">⏳ 500 MZN</span></div>
-      <div class="breakdown-row"><span>Crédito na carteira</span><span class="val text-success">+ 1.500 MZN</span></div>
-    </div>
+    <div style="text-align:center;margin-bottom:20px"><div style="width:56px;height:56px;border-radius:16px;background:var(--red-light);margin:0 auto 12px;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" fill="none" stroke="var(--red)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7 7 7-7"/></svg></div><div class="h2">1.500 MZN</div><div class="caption mt-4">Carteira Xitique · Ana Macuácua</div></div>
+    <div class="breakdown mb-16"><div class="breakdown-row"><span class="lbl">Levantas agora</span><span class="val text-success">1.500 MZN</span></div><div class="breakdown-row"><span class="lbl">Bloqueado (6 membros)</span><span class="val text-red">🔒 3.000 MZN</span></div><div class="breakdown-row"><span>Crédito na carteira</span><span class="val text-success">+ 1.500 MZN</span></div></div>
     <button class="btn btn-primary mb-10" onclick="closeSheet('sheet-confirm-withdraw');goTo('screen-home')">Confirmar levantamento</button>
     <button class="btn btn-ghost" onclick="closeSheet('sheet-confirm-withdraw')">Cancelar</button>
   </div>
@@ -1263,7 +1473,7 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
     <div class="sheet-title">Carregar via M-Pesa</div>
     <div class="sheet-sub">O valor será debitado do teu M-Pesa e adicionado à carteira Xitique.</div>
     <div class="form-group"><div class="form-label"><span>Valor a carregar</span><small>Mínimo: 100 MZN</small></div><div class="input-suffix-wrap"><input class="input" type="number" placeholder="0" min="100" style="font-family:var(--font-d);font-weight:700;font-size:22px"><span class="sfx">MZN</span></div></div>
-    <div class="alert alert-info mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Receberás um pedido de confirmação no teu M-Pesa (+258 84 123 4567). O saldo aparece em segundos.</p></div>
+    <div class="alert alert-info mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Receberás um pedido de confirmação no teu M-Pesa (+258 84 123 4567).</p></div>
     <button class="btn btn-primary mb-10" onclick="closeSheet('sheet-load-wallet');goTo('screen-wallet')">Carregar via M-Pesa</button>
     <button class="btn btn-ghost" onclick="closeSheet('sheet-load-wallet')">Cancelar</button>
   </div>
@@ -1275,7 +1485,6 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
     <div class="sheet-title">Enviar para M-Pesa</div>
     <div class="sheet-sub">Transfere da carteira Xitique para o teu M-Pesa.</div>
     <div class="form-group"><div class="form-label"><span>Valor a enviar</span></div><div class="input-suffix-wrap"><input class="input" type="number" placeholder="0" style="font-family:var(--font-d);font-weight:700;font-size:22px"><span class="sfx">MZN</span></div></div>
-    <div class="card-inset" style="padding:14px;margin-bottom:16px"><div class="row"><div style="width:32px;height:32px;border-radius:8px;background:var(--red-light);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="14" height="14" fill="none" stroke="var(--red)" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/></svg></div><div class="col"><div style="font-size:13px;font-weight:500">M-Pesa · +258 84 123 4567</div><div class="caption">Conta principal</div></div></div></div>
     <button class="btn btn-primary mb-10" onclick="closeSheet('sheet-send-wallet');goTo('screen-wallet')">Enviar para M-Pesa</button>
     <button class="btn btn-ghost" onclick="closeSheet('sheet-send-wallet')">Cancelar</button>
   </div>
@@ -1287,12 +1496,8 @@ html,body{background:var(--bg);color:var(--text);font-family:var(--font-b);min-h
     <div class="sheet-title">Pedir saída do grupo</div>
     <div class="sheet-sub">Grupo Familia · Mês 4/10</div>
     <div class="alert alert-red mb-16"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Já recebeste o fundo. O sistema bloqueará <strong>3.000 MZN</strong> automaticamente. Só receberás <strong>500 MZN</strong> no fim do ciclo. A saída requer aprovação unânime.</p></div>
-    <div class="breakdown mb-16">
-      <div class="breakdown-row"><span class="lbl">Fundo recebido</span><span class="val">5.000 MZN</span></div>
-      <div class="breakdown-row"><span class="lbl">Será bloqueado</span><span class="val text-red">3.000 MZN</span></div>
-      <div class="breakdown-row"><span>Recebes no fim do ciclo</span><span class="val text-success">500 MZN</span></div>
-    </div>
-    <button class="btn btn-secondary mb-10" style="background:var(--red-light);color:var(--red);border-color:var(--red-mid)" onclick="closeSheet('sheet-exit');goTo('screen-home')">Confirmar pedido de saída</button>
+    <div class="breakdown mb-16"><div class="breakdown-row"><span class="lbl">Fundo recebido</span><span class="val">5.000 MZN</span></div><div class="breakdown-row"><span class="lbl">Será bloqueado</span><span class="val text-red">3.000 MZN</span></div><div class="breakdown-row"><span>Recebes no fim do ciclo</span><span class="val text-success">500 MZN</span></div></div>
+    <button class="btn mb-10" style="background:var(--red-light);color:var(--red);border:1px solid var(--red-mid)" onclick="closeSheet('sheet-exit');goTo('screen-home')">Confirmar pedido de saída</button>
     <button class="btn btn-ghost" onclick="closeSheet('sheet-exit')">Cancelar — ficar no grupo</button>
   </div>
 </div>
@@ -1317,13 +1522,81 @@ function goTo(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const el=document.getElementById(id);
   if(el){el.classList.add('active');window.scrollTo(0,0)}
+  applyDesktopLayout();
 }
+
+function applyDesktopLayout(){
+  const isDesktop = window.innerWidth >= 768;
+  if(!isDesktop) return;
+
+  // Show all sidebars in active screen
+  document.querySelectorAll('.screen.active .sidebar').forEach(s=>{
+    s.style.display='flex';
+  });
+
+  // Show desktop topbars in active screen
+  document.querySelectorAll('.screen.active .desktop-topbar').forEach(t=>{
+    t.style.display='flex';
+  });
+
+  // Hide mobile nav in active screen
+  document.querySelectorAll('.screen.active .nav').forEach(n=>{
+    n.style.display='none';
+  });
+
+  // Home screen specific: groups as grid, 2-col layout
+  const homeScreen = document.getElementById('screen-home');
+  if(homeScreen && homeScreen.classList.contains('active')){
+    // Hide mobile greeting
+    const mobileGreeting = document.getElementById('home-mobile-greeting');
+    if(mobileGreeting) mobileGreeting.style.display='none';
+
+    // Groups as grid
+    const groupsContainer = document.getElementById('home-groups-container');
+    if(groupsContainer){
+      groupsContainer.style.display='grid';
+      groupsContainer.style.gridTemplateColumns='1fr 1fr';
+      groupsContainer.style.gap='16px';
+    }
+  }
+
+  // Groups screen: grid layout
+  const groupsScreen = document.getElementById('screen-groups');
+  if(groupsScreen && groupsScreen.classList.contains('active')){
+    const grid = groupsScreen.querySelector('.groups-grid');
+    if(grid) grid.style.display='grid';
+  }
+}
+
+function resetMobileLayout(){
+  const isDesktop = window.innerWidth >= 768;
+  if(isDesktop) return;
+
+  // Hide all sidebars
+  document.querySelectorAll('.sidebar').forEach(s=>s.style.display='none');
+  // Hide desktop topbars
+  document.querySelectorAll('.desktop-topbar').forEach(t=>t.style.display='none');
+  // Show mobile navs
+  document.querySelectorAll('.screen.active .nav').forEach(n=>n.style.display='flex');
+  // Show mobile greeting on home
+  const mg = document.getElementById('home-mobile-greeting');
+  if(mg) mg.style.display='block';
+  // Reset groups container
+  const gc = document.getElementById('home-groups-container');
+  if(gc){ gc.style.display='block'; gc.style.gridTemplateColumns=''; gc.style.gap=''; }
+}
+
 function openSheet(id){document.getElementById(id)?.classList.add('open')}
 function closeSheet(id){document.getElementById(id)?.classList.remove('open')}
 
-// Teclado numérico para criação de grupo
-let grpVal='500', grpMembers=10;
+// Responsive handling
+window.addEventListener('resize',()=>{
+  if(window.innerWidth>=768){ applyDesktopLayout(); }
+  else { resetMobileLayout(); }
+});
 
+// Teclado numérico
+let grpVal='500', grpMembers=10;
 function addD(d){
   if(grpVal==='500'||grpVal==='0')grpVal='';
   if(grpVal.length>=7)return;
@@ -1368,10 +1641,8 @@ function validarGrupo(){
   if(v<100){document.getElementById('amount-error').style.display='block';ok=false}
   if(grpMembers<3){document.getElementById('members-error').style.display='block';ok=false}
   if(!ok)return;
-  // Preencher passo 3
   document.getElementById('invite-count').textContent=grpMembers+' membros';
   document.getElementById('invite-garantia').textContent=(v*2).toLocaleString('pt-MZ')+' MZN';
-  // Preencher passo 4
   document.getElementById('confirm-nome').textContent=nome||'Novo grupo';
   document.getElementById('confirm-contrib').textContent=v.toLocaleString('pt-MZ')+' MZN';
   document.getElementById('confirm-members').textContent=grpMembers+' membros';
@@ -1385,7 +1656,6 @@ function validarGrupo(){
   goTo('screen-create-group-3');
 }
 
-// Membros dinâmicos
 let addedMembers=[];
 function addMember(){
   const ph=document.getElementById('member-phone');
@@ -1419,34 +1689,24 @@ function criarGrupo(){
   alert('Grupo criado com sucesso! O depósito de garantia foi debitado da tua carteira.');
 }
 
-// WhatsApp
 function votarWA(voto){
-  const num='258851610364'; // ← Substitui pelo teu número real
+  const num='258851610364';
   const dt=new Date().toLocaleDateString('pt-MZ',{day:'2-digit',month:'long',year:'numeric'});
   const hr=new Date().toLocaleTimeString('pt-MZ',{hour:'2-digit',minute:'2-digit'});
   let msg='';
   if(voto==='sim'){
-    msg='✅ *VOTO: SIM — Continua o desenvolvimento!*\n\n'
-      +'Olá Group Layout,\n\n'
-      +'Após ver o demo do sistema Xitique Digital, *voto SIM* — apoio o desenvolvimento!\n\n'
-      +'✔ Carteira digital com M-Pesa\n'
-      +'✔ Pagamentos automáticos\n'
-      +'✔ Sistema de garantias\n'
-      +'✔ Score de reputação\n\n'
-      +'📅 '+dt+' às '+hr+'\n\n'
-      +'_Enviado via Xitique Demo — Group Layout_';
+    msg='✅ *VOTO: SIM — Continua o desenvolvimento!*\n\nOlá Group Layout,\n\nApós ver o demo do sistema Xitique Digital, *voto SIM* — apoio o desenvolvimento!\n\n✔ Carteira digital com M-Pesa\n✔ Pagamentos automáticos\n✔ Sistema de garantias\n✔ Score de reputação\n\n📅 '+dt+' às '+hr+'\n\n_Enviado via Xitique Demo — Group Layout_';
   } else {
-    msg='❌ *VOTO: NÃO — Obrigado, mas não apoio*\n\n'
-      +'Olá Group Layout,\n\n'
-      +'Após ver o demo do sistema Xitique Digital, *voto NÃO*.\n\n'
-      +'📅 '+dt+' às '+hr+'\n\n'
-      +'_Enviado via Xitique Demo — Group Layout_';
+    msg='❌ *VOTO: NÃO — Obrigado, mas não apoio*\n\nOlá Group Layout,\n\nApós ver o demo do sistema Xitique Digital, *voto NÃO*.\n\n📅 '+dt+' às '+hr+'\n\n_Enviado via Xitique Demo — Group Layout_';
   }
   window.open('https://wa.me/'+num+'?text='+encodeURIComponent(msg),'_blank');
 }
 
 // Inicializar
 updateGrpDisplay();
+// Apply layout on load
+document.addEventListener('DOMContentLoaded', applyDesktopLayout);
+applyDesktopLayout();
 </script>
 </body>
 </html>
